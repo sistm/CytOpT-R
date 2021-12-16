@@ -13,6 +13,12 @@
 #'
 #'@param Lab_source a vector of length \code{n} Classification of the X_s cytometry data set
 #'
+#'@param cell_type a vector indicate type of cell
+#'
+#'@param names_pop //commentary
+#'
+#'@param Lab_target a vector of length \code{n} classification of the X_t cytometry data set
+#'
 #'@param method a character string indicating which method to use to
 #'compute the cytopt, either \code{'cytopt_minmax'}, \code{'cytopt_desasc'}
 #' or  \code{'comparison_opt'} for Comparison two methods Desasc or Minmax.
@@ -49,13 +55,14 @@
 #'@param monitoring a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
 #'gold-standard. Default is \code{FALSE}
 #'
+#'@param minMaxScaler a logical flag indicating to possibly Scaler
+#'
+#'@param thresholding a logical flag.
 #'
 #'@importFrom reticulate use_python
 #'@import tidyverse
 #'@import data.table
 #'@export
-#'
-#'
 #'
 #'@return A list with the following elements:\itemize{
 #'   \item \code{h_hat}
@@ -63,23 +70,6 @@
 #'   \item \code{Dico_res}
 #'   \item \code{h_monitoring}
 #' }
-#'
-#'
-#'
-#'@examples
-#' Stanford1A_values <- read.csv('tests/ressources/W2_1_values.csv')
-#' Stanford1A_clust <- read.csv('tests/ressources/W2_1_clust.csv')[, 2]
-#' Stanford3A_values <- read.csv('tests/ressources/W2_7_values.csv')
-#' Stanford3A_clust <- read.csv('tests/ressources/W2_7_clust.csv')[, 2]
-#' X_source <- convertArray(Stanford1A_values)
-#' X_target <- convertArray(Stanford3A_values)
-#' X_source <- X_source * (X_source > 0)
-#'
-#' theta_true <- rep(0,10)
-#' for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
-#'
-#' CytOpt(X_source, X_target, Lab_source, theta_true=theta_true, method='comparison_opt')
-
 
 CytOpt <- function (X_s=NULL,
                     X_t=NULL,
@@ -101,11 +91,10 @@ CytOpt <- function (X_s=NULL,
     stopifnot(is.logical(monitoring))
 
     # READ PYTHON FILES WITH RETICULATE
-    source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
-    source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
-    source_python(file = "CytOpT_pkg/minMaxScale.py")
-    source_python(file = "CytOpT_pkg/CytOpt_plot.py")
-
+    reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
+    reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
+    reticulate::source_python(file = "CytOpT_pkg/minMaxScale.py")
+    reticulate::source_python(file = "CytOpT_pkg/CytOpt_plot.py")
 
     Lab_source <- convertArray(Lab_source)
     labSourceUnique <- unique(Lab_source)

@@ -32,23 +32,7 @@
 #'@import data.table
 #'@export
 #'
-#'
 #'@return A list with the following elements:\code{h_hat}
-#'
-#'@examples
-#' Stanford1A_values <- read.csv('tests/ressources/W2_1_values.csv')
-#' Stanford1A_clust <- read.csv('tests/ressources/W2_1_clust.csv')[, 2]
-#' Stanford3A_values <- read.csv('tests/ressources/W2_7_values.csv')
-#' Stanford3A_clust <- read.csv('tests/ressources/W2_7_clust.csv')[, 2]
-#' X_source <- convertArray(Stanford1A_values)
-#' X_target <- convertArray(Stanford3A_values)
-#' X_source <- X_source * (X_source > 0)
-#'
-#' theta_true <- rep(0,10)
-#' for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
-#' cytopt_desasc_r(X_s=X_source, X_t=X_target,
-#'                Lab_source=convertArray(Lab_source),
-#'                theta_true=theta_true)
 
 
 cytopt_desasc_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
@@ -59,10 +43,10 @@ cytopt_desasc_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
   stopifnot(!is.null(Lab_source))
   stopifnot(!is.null(theta_true))
 
-  source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
-  source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
-  source_python(file = "CytOpT_pkg/minMaxScale.py")
-  source_python(file = "CytOpT_pkg/CytOpt_plot.py")
+  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
+  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
+  reticulate::source_python(file = "CytOpT_pkg/minMaxScale.py")
+  reticulate::source_python(file = "CytOpT_pkg/CytOpt_plot.py")
 
   X_s <- as.matrix(X_s)
   X_t <- as.matrix(X_t)

@@ -8,15 +8,14 @@ of the class proportions and the estimate of the class proportions provided thro
 Bland_Atlman_r(Desac_hat, Minmax_hat, True_Prop, Lab_source)
 }
 \arguments{
+\item{Desac_hat}{prop estimate with Desasc Opt method}
+
+\item{Minmax_hat}{prop estimate with Min max Opt method}
+
 \item{True_Prop}{The benchmark estimate for the cell type proportions. It is provieded by the manual.
 gating}
 
 \item{Lab_source}{a vector of length \code{n} Classification of the X_s cytometry data set}
-
-\item{Estimate_Prop}{a data frame containing the estimate for two methods of the cell type
-proportions returned by the CytOpT methode.}
-
-\item{title}{The name of the data set analysed.}
 }
 \description{
 Function to display a bland plot in order to visually assess the agreement between cytopt estimation

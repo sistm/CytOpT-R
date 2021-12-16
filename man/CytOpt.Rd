@@ -42,9 +42,15 @@ targets the cell type proportion in this Cytometry data set}
 
 \item{Lab_source}{a vector of length \code{n} Classification of the X_s cytometry data set}
 
+\item{Lab_target}{a vector of length \code{n} classification of the X_t cytometry data set}
+
 \item{theta_true}{If available, the true proportions in the target data set X_s. It allows to assess
 the gap between the estimate of our method and the estimate of the cell type proportions derived from
 manual gating.}
+
+\item{cell_type}{a vector indicate type of cell}
+
+\item{names_pop}{//commentary}
 
 \item{method}{a character string indicating which method to use to
 compute the cytopt, either \code{'cytopt_minmax'}, \code{'cytopt_desasc'}
@@ -75,8 +81,12 @@ algorithm that approximates a maximizer of the semi dual problem. Default is \co
 
 \item{n_stop}{an integer value. Default is \code{1000}}
 
+\item{minMaxScaler}{a logical flag indicating to possibly Scaler}
+
 \item{monitoring}{a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
 gold-standard. Default is \code{FALSE}}
+
+\item{thresholding}{a logical flag.}
 }
 \value{
 A list with the following elements:\itemize{
@@ -91,18 +101,4 @@ Function to estimate the type cell proportions in an unclassified cytometry data
 by using the classification Lab_source from an other cytometry data set X_s. With this function
 the computation of the estimate of the class proportions is done with a descent ascent or minmax
 or two algorithms.
-}
-\examples{
-Stanford1A_values <- read.csv('tests/ressources/W2_1_values.csv')
-Stanford1A_clust <- read.csv('tests/ressources/W2_1_clust.csv')[, 2]
-Stanford3A_values <- read.csv('tests/ressources/W2_7_values.csv')
-Stanford3A_clust <- read.csv('tests/ressources/W2_7_clust.csv')[, 2]
-X_source <- convertArray(Stanford1A_values)
-X_target <- convertArray(Stanford3A_values)
-X_source <- X_source * (X_source > 0)
-
-theta_true <- rep(0,10)
-for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
-
-CytOpt(X_source, X_target, Lab_source, theta_true=theta_true, method='comparison_opt')
 }

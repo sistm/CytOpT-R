@@ -51,18 +51,3 @@ Function to estimate the type cell proportions in an unclassified cytometry data
 by using the classification Lab_source from an other cytometry data set X_s. With this function
 the computation of the estimate of the class proportions is done with a descent ascent algorithm.
 }
-\examples{
-Stanford1A_values <- read.csv('tests/ressources/W2_1_values.csv')
-Stanford1A_clust <- read.csv('tests/ressources/W2_1_clust.csv')[, 2]
-Stanford3A_values <- read.csv('tests/ressources/W2_7_values.csv')
-Stanford3A_clust <- read.csv('tests/ressources/W2_7_clust.csv')[, 2]
-X_source <- convertArray(Stanford1A_values)
-X_target <- convertArray(Stanford3A_values)
-X_source <- X_source * (X_source > 0)
-
-theta_true <- rep(0,10)
-for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
-cytopt_desasc_r(X_s=X_source, X_t=X_target,
-               Lab_source=convertArray(Lab_source),
-               theta_true=theta_true)
-}

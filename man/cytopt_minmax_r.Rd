@@ -35,6 +35,10 @@ targets the cell type proportion in this Cytometry data set.}
 
 \item{eps}{Regularization parameter of the Wasserstein distance}
 
+\item{lbd}{an float constant that multiply the step-size policy. Default is \code{1e-04}}
+
+\item{n_iter}{an integer Constant that iterate method select. Default is \code{4000}}
+
 \item{step}{Constant that multiply the step-size policy}
 
 \item{power}{the step size policy of the gradient ascent method is step/n^power.}
@@ -50,19 +54,4 @@ Function to estimate the type cell proportions in an unclassified cytometry data
 by using the classification Lab_source from an other cytometry data set X_s. With this function
 an additional regularization parameter on the class proportions enables a faster computation of the
 estimator.
-}
-\examples{
-Stanford1A_values <- read.csv('tests/ressources/W2_1_values.csv')
-Stanford1A_clust <- read.csv('tests/ressources/W2_1_clust.csv')[, 2]
-Stanford3A_values <- read.csv('tests/ressources/W2_7_values.csv')
-Stanford3A_clust <- read.csv('tests/ressources/W2_7_clust.csv')[, 2]
-X_source <- convertArray(Stanford1A_values)
-X_target <- convertArray(Stanford3A_values)
-X_source <- X_source * (X_source > 0)
-
-theta_true <- rep(0,10)
-for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
-cytopt_minmax_r(X_s=X_source, X_t=X_target,
-               Lab_source=convertArray(Lab_source),
-               theta_true=theta_true)
 }

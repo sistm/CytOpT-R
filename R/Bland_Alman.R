@@ -1,27 +1,32 @@
 #' Function to display a bland plot in order to visually assess the agreement between cytopt estimation
 #' of the class proportions and the estimate of the class proportions provided through manual gating.
 #'
-#'@param Estimate_Prop a data frame containing the estimate for two methods of the cell type
-#' proportions returned by the CytOpT methode.
+#'@param Desac_hat prop estimate with Desasc Opt method
+#'
+#'@param Minmax_hat prop estimate with Min max Opt method
+#'
 #'
 #'@param True_Prop The benchmark estimate for the cell type proportions. It is provieded by the manual.
 #'gating
 #'
 #'@param Lab_source a vector of length \code{n} Classification of the X_s cytometry data set
 #'
-#'@param title The name of the data set analysed.
 #'
-#' @importFrom reticulate use_python
-#' @import tidyverse
-#' @import data.table
+#'@importFrom reticulate use_python
+#'@import tidyverse
+#'@import data.table
 #'@export
-#'
 
 
 
 
 Bland_Atlman_r <- function (Desac_hat,Minmax_hat,True_Prop, Lab_source){
-  source_python(file = "CytOpT_pkg/CytOpt_plot.py")
+
+  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
+  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
+  reticulate::source_python(file = "CytOpT_pkg/minMaxScale.py")
+  reticulate::source_python(file = "CytOpT_pkg/CytOpt_plot.py")
+
   True_Prop <- matrix(True_Prop,ncol=length(unique(Lab_source)))
 
   # Desac_hat
@@ -62,5 +67,5 @@ Bland_Atlman_r <- function (Desac_hat,Minmax_hat,True_Prop, Lab_source){
   sd_diff <- c(sd_diffDesac,sd_diffMinmax)
   n_pal <- length(unique(Dico_resDesac$Classe))
   cat('Standard deviation : ',sd_diff, '\n')
-  Bland_AltmanComp(Dico_resDesac,Dico_resMinmax,sd_diff,n_pal)
+  Bland_Altman_Comp(Dico_resDesac,Dico_resMinmax,sd_diff,n_pal)
 }

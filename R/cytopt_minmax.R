@@ -21,6 +21,10 @@
 #'
 #'@param power the step size policy of the gradient ascent method is step/n^power.
 #'
+#'@param lbd an float constant that multiply the step-size policy. Default is \code{1e-04}
+#'
+#'@param n_iter an integer Constant that iterate method select. Default is \code{4000}
+#'
 #'@param monitoring a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
 #' gold-standard. Default is \code{FALSE}
 #'
@@ -31,31 +35,16 @@
 #'
 #'
 #'@return A list with the following elements:\code{Results_Minmax}
-#'
-#'
-#'@examples
-#' Stanford1A_values <- read.csv('tests/ressources/W2_1_values.csv')
-#' Stanford1A_clust <- read.csv('tests/ressources/W2_1_clust.csv')[, 2]
-#' Stanford3A_values <- read.csv('tests/ressources/W2_7_values.csv')
-#' Stanford3A_clust <- read.csv('tests/ressources/W2_7_clust.csv')[, 2]
-#' X_source <- convertArray(Stanford1A_values)
-#' X_target <- convertArray(Stanford3A_values)
-#' X_source <- X_source * (X_source > 0)
-#'
-#' theta_true <- rep(0,10)
-#' for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
-#' cytopt_minmax_r(X_s=X_source, X_t=X_target,
-#'                Lab_source=convertArray(Lab_source),
-#'                theta_true=theta_true)
 
 
 cytopt_minmax_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
                             eps=1e-04, lbd=1e-04, n_iter=4000,
                             step=5,power=0.99,monitoring=T){
-  source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
-  source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
-  source_python(file = "CytOpT_pkg/minMaxScale.py")
-  source_python(file = "CytOpT_pkg/CytOpt_plot.py")
+
+  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
+  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
+  reticulate::source_python(file = "CytOpT_pkg/minMaxScale.py")
+  reticulate::source_python(file = "CytOpT_pkg/CytOpt_plot.py")
 
   stopifnot(!is.null(X_s))
   stopifnot(!is.null(X_t))

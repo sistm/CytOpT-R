@@ -207,7 +207,7 @@ def Bland_Altman_Comp(Dico_resDesac, Dico_resMinmax, sd_diff, n_pal):
     plt.figure(figsize=(20, 10))
     for idx, item in enumerate(Dico_res):
         plt.subplot(1, 2, idx + 1)
-        sns.scatterplot(x='Mean', y='Diff', hue='Class',
+        sns.scatterplot(x='Mean', y='Diff', hue='Classe',
                         palette=palettes[0:n_pal],
                         s=200, data=list(Dico_res.values())[idx])
         plt.xlabel(r'$(p_i + \hat{p}_i)/2$', size=22)

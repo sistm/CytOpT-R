@@ -21,7 +21,6 @@
 #' @import data.table
 #'@export
 #'
-
 #'@return A list with the following elements:\itemize{
 #'   \item \code{Lab_target_hat_one}
 #'   \item \code{Lab_target_hat_two}
@@ -31,11 +30,10 @@
 
 Label_Prop_sto_r <- function (X_s, X_t,levels,h_hat,eps=1e-04, n_iter=4000){
   # Use Python Files
-  source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
-  source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
-  source_python(file = "CytOpT_pkg/minMaxScale.py")
-  source_python(file = "CytOpT_pkg/CytOpt_plot.py")
-
+  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
+  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
+  reticulate::source_python(file = "CytOpT_pkg/minMaxScale.py")
+  reticulate::source_python(file = "CytOpT_pkg/CytOpt_plot.py")
 
   I <- nrow(X_s)
   J <- nrow(X_t)
