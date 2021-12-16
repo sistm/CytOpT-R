@@ -32,30 +32,19 @@ To install CytOpT, you can download the development version on GitHub.
 ### Data import
 ```
 # Source Data
-Stanford1A_values <- read.csv('tests/ressources/W2_1_values.csv')
-Stanford1A_clust <- read.csv('tests/ressources/W2_1_clust.csv')[, 2]
+X_source <- read.csv('tests/ressources/W2_1_values.csv')
+Lab_source <- read.csv('tests/ressources/W2_1_clust.csv')[, 2]
 
 # Target Data
-Stanford3A_values <- read.csv('tests/ressources/W2_7_values.csv')
-Stanford3A_clust <- read.csv('tests/ressources/W2_7_clust.csv')[, 2]
+X_target <- read.csv('tests/ressources/W2_7_values.csv')
+Lab_target <- read.csv('tests/ressources/W2_7_clust.csv')[, 2]
 
-X_source <- convertArray(Stanford1A_values)
-X_target <- convertArray(Stanford3A_values)
 ```
 ### Thresholding of the negative values
 ```
-X_source <- X_source * (X_source > 0)
-X_target <- X_target * (X_target > 0)
-
-X_source <- Scale(X_source)
-X_target <- Scale(X_target)
-
-Lab_source <- convertArray(Stanford1A_clust)
-Lab_target <- convertArray(Stanford3A_clust)
-
+# true proportions in the target data set X_source
 theta_true <- rep(0,10)
 for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
-
 ```
 
 ### Classification using optimal transport and Minmax swapping procedure
