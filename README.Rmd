@@ -15,7 +15,14 @@ knitr::opts_chunk$set(
 
 # CytOpT.R
 
+<<<<<<< HEAD
 The goal of CytOpT.R is to ...
+=======
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of CytOpT.R is to regularized optimal transport to directly estimate the different cell population proportions from a biological sample characterized with flow cytometry measurements.
+>>>>>>> 7890f016ef9bfa7b727c0b774002cf3e0a4ab9fa
 
 ## Installation
 
