@@ -11,9 +11,6 @@ Authors@R: c(person("Boris Hejblum", "Developer", role = c("aut", "cre"),
               person("Paul Freulon", "Developer", role = c("aut", "cre"),
                     email = "boris.hejblum@u-bordeaux.fr"),
               person("Kalidou BA", "Developer", role = "cre"))
-Author: Boris Developer [aut, cre],
-  Paul Developer [aut, cre],
-  Kalidou Developer [cre]
 Maintainer: Boris Developer <boris.hejblum@u-bordeaux.fr>
 Description: A new algorithm, referred to as CytOpT, using regularized
              optimal transport to directly estimate the different cell
