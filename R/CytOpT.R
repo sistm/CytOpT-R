@@ -71,7 +71,7 @@
 #'   \item \code{h_monitoring}
 #' }
 
-CytOpt <- function (X_s=NULL,
+CytOpT <- function (X_s=NULL,
                     X_t=NULL,
                     Lab_source=NULL,
                     Lab_target=NULL,
