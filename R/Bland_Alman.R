@@ -22,10 +22,13 @@
 
 Bland_Atlman_r <- function (Desac_hat,Minmax_hat,True_Prop, Lab_source){
 
-  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
-  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
-  reticulate::source_python(file = "CytOpT_pkg/minMaxScale.py")
-  reticulate::source_python(file = "CytOpT_pkg/CytOpt_plot.py")
+    # READ PYTHON FILES WITH RETICULATE
+  reticulate::py_run_file(system.file("python", "Tools_CytOpt_Descent_Ascent.py", package = "CytOpT"))
+  reticulate::py_run_file(system.file("python", "Tools_CytOpt_MinMax_Swapping.py", package = "CytOpT"))
+  reticulate::py_run_file(system.file("python", "minMaxScale.py", package = "CytOpT"))
+  reticulate::py_run_file(system.file("python", "CytOpt_plot.py", package = "CytOpT"))
+
+
 
   True_Prop <- matrix(True_Prop,ncol=length(unique(Lab_source)))
 

@@ -43,10 +43,11 @@ cytopt_desasc_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
   stopifnot(!is.null(Lab_source))
   stopifnot(!is.null(theta_true))
 
-  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
-  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
-  reticulate::source_python(file = "CytOpT_pkg/minMaxScale.py")
-  reticulate::source_python(file = "CytOpT_pkg/CytOpt_plot.py")
+  reticulate::py_run_file(system.file("python", "Tools_CytOpt_Descent_Ascent.py", package = "CytOpT"))
+  reticulate::py_run_file(system.file("python", "Tools_CytOpt_MinMax_Swapping.py", package = "CytOpT"))
+  reticulate::py_run_file(system.file("python", "minMaxScale.py", package = "CytOpT"))
+  reticulate::py_run_file(system.file("python", "CytOpt_plot.py", package = "CytOpT"))
+
 
   X_s <- as.matrix(X_s)
   X_t <- as.matrix(X_t)

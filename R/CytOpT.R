@@ -48,9 +48,9 @@
 #'@param n_stoc an integer number of iterations in the inner loop. This loop corresponds to the stochastic
 #'algorithm that approximates a maximizer of the semi dual problem. Default is \code{10}
 #'
-#' @param n_0 an integer value. Default is \code{10}
+#'@param n_0 an integer value. Default is \code{10}
 #'
-#' @param n_stop an integer value. Default is \code{1000}
+#'@param n_stop an integer value. Default is \code{1000}
 #'
 #'@param monitoring a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
 #'gold-standard. Default is \code{FALSE}
@@ -87,14 +87,13 @@ CytOpT <- function (X_s=NULL,
     stopifnot(is.data.frame(X_s) | is.array(X_s))
     stopifnot(is.data.frame(X_t) | is.array(X_t))
     stopifnot(!is.null(Lab_source) | !is.null(Lab_target))
-
     stopifnot(is.logical(monitoring))
 
     # READ PYTHON FILES WITH RETICULATE
-    reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
-    reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
-    reticulate::source_python(file = "CytOpT_pkg/minMaxScale.py")
-    reticulate::source_python(file = "CytOpT_pkg/CytOpt_plot.py")
+    reticulate::py_run_file(system.file("python", "Tools_CytOpt_Descent_Ascent.py", package = "CytOpT"))
+    reticulate::py_run_file(system.file("python", "Tools_CytOpt_MinMax_Swapping.py", package = "CytOpT"))
+    reticulate::py_run_file(system.file("python", "minMaxScale.py", package = "CytOpT"))
+    reticulate::py_run_file(system.file("python", "CytOpt_plot.py", package = "CytOpT"))
 
     Lab_source <- convertArray(Lab_source)
     labSourceUnique <- unique(Lab_source)

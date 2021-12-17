@@ -29,11 +29,14 @@
 
 
 Label_Prop_sto_r <- function (X_s, X_t,levels,h_hat,eps=1e-04, n_iter=4000){
-  # Use Python Files
-  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
-  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
-  reticulate::source_python(file = "CytOpT_pkg/minMaxScale.py")
-  reticulate::source_python(file = "CytOpT_pkg/CytOpt_plot.py")
+
+  # READ PYTHON FILES WITH RETICULATE
+  reticulate::py_run_file(system.file("python", "Tools_CytOpt_Descent_Ascent.py", package = "CytOpT"))
+  reticulate::py_run_file(system.file("python", "Tools_CytOpt_MinMax_Swapping.py", package = "CytOpT"))
+  reticulate::py_run_file(system.file("python", "minMaxScale.py", package = "CytOpT"))
+  reticulate::py_run_file(system.file("python", "CytOpt_plot.py", package = "CytOpT"))
+
+
 
   I <- nrow(X_s)
   J <- nrow(X_t)
@@ -94,8 +97,6 @@ Label_Prop_sto_r <- function (X_s, X_t,levels,h_hat,eps=1e-04, n_iter=4000){
 
   # Display of the label transfer results without or with reweighting.
   plot_py_3(X_tar_display,convertArray(Lab_target_hat_one),names_pop,convertArray(Lab_target_hat_two),convertArray(Lab_target))
-
-
 
   return(list('Lab_target_hat_one'=Lab_target_hat_one, 'Lab_target_hat_two'=Lab_target_hat_two))
 }

@@ -41,10 +41,13 @@ cytopt_minmax_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
                             eps=1e-04, lbd=1e-04, n_iter=4000,
                             step=5,power=0.99,monitoring=T){
 
-  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_Descent_Ascent.py")
-  reticulate::source_python(file = "CytOpT_pkg/Tools_CytOpt_MinMax_Swapping.py")
-  reticulate::source_python(file = "CytOpT_pkg/minMaxScale.py")
-  reticulate::source_python(file = "CytOpT_pkg/CytOpt_plot.py")
+  # READ PYTHON FILES WITH RETICULATE
+  reticulate::py_run_file(system.file("python", "Tools_CytOpt_Descent_Ascent.py", package = "CytOpT"))
+  reticulate::py_run_file(system.file("python", "Tools_CytOpt_MinMax_Swapping.py", package = "CytOpT"))
+  reticulate::py_run_file(system.file("python", "minMaxScale.py", package = "CytOpT"))
+  reticulate::py_run_file(system.file("python", "CytOpt_plot.py", package = "CytOpT"))
+
+
 
   stopifnot(!is.null(X_s))
   stopifnot(!is.null(X_t))
