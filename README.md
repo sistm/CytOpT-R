@@ -2,7 +2,7 @@
 # CytOpT
 
 
-The **CytOpT** package includes :
+The **CytOpT** is new package includes a new algorithm using regularized optimal transport to directly estimate the different cell population proportions from a biological sample characterized with flow cytometry measurements. Algorithm is based on the regularized Wasserstein metric to compare cytometry measurements from different samples, thus accounting for possible mis-alignment of a given cell population across sample (due to technical variability from the technology of measurements).
 
 ## Overview
 The methods implemented in this package are detailed in the following
@@ -51,7 +51,7 @@ for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
 
 ```
 # comparison two methods 
-CytOpt(X_source, X_target, Lab_source, theta_true=theta_true, method='comparison_opt')
+CytOpT(X_source, X_target, Lab_source, theta_true=theta_true, method='comparison_opt')
 ```
 
 ## Urls

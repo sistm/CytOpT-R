@@ -23,13 +23,23 @@ The goal of CytOpT.R is to ...
 
 The goal of CytOpT.R is to regularized optimal transport to directly estimate the different cell population proportions from a biological sample characterized with flow cytometry measurements.
 >>>>>>> 7890f016ef9bfa7b727c0b774002cf3e0a4ab9fa
+>
+> ## Overview
+
+The **CytOpT** is new package includes a new algorithm using regularized optimal transport to directly estimate the different cell population proportions from a biological sample characterized with flow cytometry measurements. Algorithm is based on the regularized Wasserstein metric to compare cytometry measurements from different samples, thus accounting for possible mis-alignment of a given cell population across sample (due to technical variability from the technology of measurements).
+
+The main function of the package is `CytOpT()`.
+
+The methods implemented in this package are detailed in the following article:
+
+> Paul Freulon, Jérémie Bigot, Boris P. Hejblum. CytOpT: Optimal Transport with Domain Adaptation for Interpreting Flow Cytometry data
+> https://arxiv.org/abs/2006.09003
 
 ## Installation
 
-You can install the development version of CytOpT.R like so:
-```{r example}
+You can install the development version of CytOpT like so:
+```{r GitHub-install, eval=FALSE}
 install.packages("CytOpT")
-## basic example code
 ```
 
 
@@ -51,7 +61,7 @@ theta_true <- rep(0,10)
 for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
 
 # comparison two methods
-CytOpt(X_source, X_target, Lab_source, theta_true=theta_true, method='comparison_opt')
+CytOpT(X_source, X_target, Lab_source, theta_true=theta_true, method='comparison_opt')
 
 ```
 
