@@ -3,8 +3,7 @@ Type: Package
 Title: Supervised learning technique based on the Wasserstein metric that
           is used to estimate an optimal re-weighting of class proportions in
           a mixture model from a source distribution (with known segmentation
-          into cell sub-populations) to fit a target distribution with unknown
-          segmentation.
+          into cell sub-populations) to fit a target distribution with unknown segmentation.
 Version: 1.0
 Date: 2021-12-16
 Authors@R: c(person("Boris Hejblum", "Developer", role = c("aut", "cre"),
@@ -14,7 +13,7 @@ Authors@R: c(person("Boris Hejblum", "Developer", role = c("aut", "cre"),
               person("Kalidou BA", "Developer", role = "cre"))
 Author: Boris Developer [aut, cre],
   Paul Developer [aut, cre],
-  Kalidou Developer [aut]
+  Kalidou Developer [cre]
 Maintainer: Boris Developer <boris.hejblum@u-bordeaux.fr>
 Description: A new algorithm, referred to as CytOpT, using regularized
              optimal transport to directly estimate the different cell
