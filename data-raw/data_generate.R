@@ -13,9 +13,7 @@ Lab_source <- read.csv(here::here("data-raw", "../tests/ressources/W2_1_clust.cs
 X_target <- read.csv(here::here("data-raw", "../tests/ressources/W2_7_values.csv"))
 Lab_target <- read.csv(here::here("data-raw", "../tests/ressources/W2_7_clust.csv"))[,'x']
 
-# Apply preprocessing...
 # Save the cleaned data in the required R package location
-
 usethis::use_data(X_source,overwrite = TRUE)
 usethis::use_data(Lab_source,overwrite = TRUE)
 
