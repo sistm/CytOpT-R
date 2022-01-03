@@ -1,10 +1,29 @@
 #' @title X_target
 #'
-#' @description A simple that is used as an example for the analysis test extracted from the Stanfort data set.
+#' @description A simple data that is used as an example for the analysis test extracted from the Stanfort data set.
+#' Flow cytometry was measured in 3 samples for each 3 patients (ID: 1228, 1349 and 1369) replicated in 7 centers
+#' (NHLBI, Yale, UCLA, CIMR, Baylor, Stanford and Miami), i.e. 63 files in total. Those .fcs files were converted
+#' into .csv available under the directory: “flow_cytometry_data”. Manual gating from the different centers is
+#' available under the “manual_gating\gating” directory. A specific manual gating name has been assigned for each
+#' center (see table below for correspondence). Manual gating results (i.e. cell population partition) from each
+#' center is available under the directory “manual_gating\clustering”. For each sample of each patient, there is
+#' a “_values” file containing flow cytometry data only for gated populations and a “_clust” file to know the cell
+#' allocation in the different populations.
+#' We apply our method  on various datasets of the HIPC panel. From our numerical experiments, the computation time
+#' to get an estimate of the class proportions with the descent-ascent procedure is between 10 and 20 minutes. With
+#' the minmax swapping procedure, this computation time is between 1 and 3 minutes.
 #'
-#' @format A with 2 column, with are:
+#' @docType data
+#'
+#' @keywords data
+#'
+#' @name X_target
+#'
+#'@usage data(X_target)
+#'
+#' @format A The data are divided into two classes: the CD4 cells where the CD4 marker is present and the CD8 cells where the CD8 marker is present:
 #' \describe{
-#'   \item{CD4}{CD4}
-#'   \item{CD8}{CD8}
+#'   \item{CD4}{The CD4 marker}
+#'   \item{CD8}{The CD8 marker}
 #' }
 "X_target"
