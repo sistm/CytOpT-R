@@ -1,6 +1,6 @@
 Package: CytOpT
 Type: Package
-Title: Optimal Transport for gating transfer in Cytometry data with domain adaptaton.
+Title: Optimal Transport for gating transfer in Cytometry data with domain adaptaton
 Version: 1.0
 Date: 2021-12-16
 Authors@R: c(person("Boris Hejblum", "Developer", role = c("aut", "cre"), email = "boris.hejblum@u-bordeaux.fr"),
@@ -24,8 +24,9 @@ LazyData: true
 RoxygenNote: 7.1.2
 Encoding: UTF-8
 Imports:
-    reticulate,
     data.table,
+    reticulate,
+    stats,
     tibble
 Suggests:
     testthat (>= 3.0.0)

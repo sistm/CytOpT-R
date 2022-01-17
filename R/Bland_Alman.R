@@ -15,6 +15,7 @@
 #'@importFrom reticulate use_python
 #'@import tidyverse
 #'@import data.table
+#'@importFrom sd stats
 #'@export
 
 
@@ -53,7 +54,7 @@ Bland_Atlman_r <- function (Desac_hat,Minmax_hat,True_Prop, Lab_source){
             'Diff' = Diff_propDesac, 'Mean' = Mean_propDesac,'Classe' = ClassesDesac)
   Dico_resDesac <- data.frame(Dico_resDesac)
   Dico_resDesac['Classe'] <- as.factor(Dico_resDesac[,'Classe'])
-  sd_diffDesac <- sd(Diff_propDesac)
+  sd_diffDesac <- stats::sd(Diff_propDesac)
   cat('Standard deviation Desac:',sd_diffDesac,"\n")
 
   cat('Percentage of classes where the estimation error is below 10%\n')
