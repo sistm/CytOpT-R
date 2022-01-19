@@ -56,6 +56,6 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install numpy matplotlib sklearn seaborn spicy sys
+          pip install numpy matplotlib sklearn seaborn spicy
 
       - uses: r-lib/actions/check-r-package@v2
