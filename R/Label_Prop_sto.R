@@ -24,7 +24,6 @@
 #'@param thresholding a logical flag.
 #'
 #' @importFrom reticulate use_python
-#' @import tidyverse
 #' @import data.table
 #'@export
 #'
@@ -90,7 +89,7 @@ Label_Prop_sto_r <- function (X_s,X_t,
   elapsed_time <- Sys.time() - t0
   Lab_target_hat_one <- Result_LP[2]
   Lab_target_hat_one <- as.numeric(unlist(Lab_target_hat_one))
-  cat('Elapsed_time ', elapsed_time/60, 'mins\n')
+  message('Elapsed_time ', elapsed_time/60, 'mins\n')
 
   # names_pop <- c('CD8', 'CD4')
   # X_tar_display <- pyCode$minMaxScale$convertArray(X_s[c('CD4', 'CD8')])

@@ -28,7 +28,6 @@
 #'@param step_grad an integer number step size of the gradient descent algorithm of the outer loop.
 #'
 #'@importFrom reticulate use_python
-#'@import tidyverse
 #'@import data.table
 #'@export
 #'
@@ -65,6 +64,6 @@ cytopt_desasc_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
                      n_stoc=n_stoc, step_grad=step_grad, theta_true=theta_true)
 
   elapsed_time <- Sys.time()-t0
-  cat('Elapsed time:', elapsed_time/60, 'mins\n')
+  message('Elapsed time:', elapsed_time/60, 'mins\n')
   return(h_hat)
 }

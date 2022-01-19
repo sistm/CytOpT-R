@@ -61,7 +61,6 @@
 #'
 #'@importFrom reticulate use_python
 #'@importFrom stats sd
-#'@import tidyverse
 #'@import data.table
 #'@export
 #'
@@ -153,17 +152,17 @@ CytOpT <- function (X_s=NULL,
 
         h_hat.ravel <- pyCode$minMaxScale$getRavel(h_hat)
         Diff_prop <- theta_true.ravel - h_hat.ravel
-        cat(Diff_prop,'\n')
+        message(Diff_prop,'\n')
         sd_diff <- stats::sd(Diff_prop)*sqrt((length(Diff_prop)-1)/length(Diff_prop))
-        cat('Standard deviation:', sd_diff,'\n')
+        message('Standard deviation:', sd_diff,'\n')
 
         Mean_prop <- (theta_true.ravel + h_hat.ravel) / 2
-        cat('Mean proportion:', Mean_prop,'\n')
+        message('Mean proportion:', Mean_prop,'\n')
 
-        cat('Percentage of classes where the estimation error is below 10% with CytOpT Desasc \n')
-        cat(sum(abs(Diff_prop) < 0.1) / length(Diff_prop) * 100,'\n')
-        cat('Percentage of classes where the estimation error is below 5% with CytOpT Desasc \n')
-        cat(sum(abs(Diff_prop) < 0.05) / length(Diff_prop) * 100,'\n')
+        message('Percentage of classes where the estimation error is below 10% with CytOpT Desasc \n')
+        message(sum(abs(Diff_prop) < 0.1) / length(Diff_prop) * 100,'\n')
+        message('Percentage of classes where the estimation error is below 5% with CytOpT Desasc \n')
+        message(sum(abs(Diff_prop) < 0.05) / length(Diff_prop) * 100,'\n')
 
         Classe <- factor(
           rep(labSourceUnique,
@@ -188,7 +187,7 @@ CytOpT <- function (X_s=NULL,
         elapsed_time_desac <- Sys.time()-t0
         Desac_hat <- res_desac[1][[1]]
         Desasc_monitoring <- res_desac[2][[1]]
-        cat("Time running execution Desac ->", elapsed_time_desac,'s\n')
+        message("Time running execution Desac ->", elapsed_time_desac,'s\n')
 
         # Minmax
         t0 <- Sys.time()
@@ -197,7 +196,7 @@ CytOpT <- function (X_s=NULL,
         elapsed_time_minMax <- Sys.time()-t0
         Minmax_hat <- res_Minmax[1][[1]]
         Minmax_monitoring <- res_Minmax[2][[1]]
-        cat("Time running execution MinMax ->",elapsed_time_minMax,'s\n')
+        message("Time running execution MinMax ->",elapsed_time_minMax,'s\n')
         pyCode$CytOpt_plot$plot_py_Comp(n_0, n_stop, Minmax_monitoring, Desasc_monitoring)
 
         Proportion <- c(Desac_hat, Minmax_hat, theta_true)

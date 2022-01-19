@@ -18,16 +18,14 @@ Description: CytOpT perform supervised learning from a source distribution (with
 License: GPL (>= 2)
 Repository: CRAN
 URL: https://github.com/sistm/CytOpt-R/
-Depends: R (>= 2.10), 
-         tidyverse
+Depends: R (>= 2.10)
 LazyData: true
 RoxygenNote: 7.1.2
 Encoding: UTF-8
 Imports:
     data.table,
     reticulate,
-    stats,
-    tibble
+    stats
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

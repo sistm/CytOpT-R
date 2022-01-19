@@ -14,7 +14,6 @@
 #'
 #'@importFrom reticulate use_python
 #'@importFrom stats sd
-#'@import tidyverse
 #'@import data.table
 #'@export
 
@@ -42,30 +41,30 @@ Bland_Atlman_r <- function (Desac_hat,Minmax_hat,True_Prop, Lab_source){
   ClassesMinmax <- rep(seq_along(unique(Lab_source)), nrow(Minmax_hat))
 
 
-  cat('Percentage of classes where the estimation error is below 10%\n')
-  cat(sum(abs(Diff_propDesac) < 0.1)/length(Diff_propDesac) * 100,'\n')
-  cat('Percentage of classes where the estimation error is below 5%\n')
-  cat(sum(abs(Diff_propDesac) < 0.05)/length(Diff_propDesac) * 100,'\n')
+  message('Percentage of classes where the estimation error is below 10%\n')
+  message(sum(abs(Diff_propDesac) < 0.1)/length(Diff_propDesac) * 100,'\n')
+  message('Percentage of classes where the estimation error is below 5%\n')
+  message(sum(abs(Diff_propDesac) < 0.05)/length(Diff_propDesac) * 100,'\n')
   Dico_resDesac <- list('Desac_hat' = pyCode$minMaxScale$getRavel(Desac_hat) , 'True_Prop' = pyCode$minMaxScale$getRavel(True_Prop),
             'Diff' = Diff_propDesac, 'Mean' = Mean_propDesac,'Classe' = ClassesDesac)
   Dico_resDesac <- data.frame(Dico_resDesac)
   Dico_resDesac['Classe'] <- as.factor(Dico_resDesac[,'Classe'])
   sd_diffDesac <- stats::sd(Diff_propDesac)
-  cat('Standard deviation Desac:',sd_diffDesac,"\n")
+  message('Standard deviation Desac:',sd_diffDesac,"\n")
 
-  cat('Percentage of classes where the estimation error is below 10%\n')
-  cat(sum(abs(Diff_propMinmax) < 0.1)/length(Diff_propMinmax) * 100,'\n')
-  cat('Percentage of classes where the estimation error is below 5%\n')
-  cat(sum(abs(Diff_propMinmax) < 0.05)/length(Diff_propMinmax) * 100,'\n')
+  message('Percentage of classes where the estimation error is below 10%\n')
+  message(sum(abs(Diff_propMinmax) < 0.1)/length(Diff_propMinmax) * 100,'\n')
+  message('Percentage of classes where the estimation error is below 5%\n')
+  message(sum(abs(Diff_propMinmax) < 0.05)/length(Diff_propMinmax) * 100,'\n')
   Dico_resMinmax <- list('Desac_hat' = pyCode$minMaxScale$getRavel(Minmax_hat) , 'True_Prop' = pyCode$minMaxScale$getRavel(True_Prop),
             'Diff' = Diff_propMinmax, 'Mean' = Mean_propMinmax,'Classe' = ClassesMinmax)
   Dico_resMinmax <- data.frame(Dico_resMinmax)
   Dico_resMinmax['Classe'] <- as.factor(Dico_resMinmax[,'Classe'])
   sd_diffMinmax <- stats::sd(Diff_propMinmax)
-  cat('Standard deviation Minmax:',sd_diffMinmax,'\n')
+  message('Standard deviation Minmax:',sd_diffMinmax,'\n')
 
   sd_diff <- c(sd_diffDesac,sd_diffMinmax)
   n_pal <- length(unique(Dico_resDesac$Classe))
-  cat('Standard deviation : ',sd_diff, '\n')
+  message('Standard deviation : ',sd_diff, '\n')
   pyCode$CytOpt_plot$Bland_Altman_Comp(Dico_resDesac,Dico_resMinmax,sd_diff,n_pal)
 }
