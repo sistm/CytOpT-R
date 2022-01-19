@@ -13,3 +13,5 @@ context("test CytOpt")
 CytOpT(X_source, X_target, Lab_source, theta_true=theta_true, method='comparison_opt') # Comparison two methods
 cytopt_desasc_r(X_source, X_target, Lab_source,theta_true) # Use Desasc method
 cytopt_minmax_r(X_source, X_target, Lab_source,theta_true) # Use Minmax method
+
+# Label_Prop_sto_r(X_source, X_target, Lab_source)

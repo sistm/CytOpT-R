@@ -3,10 +3,10 @@ library(tidyverse)
 library(base)
 library(data.table)
 
-source_python(file = "../../inst/python/CytOpt_plot.py")
-source_python(file = "../../inst/python/minMaxScale.py")
-source_python(file = "../../inst/python/Tools_CytOpt_Descent_Ascent.py")
-source_python(file = "../../inst/python/Tools_CytOpt_MinMax_Swapping.py")
+source_python(file = "../../inst/python3/CytOpt_plot.py")
+source_python(file = "../../inst/python3/minMaxScale.py")
+source_python(file = "../../inst/python3/Tools_CytOpt_Descent_Ascent.py")
+source_python(file = "../../inst/python3/Tools_CytOpt_MinMax_Swapping.py")
 
 
 # Data import
