@@ -42,10 +42,8 @@ cytopt_minmax_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
                             step=5,power=0.99,monitoring=T){
 
   # READ PYTHON FILES WITH RETICULATE
-  reticulate::py_run_file(system.file("python", "Tools_CytOpt_Descent_Ascent.py", package = "CytOpT"))
-  reticulate::py_run_file(system.file("python", "Tools_CytOpt_MinMax_Swapping.py", package = "CytOpT"))
-  reticulate::py_run_file(system.file("python", "minMaxScale.py", package = "CytOpT"))
-  reticulate::py_run_file(system.file("python", "CytOpt_plot.py", package = "CytOpT"))
+  python_path <- system.file("python", package = "CytOpT")
+  pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path)
 
 
 
@@ -55,19 +53,19 @@ cytopt_minmax_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
 
   X_s <- as.matrix(X_s)
   X_t <- as.matrix(X_t)
-  Lab_source <- convertArray(Lab_source)
+  Lab_source <- pyCode$minMaxScale$convertArray(Lab_source)
 
   # Preprocessing of the data
   X_s <- X_s * (X_s > 0)
   X_t <- X_t * (X_t > 0)
 
-  X_s <- Scale(X_s)
-  X_t <- Scale(X_t)
+  X_s <- pyCode$minMaxScale$Scale(X_s)
+  X_t <- pyCode$minMaxScale$Scale(X_t)
 
 
   t0 <- Sys.time()
 
-  Results_Minmax <- cytopt_minmax(X_s, X_t, Lab_source, eps=eps, lbd=lbd, n_iter=n_iter,
+  Results_Minmax <- pyCode$Tools_CytOpt_MinMax_Swapping$cytopt_minmax(X_s, X_t, Lab_source, eps=eps, lbd=lbd, n_iter=n_iter,
                   theta_true=theta_true, step=step, power=power, monitoring=monitoring)
   elapsed_time <- Sys.time()-t0
   cat('Elapsed time:', elapsed_time/60, 'mins\n')

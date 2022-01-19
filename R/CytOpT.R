@@ -60,6 +60,7 @@
 #'@param thresholding a logical flag.
 #'
 #'@importFrom reticulate use_python
+#'@importFrom stats sd
 #'@import tidyverse
 #'@import data.table
 #'@export
@@ -89,13 +90,12 @@ CytOpT <- function (X_s=NULL,
     stopifnot(!is.null(Lab_source) | !is.null(Lab_target))
     stopifnot(is.logical(monitoring))
 
-    # READ PYTHON FILES WITH RETICULATE
-    reticulate::py_run_file(system.file("python", "Tools_CytOpt_Descent_Ascent.py", package = "CytOpT"))
-    reticulate::py_run_file(system.file("python", "Tools_CytOpt_MinMax_Swapping.py", package = "CytOpT"))
-    reticulate::py_run_file(system.file("python", "minMaxScale.py", package = "CytOpT"))
-    reticulate::py_run_file(system.file("python", "CytOpt_plot.py", package = "CytOpT"))
 
-    Lab_source <- convertArray(Lab_source)
+    # READ PYTHON FILES WITH RETICULATE
+    python_path <- system.file("python", package = "CytOpT")
+    pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path)
+
+    Lab_source <- pyCode$minMaxScale$convertArray(Lab_source)
     labSourceUnique <- unique(Lab_source)
     if (length(labSourceUnique) <2){
         warning("warning")
@@ -105,7 +105,7 @@ CytOpT <- function (X_s=NULL,
         for (k in labSourceUnique)
             h_source[k] <- sum(Lab_source == k) / length(Lab_source)
         names_pop <- names_pop[0:2]
-        plot_py_1(X_s, X_t, Lab_source, 100 * h_source, names_pop)
+        pyCode$CytOpt_plot$plot_py_1(X_s, X_t, Lab_source, 100 * h_source, names_pop)
     }
 
 
@@ -121,8 +121,8 @@ CytOpT <- function (X_s=NULL,
         X_t <- X_t * (X_t > 0)
     }
     if(minMaxScaler){
-        X_s <- Scale(X_s)
-        X_t <- Scale(X_t)
+        X_s <- pyCode$minMaxScale$Scale(X_s)
+        X_t <- pyCode$minMaxScale$Scale(X_t)
     }
 
     if(is.null(theta_true)) {
@@ -149,12 +149,12 @@ CytOpT <- function (X_s=NULL,
         percentage <- c(theta_true,h_hat)
         methods <- rep(c('Manual Benchmark', method), each = length(labSourceUnique))
         Res_df <- data.frame('Percentage'= percentage, 'Cell_Type' = cell_type[seq_along(percentage)], 'Method' = methods)
-        theta_true.ravel <- getRavel(theta_true)
+        theta_true.ravel <- pyCode$minMaxScale$getRavel(theta_true)
 
-        h_hat.ravel <- getRavel(h_hat)
+        h_hat.ravel <- pyCode$minMaxScale$getRavel(h_hat)
         Diff_prop <- theta_true.ravel - h_hat.ravel
         cat(Diff_prop,'\n')
-        sd_diff <- sd(Diff_prop)*sqrt((length(Diff_prop)-1)/length(Diff_prop))
+        sd_diff <- stats::sd(Diff_prop)*sqrt((length(Diff_prop)-1)/length(Diff_prop))
         cat('Standard deviation:', sd_diff,'\n')
 
         Mean_prop <- (theta_true.ravel + h_hat.ravel) / 2
@@ -167,7 +167,7 @@ CytOpT <- function (X_s=NULL,
 
         Classe <- factor(
           rep(labSourceUnique,
-                int(length(Mean_prop) / length(labSourceUnique))),
+                as.integer(length(Mean_prop) / length(labSourceUnique))),
                 labels = labSourceUnique)
 
         Dico_res <- data.frame('h_hat'= h_hat.ravel,
@@ -176,7 +176,7 @@ CytOpT <- function (X_s=NULL,
                                'Mean'= Mean_prop,
                                'Classe'= Classe)
 
-        Bland_Altman(Dico_res, sd_diff,
+        pyCode$CytOpt_plot$Bland_Altman(Dico_res, sd_diff,
                      length(labSourceUnique), title=method)
         res <- list('h_hat'= h_hat, 'Res_df'= Res_df, 'Dico_res'= Dico_res, 'h_monitoring'=h_monitoring)
     }
@@ -198,16 +198,19 @@ CytOpT <- function (X_s=NULL,
         Minmax_hat <- res_Minmax[1][[1]]
         Minmax_monitoring <- res_Minmax[2][[1]]
         cat("Time running execution MinMax ->",elapsed_time_minMax,'s\n')
-        plot_py_Comp(n_0, n_stop, Minmax_monitoring, Desasc_monitoring)
+        pyCode$CytOpt_plot$plot_py_Comp(n_0, n_stop, Minmax_monitoring, Desasc_monitoring)
 
         Proportion <- c(Desac_hat, Minmax_hat, theta_true)
         Classes <- rep(labSourceUnique,3)
         Methode <- rep(c('CytOpt_DesAsc', 'CytOpt_Minmax', 'Manual'), each = length(labSourceUnique))
         df_res1 <- data.frame('Proportions' = Proportion, 'Classes' = Classes, 'Methode' = Methode)
-        plot_py_prop2(df_res1)
+        pyCode$CytOpt_plot$plot_py_prop2(df_res1)
 
         # Conatener les deux graphs
-        Bland_Atlman_r(Desac_hat=convertArray(Desac_hat),Minmax_hat=convertArray(Minmax_hat),True_Prop=convertArray(theta_true),Lab_source=Lab_source)
+        Bland_Atlman_r(Desac_hat=pyCode$minMaxScale$convertArray(Desac_hat),
+                       Minmax_hat=pyCode$minMaxScale$convertArray(Minmax_hat),
+                       True_Prop=pyCode$minMaxScale$convertArray(theta_true),Lab_source=Lab_source)
+
         res <- list("Desac_h_hat" = Desac_hat, "Desasc_monitoring" = Desasc_monitoring,
                     "Minmax_h_hat" = Minmax_hat, "Minmax_monitoring" = Minmax_monitoring)
     }

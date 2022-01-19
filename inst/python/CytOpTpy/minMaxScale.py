@@ -18,7 +18,7 @@ def dot_comput(x, y):
 
 
 def getRavel(x):
-    x = np.array(x)
+    x = convertArray(x)
     return x.ravel()
 
 
