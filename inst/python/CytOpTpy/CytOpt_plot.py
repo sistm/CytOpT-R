@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import pylab as p
 import seaborn as sns
 
 
@@ -34,7 +33,7 @@ def plot_py_1(X_source, X_target, Lab_source, h_source, names_pop):
     plt.ylabel('Percentage', size=25)
     plt.xticks(fontsize=25)
     plt.yticks(fontsize=25)
-    p.show()
+    plt.show()
 
 
 def plot_py_2(X_tar_display, Lab_target_hat_one, Lab_target, names_pop):
@@ -66,7 +65,7 @@ def plot_py_2(X_tar_display, Lab_target_hat_one, Lab_target, names_pop):
     plt.yticks(fontsize=16)
     plt.legend(loc='lower left', fontsize=20, markerscale=2)
     plt.title('Stanford3A - Target data - True clustering', size=20)
-    p.show()
+    plt.show()
 
 
 def plot_py_prop1(Res_df):
@@ -77,7 +76,7 @@ def plot_py_prop1(Res_df):
     plt.xlabel('')
     plt.xticks(fontsize=22)
     plt.yticks(fontsize=22)
-    p.show()
+    plt.show()
 
 
 def plot_py_prop2(df_res1):
@@ -91,7 +90,7 @@ def plot_py_prop2(df_res1):
     plt.ylim(0, 0.8)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
-    p.show()
+    plt.show()
 
 
 def plot_py_3(X_tar_display,Lab_target_hat_one,names_pop,Lab_target_hat_two,Lab_target):
@@ -131,7 +130,7 @@ def plot_py_3(X_tar_display,Lab_target_hat_one,names_pop,Lab_target_hat_two,Lab_
     plt.xticks(fontsize=25)
     plt.yticks(fontsize=25)
     plt.legend(loc='lower left', fontsize=25, markerscale=3)
-    p.show()
+    plt.show()
 
 
 def plot_py_4(X_sou_display, Lab_source, names_pop, X_target_lag, n_sub, indices, indices_two):
@@ -172,7 +171,7 @@ def plot_py_4(X_sou_display, Lab_source, names_pop, X_target_lag, n_sub, indices
     plt.xticks(fontsize=20)
     plt.yticks(fontsize=20)
     plt.legend(loc='lower left', fontsize=20, markerscale=3)
-    p.show()
+    plt.show()
 
 
 def plot_py_Comp(n_0, n_stop, Minmax_monitoring, Desasc_monitoring):
@@ -188,7 +187,7 @@ def plot_py_Comp(n_0, n_stop, Minmax_monitoring, Desasc_monitoring):
     plt.ylabel(r'KL$(\hat{p}|p)$', size=20)
     plt.xticks(size=18)
     plt.yticks(size=18)
-    p.show()
+    plt.show()
 
 
 # plot two Bland Altman
@@ -221,7 +220,7 @@ def Bland_Altman_Comp(Dico_resDesac, Dico_resMinmax, sd_diff, n_pal):
         plt.hlines(0, xmin=0, xmax=0.4, label='Mean')
         plt.legend(fontsize=17, markerscale=2)
         plt.title(titles[idx], size=25)
-    p.show()
+    plt.show()
 
 
 # Bland Altman one model
@@ -249,4 +248,4 @@ def Bland_Altman(df_res_Cytopt, sd_diff, n_pal, title):
     plt.hlines(0, xmin=0, xmax=0.4, label='Mean')
     plt.legend(fontsize=17, markerscale=2)
     plt.title(title, size=25)
-    p.show()
+    plt.show()
