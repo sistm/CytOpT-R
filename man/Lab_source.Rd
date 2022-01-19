@@ -3,7 +3,17 @@
 \docType{data}
 \name{Lab_source}
 \alias{Lab_source}
-\title{Lab_source}
+\title{Lab_source
+
+A simple data that is used as an example for the analysis test extracted from the Stanfort data set.
+Flow cytometry was measured in 3 samples for each 3 patients (ID: 1228, 1349 and 1369) replicated in 7 centers
+(NHLBI, Yale, UCLA, CIMR, Baylor, Stanford and Miami), i.e. 63 files in total. Those .fcs files were converted
+into .csv available under the directory: “flow_cytometry_data”. Manual gating from the different centers is
+available under the “manual_gating vs gating” directory. A specific manual gating name has been assigned for each
+center (see table below for correspondence). Manual gating results (i.e. cell population partition) from each
+center is available under the directory “manual_gating vs clustering”. For each sample of each patient, there is
+a “_values” file containing flow cytometry data only for gated populations and a “_clust” file to know the cell
+allocation in the different populations.}
 \format{
 An object of class \code{integer} of length 31342.
 }
@@ -11,13 +21,15 @@ An object of class \code{integer} of length 31342.
 data(Lab_source)
 }
 \description{
+Lab_source
+
 A simple data that is used as an example for the analysis test extracted from the Stanfort data set.
 Flow cytometry was measured in 3 samples for each 3 patients (ID: 1228, 1349 and 1369) replicated in 7 centers
 (NHLBI, Yale, UCLA, CIMR, Baylor, Stanford and Miami), i.e. 63 files in total. Those .fcs files were converted
 into .csv available under the directory: “flow_cytometry_data”. Manual gating from the different centers is
-available under the “manual_gating\gating” directory. A specific manual gating name has been assigned for each
+available under the “manual_gating vs gating” directory. A specific manual gating name has been assigned for each
 center (see table below for correspondence). Manual gating results (i.e. cell population partition) from each
-center is available under the directory “manual_gating\clustering”. For each sample of each patient, there is
+center is available under the directory “manual_gating vs clustering”. For each sample of each patient, there is
 a “_values” file containing flow cytometry data only for gated populations and a “_clust” file to know the cell
 allocation in the different populations.
 }

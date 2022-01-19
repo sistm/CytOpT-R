@@ -4,7 +4,17 @@
 \alias{Label_Prop_sto_r}
 \title{Function to.}
 \usage{
-Label_Prop_sto_r(X_s, X_t, levels, h_hat, eps = 1e-04, n_iter = 4000)
+Label_Prop_sto_r(
+  X_s,
+  X_t,
+  Lab_source = NULL,
+  eps = 1e-04,
+  const = 0.1,
+  n_iter = 4000,
+  minMaxScaler = T,
+  monitoring = T,
+  thresholding = T
+)
 }
 \arguments{
 \item{X_s}{a cytometry dataframe. The columns correspond to the different biological markers tracked.
@@ -15,13 +25,20 @@ of this Cytometry data set must be provided with the Lab_source parameters.}
 One line corresponds to the cytometry measurements performed on one cell. The CytOpT algorithm
 targets the cell type proportion in this Cytometry data set}
 
-\item{levels}{a vector of the classe}
-
-\item{h_hat}{a vector of the estimations obtained method select}
+\item{Lab_source}{a vector of length \code{n} Classification of the X_s cytometry data set}
 
 \item{eps}{an float value of regularization parameter of the Wasserstein distance. Default is \code{1e-04}}
 
+\item{const}{an float constant. Default is \code{1e-01}}
+
 \item{n_iter}{an integer Constant that iterate method select. Default is \code{4000}}
+
+\item{minMaxScaler}{a logical flag indicating to possibly Scaler}
+
+\item{monitoring}{a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
+gold-standard. Default is \code{FALSE}}
+
+\item{thresholding}{a logical flag.}
 }
 \value{
 A list with the following elements:\itemize{
