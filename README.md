@@ -54,5 +54,9 @@ for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
 CytOpT(X_source, X_target, Lab_source, theta_true=theta_true, method='comparison_opt')
 ```
 
+<img src="man/figures/comparison_meth.png" alt="reticulated python" />
+<img src="man/figures/prop.png" alt="reticulated python" />
+<img src="man/figures/blandAltman.png" alt="reticulated python" />
+
 ## Urls
 https://arxiv.org/abs/2006.09003
