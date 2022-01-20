@@ -44,7 +44,7 @@ cytopt_desasc_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
 
   # READ PYTHON FILES WITH RETICULATE
   python_path <- system.file("python", package = "CytOpT")
-  pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path)
+  pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path, delay_load = TRUE)
 
 
   X_s <- as.matrix(X_s)
