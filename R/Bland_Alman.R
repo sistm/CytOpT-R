@@ -1,10 +1,7 @@
 #' Function to display a bland plot in order to visually assess the agreement between cytopt estimation
 #' of the class proportions and the estimate of the class proportions provided through manual gating.
 #'
-#'@param Desac_hat prop estimate with Desasc Opt method
-#'
-#'@param Minmax_hat prop estimate with Min max Opt method
-#'
+#'@param estimates prop estimate with Desasc Opt method
 #'
 #'@param True_Prop The benchmark estimate for the cell type proportions. It is provieded by the manual.
 #'gating
@@ -12,59 +9,47 @@
 #'@param Lab_source a vector of length \code{n} Classification of the X_s cytometry data set
 #'
 #'
-#'@importFrom reticulate use_python
-#'@importFrom stats sd
-#'@import data.table
+#'@importFrom stats sd relevel
+#'@importFrom reshape2 melt
+#'@import ggplot2
 #'@export
 
 
-
-
-Bland_Atlman_r <- function (Desac_hat,Minmax_hat,True_Prop, Lab_source){
-
-  # READ PYTHON FILES WITH RETICULATE
-  python_path <- system.file("python", package = "CytOpT")
-  pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path)
-
-  True_Prop <- matrix(True_Prop,ncol=length(unique(Lab_source)))
-
-  # Desac_hat
-  Desac_hat <- matrix(Desac_hat,ncol=length(unique(Lab_source)))
-  Diff_propDesac <- pyCode$minMaxScale$getRavel(Desac_hat) - pyCode$minMaxScale$getRavel(True_Prop)
-  Mean_propDesac <- (pyCode$minMaxScale$getRavel(Desac_hat) + pyCode$minMaxScale$getRavel(True_Prop))/2
-  ClassesDesac <- rep(seq_along(unique(Lab_source)), nrow(Desac_hat))
-
-  # Minmax_hat
-  Minmax_hat <- matrix(Minmax_hat,ncol=length(unique(Lab_source)))
-  Diff_propMinmax <- pyCode$minMaxScale$getRavel(Minmax_hat) - pyCode$minMaxScale$getRavel(True_Prop)
-  Mean_propMinmax <- (pyCode$minMaxScale$getRavel(Minmax_hat) + pyCode$minMaxScale$getRavel(True_Prop))/2
-  ClassesMinmax <- rep(seq_along(unique(Lab_source)), nrow(Minmax_hat))
-
-
-  message('Percentage of classes where the estimation error is below 10%\n')
-  message(sum(abs(Diff_propDesac) < 0.1)/length(Diff_propDesac) * 100,'\n')
-  message('Percentage of classes where the estimation error is below 5%\n')
-  message(sum(abs(Diff_propDesac) < 0.05)/length(Diff_propDesac) * 100,'\n')
-  Dico_resDesac <- list('Desac_hat' = pyCode$minMaxScale$getRavel(Desac_hat) , 'True_Prop' = pyCode$minMaxScale$getRavel(True_Prop),
-            'Diff' = Diff_propDesac, 'Mean' = Mean_propDesac,'Classe' = ClassesDesac)
-  Dico_resDesac <- data.frame(Dico_resDesac)
-  Dico_resDesac['Classe'] <- as.factor(Dico_resDesac[,'Classe'])
-  sd_diffDesac <- stats::sd(Diff_propDesac)
-  message('Standard deviation Desac:',sd_diffDesac,"\n")
-
-  message('Percentage of classes where the estimation error is below 10%\n')
-  message(sum(abs(Diff_propMinmax) < 0.1)/length(Diff_propMinmax) * 100,'\n')
-  message('Percentage of classes where the estimation error is below 5%\n')
-  message(sum(abs(Diff_propMinmax) < 0.05)/length(Diff_propMinmax) * 100,'\n')
-  Dico_resMinmax <- list('Desac_hat' = pyCode$minMaxScale$getRavel(Minmax_hat) , 'True_Prop' = pyCode$minMaxScale$getRavel(True_Prop),
-            'Diff' = Diff_propMinmax, 'Mean' = Mean_propMinmax,'Classe' = ClassesMinmax)
-  Dico_resMinmax <- data.frame(Dico_resMinmax)
-  Dico_resMinmax['Classe'] <- as.factor(Dico_resMinmax[,'Classe'])
-  sd_diffMinmax <- stats::sd(Diff_propMinmax)
-  message('Standard deviation Minmax:',sd_diffMinmax,'\n')
-
-  sd_diff <- c(sd_diffDesac,sd_diffMinmax)
-  n_pal <- length(unique(Dico_resDesac$Classe))
-  message('Standard deviation : ',sd_diff, '\n')
-  pyCode$CytOpt_plot$Bland_Altman_Comp(Dico_resDesac,Dico_resMinmax,sd_diff,n_pal)
-}
+Bland_Atlman <- function (proportions, additional_info_shape = NULL){
+  
+  proportions$Population <- rownames(proportions)
+  data2plot <- reshape2::melt(proportions, id.vars=c("Gold_standard", "Population"), 
+                              value.name = "Estimate", variable.name = "Method")
+  data2plot$diff <- data2plot$Estimate -data2plot$Gold_standard
+  data2plot$avg <- (data2plot$Estimate + data2plot$Gold_standard)/2
+  
+  data2plot$Method <- gsub("MinMax", "MinMax swapping", 
+                           gsub("Descent_ascent", "Descent-Ascent", data2plot$Method))
+  data2plot$Population <- factor(data2plot$Population, 
+                                 levels = sort(as.numeric(unique(data2plot$Population))))
+  
+  stats2plot <- data.frame()
+  for (m in unique(data2plot$Method)){
+    temp_diff <- data2plot$diff[data2plot$Method == m]
+    stats2plot <- rbind.data.frame(stats2plot, 
+                                   cbind.data.frame("Method" = m,
+                                                    "Mean" = mean(temp_diff),
+                                                    "Up" = mean(temp_diff) + 1.96*sd(temp_diff),
+                                                    "Down" = mean(temp_diff) - 1.96*sd(temp_diff)
+                                   )
+    )
+  }
+    ggplot(data2plot, aes_string(x="avg", y="diff")) +
+      #geom_smooth(formula='y~1', method = lm, aes(linetype="Mean")) +
+      geom_hline(data = stats2plot, aes(yintercept = !!sym("Mean"), linetype="Mean bias")) +
+      geom_hline(data = stats2plot, aes(yintercept = !!sym("Up"), linetype="+/- 1.96*sd")) +
+      geom_hline(data = stats2plot, aes(yintercept = !!sym("Down"), linetype="+/- 1.96*sd")) +
+      geom_point(aes_string(color = "Population")) +
+      scale_linetype_manual("", values = c(1, 2), breaks = c("Mean bias", "+/- 1.96*sd")) +
+      facet_wrap("Method") +
+      ylab(expression((hat(p[i])-p[i]))) +
+      xlab(expression((hat(p[i])+p[i])/2)) +
+      ggtitle("Bland-Altman concordance plot") +
+      theme_bw()
+  }
+  

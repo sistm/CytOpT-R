@@ -24,6 +24,8 @@ RoxygenNote: 7.1.2
 Encoding: UTF-8
 Imports:
     data.table,
+    ggplot2,
+    reshape2,
     reticulate,
     stats
 Suggests:
