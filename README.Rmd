@@ -66,7 +66,7 @@ for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
 
 ### Proportion estimations using *optimal transport* and *minmax swapping* procedures
 ```{r example 3, message=FALSE}
-# Run CytOpt and compare two optimisation methods
+# Run CytOpt and compare the two optimization methods
 res <- CytOpT(X_source, X_target, Lab_source, theta_true=theta_true, method='both')
 ```
 

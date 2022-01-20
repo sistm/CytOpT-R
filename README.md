@@ -49,8 +49,6 @@ This is a basic example of `CytOpt` usage:
 
 ``` r
 library(CytOpT)
-#> Warning: remplacement de l'importation précédente 'data.table::melt' par
-#> 'reshape2::melt' lors du chargement de 'CytOpT'
 # Load source Data
 X_source <- read.csv('tests/ressources/W2_1_values.csv')
 Lab_source <- read.csv('tests/ressources/W2_1_clust.csv')[, 2]
@@ -69,23 +67,23 @@ for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
 ### Proportion estimations using *optimal transport* and *minmax swapping* procedures
 
 ``` r
-# Run CytOpt and compare two optimisation methods
+# Run CytOpt and compare the two optimization methods
 res <- CytOpT(X_source, X_target, Lab_source, theta_true=theta_true, method='both')
 ```
 
 ``` r
 res$proportions
 #>    Gold_standard Descent_ascent       MinMax
-#> 1    0.017004001     0.12981203 1.327996e-01
-#> 2    0.128736173     0.06091913 6.293799e-02
-#> 3    0.048481996     0.03819947 3.135668e-02
-#> 4    0.057484114     0.03934746 3.242997e-02
-#> 5    0.009090374     0.01294758 4.718968e-04
-#> 6    0.002324076     0.00891806 8.615075e-10
-#> 7    0.331460344     0.33218770 3.483905e-01
-#> 8    0.281713344     0.24511808 2.549886e-01
-#> 9    0.102082843     0.11269994 1.167505e-01
-#> 10   0.021622735     0.01985055 1.987425e-02
+#> 1    0.017004001     0.13754831 1.351316e-01
+#> 2    0.128736173     0.06204221 6.284150e-02
+#> 3    0.048481996     0.03792164 3.479990e-02
+#> 4    0.057484114     0.03734802 3.401874e-02
+#> 5    0.009090374     0.01286862 5.067956e-04
+#> 6    0.002324076     0.01337215 4.315657e-09
+#> 7    0.331460344     0.33500125 3.400583e-01
+#> 8    0.281713344     0.22628051 2.676309e-01
+#> 9    0.102082843     0.11762942 1.057570e-01
+#> 10   0.021622735     0.01998788 1.925525e-02
 ```
 
 ``` r
