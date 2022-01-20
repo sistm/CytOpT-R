@@ -77,7 +77,7 @@ res$proportions
 
 
 ```{r example BA plot}
-Bland_Atlman(proportions = res$proportions)
+Bland_Atlman(res$proportions)
 ```
 
 
