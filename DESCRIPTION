@@ -7,6 +7,7 @@ Authors@R: c(person("Boris Hejblum", "Developer", role = c("aut", "cre"), email 
               person("Paul Freulon", "Developer", role = c("aut"), email = "paul.freulon@math.u-bordeaux.fr"),
               person("Kalidou BA", "Developer", role = c("aut", "trl")))
 Maintainer: Boris Developer <boris.hejblum@u-bordeaux.fr>
+SystemRequirements: Python (>= 3.8.0)
 Description: CytOpT perform supervised learning from a source distribution (with known segmentation into cell sub-populations) 
              to fit a target distribution with unknown segmentation. It relies regularized optimal transport to directly 
              estimate the different cell population proportions from a biological sample characterized with flow cytometry 
@@ -19,9 +20,7 @@ Config/reticulate:
   list(
     packages = list(
       list(package = "numpy")
-      list(package = "matplotlib")
       list(package = "sklearn")
-      list(package = "seaborn")
       list(package = "scipy")
     )
   )
@@ -36,7 +35,7 @@ Imports:
     ggplot2,
     reshape2,
     reticulate,
-    stats
-Suggests:
+    stats,
     testthat (>= 3.0.0)
+Suggests:
 Config/testthat/edition: 3
