@@ -93,8 +93,8 @@ def cytopt_minmax(X_s, X_t, Lab_source, eps=0.0001, lbd=0.0001, n_iter=4000,
 
             theta_hat = np.exp(arg - M)
             theta_hat = theta_hat / theta_hat.sum()
-            if it % 100 == 0:
-                print('Iteration ', it, ' - Curent theta_hat: \n', theta_hat, '\n')
+            # if it % 100 == 0:
+                # print('Iteration ', it, ' - Curent theta_hat: \n', theta_hat, '\n')
             KL_storage[it] = entropy(pk=theta_hat, qk=theta_true)
 
         arg = -(D.T).dot(U) / lbd

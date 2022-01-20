@@ -61,13 +61,9 @@ cytopt_minmax_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
   X_s <- pyCode$minMaxScale$Scale(X_s)
   X_t <- pyCode$minMaxScale$Scale(X_t)
 
-
-  t0 <- Sys.time()
-
   Results_Minmax <- pyCode$Tools_CytOpt_MinMax_Swapping$cytopt_minmax(X_s, X_t, Lab_source, eps=eps, lbd=lbd, n_iter=n_iter,
                   theta_true=theta_true, step=step, power=power, monitoring=monitoring)
-  elapsed_time <- Sys.time()-t0
-  message('Elapsed time:', elapsed_time/60, 'mins\n')
+
 
   return(Results_Minmax)
 

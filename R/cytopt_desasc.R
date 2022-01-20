@@ -59,11 +59,8 @@ cytopt_desasc_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
   X_s <- pyCode$minMaxScale$Scale(X_s)
   X_t <- pyCode$minMaxScale$Scale(X_t)
 
-  t0 <- Sys.time()
   h_hat <- pyCode$Tools_CytOpt_Descent_Ascent$cytopt_desasc(X_s, X_t, Lab_source=Lab_source, eps=eps, n_out=n_out,
                      n_stoc=n_stoc, step_grad=step_grad, theta_true=theta_true)
 
-  elapsed_time <- Sys.time()-t0
-  message('Elapsed time:', elapsed_time/60, 'mins\n')
   return(h_hat)
 }

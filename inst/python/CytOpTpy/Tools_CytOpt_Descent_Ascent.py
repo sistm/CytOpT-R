@@ -182,7 +182,7 @@ def cytopt_desasc(X_s, X_t, Lab_source, eps=0.0001, n_out=4000, n_stoc=10, step_
     """
     n_out = int(n_out)
 
-    print('\n Epsilon: ', eps)
+    # print('\n Epsilon: ', eps)
     I, J = X_s.shape[0], X_t.shape[0]
 
     # Definition of the operator D that maps the class proportions with the weights.
@@ -208,8 +208,8 @@ def cytopt_desasc(X_s, X_t, Lab_source, eps=0.0001, n_out=4000, n_stoc=10, step_
         if it == 0 and not(isinstance(theta_true, list)):
             theta_true = np.repeat(theta_true, prop_classes_new.shape[0])
 
-        if it % 100 == 0:
-            print('Iteration ', it, ' - Curent h_hat: \n', prop_classes_new)
+        # if it % 100 == 0:
+            # print('Iteration ', it, ' - Curent h_hat: \n', prop_classes_new)
 
         KL_Loss = entropy(pk=prop_classes_new, qk=theta_true)
         KL_Storage[it] = KL_Loss
