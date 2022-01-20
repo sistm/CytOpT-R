@@ -1,7 +1,7 @@
 library(reticulate)
 library(tidyverse)
 library(base)
-library(data.table)
+
 
 source_python(file = "../../inst/python3/CytOpt_plot.py")
 source_python(file = "../../inst/python3/minMaxScale.py")

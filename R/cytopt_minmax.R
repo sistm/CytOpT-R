@@ -29,7 +29,7 @@
 #' gold-standard. Default is \code{FALSE}
 #'
 #'@importFrom reticulate import_from_path
-#'@import data.table
+
 #'@export
 #'
 #'

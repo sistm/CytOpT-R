@@ -28,7 +28,7 @@
 #'@param step_grad an integer number step size of the gradient descent algorithm of the outer loop.
 #'
 #'@importFrom reticulate import_from_path
-#'@import data.table
+
 #'@export
 #'
 #'@return A list with the following elements:\code{h_hat}

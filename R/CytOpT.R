@@ -61,7 +61,7 @@
 #'
 #'@importFrom reticulate import_from_path
 #'@importFrom stats sd
-#'@import data.table
+
 #'@export
 #'
 #'@return A list with the following elements:\itemize{

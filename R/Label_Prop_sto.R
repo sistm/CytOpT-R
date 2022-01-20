@@ -24,7 +24,6 @@
 #'@param thresholding a logical flag.
 #'
 #' @importFrom reticulate import_from_path
-#' @import data.table
 #'@export
 #'
 #'@return A list with the following elements:\itemize{
