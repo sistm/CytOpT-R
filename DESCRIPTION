@@ -1,8 +1,8 @@
 Package: CytOpT
 Type: Package
 Title: Optimal Transport for gating transfer in Cytometry data with domain adaptaton
-Version: 1.0
-Date: 2021-12-16
+Version: 0.9
+Date: 2022-01-21
 Authors@R: c(person("Boris Hejblum", "Developer", role = c("aut", "cre"), email = "boris.hejblum@u-bordeaux.fr"),
               person("Paul Freulon", "Developer", role = c("aut"), email = "paul.freulon@math.u-bordeaux.fr"),
               person("Kalidou BA", "Developer", role = c("aut", "trl")))
@@ -19,20 +19,20 @@ Description: CytOpT perform supervised learning from a source distribution (with
 Config/reticulate:
   list(
     packages = list(
-      list(package = "numpy")
-      list(package = "sklearn")
+      list(package = "numpy"),
+      list(package = "sklearn"),
       list(package = "scipy")
     )
   )
 License: GPL (>= 2)
 Repository: CRAN
 URL: https://github.com/sistm/CytOpt-R/
-Depends: R (>= 2.10)
+Depends: R (>= 3.6)
 LazyData: true
 RoxygenNote: 7.1.2
 Encoding: UTF-8
 Imports:
-    ggplot2,
+    ggplot2 (>= 3.0.0),
     reshape2,
     reticulate,
     stats,
