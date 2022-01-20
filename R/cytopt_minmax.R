@@ -28,7 +28,7 @@
 #'@param monitoring a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
 #' gold-standard. Default is \code{FALSE}
 #'
-#'@importFrom reticulate use_python
+#'@importFrom reticulate import_from_path
 #'@import data.table
 #'@export
 #'

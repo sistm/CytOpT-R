@@ -23,7 +23,7 @@
 #'
 #'@param thresholding a logical flag.
 #'
-#' @importFrom reticulate use_python
+#' @importFrom reticulate import_from_path
 #' @import data.table
 #'@export
 #'

@@ -27,7 +27,7 @@
 #'
 #'@param step_grad an integer number step size of the gradient descent algorithm of the outer loop.
 #'
-#'@importFrom reticulate use_python
+#'@importFrom reticulate import_from_path
 #'@import data.table
 #'@export
 #'
