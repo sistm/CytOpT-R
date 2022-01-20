@@ -13,21 +13,18 @@ knitr::opts_chunk$set(
 )
 ```
 
-# CytOpT.R
+# CytOpT
 
-<<<<<<< HEAD
-The goal of CytOpT.R is to ...
-=======
+
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/sistm/CytOpt-R/workflows/R-CMD-check/badge.svg)](https://github.com/sistm/CytOpt-R/actions)
 <!-- badges: end -->
 
-The goal of CytOpT.R is to regularized optimal transport to directly estimate the different cell population proportions from a biological sample characterized with flow cytometry measurements.
->>>>>>> 7890f016ef9bfa7b727c0b774002cf3e0a4ab9fa
->
-> ## Overview
+`CytOpT` uses regularized optimal transport to directly estimate the different cell population proportions from a biological sample characterized with flow cytometry measurements.
 
-The **CytOpT** is new package includes a new algorithm using regularized optimal transport to directly estimate the different cell population proportions from a biological sample characterized with flow cytometry measurements. Algorithm is based on the regularized Wasserstein metric to compare cytometry measurements from different samples, thus accounting for possible mis-alignment of a given cell population across sample (due to technical variability from the technology of measurements).
+## Overview
+
+`CytOpT` is an `R` package that provides a new algorithm relying regularized optimal transport to directly estimate the different cell population proportions from a biological sample characterized with flow cytometry measurements. Algorithm is based on the regularized Wasserstein metric to compare cytometry measurements from different samples, thus accounting for possible mis-alignment of a given cell population across sample (due to technical variability from the technology of measurements).
 
 The main function of the package is `CytOpT()`.
 
@@ -40,30 +37,48 @@ The methods implemented in this package are detailed in the following article:
 
 You can install the development version of CytOpT like so:
 ```{r GitHub-install, eval=FALSE}
-install.packages("CytOpT")
+remotes::install_github("sistm/CytOpT-R")
+library(CytOpT)
 ```
 
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example of `CytOpt` usage:
 
-```{r example}
-# Source Data
+### Data import
+```{r example 1, message=FALSE}
+library(CytOpT)
+# Load source Data
 X_source <- read.csv('tests/ressources/W2_1_values.csv')
 Lab_source <- read.csv('tests/ressources/W2_1_clust.csv')[, 2]
 
-# Target Data
+# Load target Data
 X_target <- read.csv('tests/ressources/W2_7_values.csv')
 Lab_target <- read.csv('tests/ressources/W2_7_clust.csv')[, 2]
+```
 
-# The true proportions in the target data set X_source
+```{r example 2}
+# Define the true proportions in the target data set X_source
 theta_true <- rep(0,10)
 for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
+```
 
-# comparison two methods
-CytOpT(X_source, X_target, Lab_source, theta_true=theta_true, method='comparison_opt')
+### Proportion estimations using *optimal transport* and *minmax swapping* procedures
+```{r example 3, message=FALSE}
+# Run CytOpt and compare two optimisation methods
+res <- CytOpT(X_source, X_target, Lab_source, theta_true=theta_true, method='both')
+```
 
+
+```{r example res}
+res$h_hat
+res$true_proportions
+```
+
+
+```{r example BA plot}
+Bland_Atlman(proportions = res$proportions)
 ```
 
 
