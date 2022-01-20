@@ -15,6 +15,16 @@ Description: CytOpT perform supervised learning from a source distribution (with
              (due to technical variability from the technology of measurements). Supervised learning technique based 
              on the Wasserstein metric that is used to estimate an optimal re-weighting of class proportions in a 
              mixture model Details are prestented in Feulon P, Bigot J and Hejblum BP (2021) https://arxiv.org/abs/2006.09003.
+Config/reticulate:
+  list(
+    packages = list(
+      list(package = "numpy")
+      list(package = "matplotlib")
+      list(package = "sklearn")
+      list(package = "seaborn")
+      list(package = "spicy")
+    )
+  )
 License: GPL (>= 2)
 Repository: CRAN
 URL: https://github.com/sistm/CytOpt-R/
