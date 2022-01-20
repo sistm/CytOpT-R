@@ -92,7 +92,7 @@ CytOpT <- function (X_s=NULL,
   
   # READ PYTHON FILES WITH RETICULATE ----
   python_path <- system.file("python", package = "CytOpT")
-  pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path, delay_load = TRUE)
+  pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path)
   
   
   # Preprocessing ----

@@ -47,7 +47,7 @@ Label_Prop_sto_r <- function (X_s,X_t,
 
     # READ PYTHON FILES WITH RETICULATE
     python_path <- system.file("python", package = "CytOpT")
-    pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path, delay_load = TRUE)
+    pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path)
 
     Lab_source <- pyCode$minMaxScale$convertArray(Lab_source)
 
