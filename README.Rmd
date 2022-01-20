@@ -72,8 +72,7 @@ res <- CytOpT(X_source, X_target, Lab_source, theta_true=theta_true, method='bot
 
 
 ```{r example res}
-res$h_hat
-res$true_proportions
+res$proportions
 ```
 
 
