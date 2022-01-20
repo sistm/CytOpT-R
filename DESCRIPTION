@@ -22,7 +22,7 @@ Config/reticulate:
       list(package = "matplotlib")
       list(package = "sklearn")
       list(package = "seaborn")
-      list(package = "spicy")
+      list(package = "scipy")
     )
   )
 License: GPL (>= 2)
