@@ -1,12 +1,9 @@
-#' Function to display a bland plot in order to visually assess the agreement between cytopt estimation
+#' Function to display a bland plot in order to visually assess the agreement between CytOpt estimation
 #' of the class proportions and the estimate of the class proportions provided through manual gating.
 #'
-#'@param estimates prop estimate with Desasc Opt method
+#'@param proportions \code{data.frame} of true and proportion estimates from \code{CytOpt()}
 #'
-#'@param True_Prop The benchmark estimate for the cell type proportions. It is provieded by the manual.
-#'gating
-#'
-#'@param Lab_source a vector of length \code{n} Classification of the X_s cytometry data set
+#'@param additional_info_shape vector of additional information to be used for shape in the plot. Not implemented yet.
 #'
 #'
 #'@importFrom stats sd relevel
@@ -39,7 +36,8 @@ Bland_Atlman <- function (proportions, additional_info_shape = NULL){
                                    )
     )
   }
-    ggplot(data2plot, aes_string(x="avg", y="diff")) +
+  
+  p <- ggplot(data2plot, aes_string(x="avg", y="diff")) +
       #geom_smooth(formula='y~1', method = lm, aes(linetype="Mean")) +
       geom_hline(data = stats2plot, aes(yintercept = !!sym("Mean"), linetype="Mean bias")) +
       geom_hline(data = stats2plot, aes(yintercept = !!sym("Up"), linetype="+/- 1.96*sd")) +
@@ -51,5 +49,13 @@ Bland_Atlman <- function (proportions, additional_info_shape = NULL){
       xlab(expression((hat(p[i])+p[i])/2)) +
       ggtitle("Bland-Altman concordance plot") +
       theme_bw()
+  
+  if(!is.null(additional_info_shape)){
+    # Not implemented yet
+    #p <- p +
+  }
+  
+  return(p)
+  
   }
   
