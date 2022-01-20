@@ -20,9 +20,9 @@
 #'@param Lab_target a vector of length \code{n} classification of the X_t cytometry data set
 #'
 #'@param method a character string indicating which method to use to
-#'compute the cytopt, either \code{'cytopt_minmax'}, \code{'cytopt_desasc'}
-#' or  \code{'comparison_opt'} for Comparison two methods Desasc or Minmax.
-#'Default is \code{'cytopt_minmax'} since it is the method used in the test.
+#'compute the cytopt, either \code{'minmax'}, \code{'desasc'}
+#' or  \code{'both'} for comparing both Min-max swapping and descent-ascent procedures.
+#'Default is \code{'minmax'}.
 #'
 #'@param theta_true If available, the true proportions in the target data set X_s. It allows to assess
 #'the gap between the estimate of our method and the estimate of the cell type proportions derived from
@@ -59,9 +59,10 @@
 #'
 #'@param thresholding a logical flag.
 #'
-#'@importFrom reticulate use_python
+#'@importFrom reticulate import_from_path
 #'@importFrom stats sd
 #'@import data.table
+#'@import ragg
 #'@export
 #'
 #'@return A list with the following elements:\itemize{
@@ -78,142 +79,96 @@ CytOpT <- function (X_s=NULL,
                     theta_true=NULL,
                     cell_type=NULL,
                     names_pop=NULL,
-                    method = c("cytopt_minmax","cytopt_desasc","comparison_opt"),
-                    eps=1e-04,n_iter=4000,power=0.99,step_grad=50,
+                    method = c("minmax","desasc","both"),
+                    eps=1e-04, n_iter=4000, power=0.99, step_grad=50,
                     step=5,lbd=1e-04, n_out=1000, n_stoc=10, n_0 = 10,
-                    n_stop=1000,minMaxScaler=T,monitoring=T, thresholding=T){
-
-      # check
-    stopifnot(is.data.frame(X_s) | is.array(X_s))
-    stopifnot(is.data.frame(X_t) | is.array(X_t))
-    stopifnot(!is.null(Lab_source) | !is.null(Lab_target))
-    stopifnot(is.logical(monitoring))
-
-
-    # READ PYTHON FILES WITH RETICULATE
-    python_path <- system.file("python", package = "CytOpT")
-    pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path)
-    print(pyCode)
-    print(pyCode$minMaxScale)
-
-    Lab_source <- pyCode$minMaxScale$convertArray(Lab_source)
-    labSourceUnique <- unique(Lab_source)
-    if (length(labSourceUnique) <2){
-        warning("warning")
-    }
-    if (!is.null(names_pop)  & length(names_pop) >= 2){
-        h_source <- rep(0,2)
-        for (k in labSourceUnique)
-            h_source[k] <- sum(Lab_source == k) / length(Lab_source)
-        names_pop <- names_pop[0:2]
-        pyCode$CytOpt_plot$plot_py_1(X_s, X_t, Lab_source, 100 * h_source, names_pop)
-    }
-
-
-    if(is.null(cell_type)){
-        warning("WARNING: cell_type is null")
-        cell_type <- rep(labSourceUnique,length(labSourceUnique))
-    }
-    else cell_type <- rep(cell_type,length(labSourceUnique))
-    if(length(method)>1) method <- method[1]
-
-    if(thresholding){
-        X_s <- X_s * (X_s> 0)
-        X_t <- X_t * (X_t > 0)
-    }
-    if(minMaxScaler){
-        X_s <- pyCode$minMaxScale$Scale(X_s)
-        X_t <- pyCode$minMaxScale$Scale(X_t)
-    }
-
-    if(is.null(theta_true)) {
-        warning("WARNING: theta_true is null")
-        theta_true <- rep(0,length(labSourceUnique))
-        for (index in seq(1,length(labSourceUnique)))
-            theta_true[index] <- sum(Lab_target == index) / length(Lab_target)
-    }
-
-    if(length(method)>2)
-      method <- method[1]
-
-    if(method %in% c('cytopt_desasc', 'cytopt_minmax')){
-        if(method == "cytopt_desasc")
-          res_Meth <- cytopt_desasc_r(X_s, X_t,Lab_source,
-                                      theta_true=theta_true,eps=eps, n_out=n_out,
-                                      n_stoc=n_stoc, step_grad=step_grad)
-        else
-          res_Meth <-  cytopt_minmax_r(X_s, X_t, Lab_source,
-                                       eps=eps, lbd=lbd, n_iter=n_iter,
-                                       theta_true=theta_true, step=step, power=power, monitoring=monitoring)
-        h_hat <- res_Meth[1][[1]]
-        h_monitoring <- res_Meth[2][[1]]
-        percentage <- c(theta_true,h_hat)
-        methods <- rep(c('Manual Benchmark', method), each = length(labSourceUnique))
-        Res_df <- data.frame('Percentage'= percentage, 'Cell_Type' = cell_type[seq_along(percentage)], 'Method' = methods)
-        theta_true.ravel <- pyCode$minMaxScale$getRavel(theta_true)
-
-        h_hat.ravel <- pyCode$minMaxScale$getRavel(h_hat)
-        Diff_prop <- theta_true.ravel - h_hat.ravel
-        message(Diff_prop,'\n')
-        sd_diff <- stats::sd(Diff_prop)*sqrt((length(Diff_prop)-1)/length(Diff_prop))
-        message('Standard deviation:', sd_diff,'\n')
-
-        Mean_prop <- (theta_true.ravel + h_hat.ravel) / 2
-        message('Mean proportion:', Mean_prop,'\n')
-
-        message('Percentage of classes where the estimation error is below 10% with CytOpT Desasc \n')
-        message(sum(abs(Diff_prop) < 0.1) / length(Diff_prop) * 100,'\n')
-        message('Percentage of classes where the estimation error is below 5% with CytOpT Desasc \n')
-        message(sum(abs(Diff_prop) < 0.05) / length(Diff_prop) * 100,'\n')
-
-        Classe <- factor(
-          rep(labSourceUnique,
-                as.integer(length(Mean_prop) / length(labSourceUnique))),
-                labels = labSourceUnique)
-
-        Dico_res <- data.frame('h_hat'= h_hat.ravel,
-                               'True_Prop'= theta_true.ravel,
-                               'Diff'= Diff_prop,
-                               'Mean'= Mean_prop,
-                               'Classe'= Classe)
-
-        pyCode$CytOpt_plot$Bland_Altman(Dico_res, sd_diff,
-                     length(labSourceUnique), title=method)
-        res <- list('h_hat'= h_hat, 'Res_df'= Res_df, 'Dico_res'= Dico_res, 'h_monitoring'=h_monitoring)
-    }
-    else{
-        # desac
-        t0 <- Sys.time()
-        res_desac <- cytopt_desasc_r(X_s, X_t,Lab_source,theta_true=theta_true,eps=eps, n_out=n_out,
-                     n_stoc=n_stoc, step_grad=step_grad)
-        elapsed_time_desac <- Sys.time()-t0
-        Desac_hat <- res_desac[1][[1]]
-        Desasc_monitoring <- res_desac[2][[1]]
-        message("Time running execution Desac ->", elapsed_time_desac,'s\n')
-
-        # Minmax
-        t0 <- Sys.time()
-        res_Minmax <- cytopt_minmax_r(X_s, X_t, Lab_source, eps=eps, lbd=lbd, n_iter=n_iter,
-                  theta_true=theta_true, step=step, power=power, monitoring=monitoring)
-        elapsed_time_minMax <- Sys.time()-t0
-        Minmax_hat <- res_Minmax[1][[1]]
-        Minmax_monitoring <- res_Minmax[2][[1]]
-        message("Time running execution MinMax ->",elapsed_time_minMax,'s\n')
-        pyCode$CytOpt_plot$plot_py_Comp(n_0, n_stop, Minmax_monitoring, Desasc_monitoring)
-
-        Proportion <- c(Desac_hat, Minmax_hat, theta_true)
-        Classes <- rep(labSourceUnique,3)
-        Methode <- rep(c('CytOpt_DesAsc', 'CytOpt_Minmax', 'Manual'), each = length(labSourceUnique))
-        df_res1 <- data.frame('Proportions' = Proportion, 'Classes' = Classes, 'Methode' = Methode)
-        pyCode$CytOpt_plot$plot_py_prop2(df_res1)
-
-        # Conatener les deux graphs
-        Bland_Atlman_r(Desac_hat=pyCode$minMaxScale$convertArray(Desac_hat),
-                       Minmax_hat=pyCode$minMaxScale$convertArray(Minmax_hat),
-                       True_Prop=pyCode$minMaxScale$convertArray(theta_true),Lab_source=Lab_source)
-
-        res <- list("Desac_h_hat" = Desac_hat, "Desasc_monitoring" = Desasc_monitoring,
-                    "Minmax_h_hat" = Minmax_hat, "Minmax_monitoring" = Minmax_monitoring)
-    }
-    return(res)
+                    n_stop=1000, minMaxScaler=TRUE, monitoring=TRUE, thresholding=TRUE){
+  
+  # Sanity checks ----
+  stopifnot(is.data.frame(X_s) | is.array(X_s))
+  stopifnot(is.data.frame(X_t) | is.array(X_t))
+  stopifnot(!is.null(Lab_source) | !is.null(Lab_target))
+  stopifnot(is.logical(monitoring))
+  
+  
+  # READ PYTHON FILES WITH RETICULATE ----
+  python_path <- system.file("python", package = "CytOpT")
+  pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path)
+  
+  
+  # Preprocessing ----
+  Lab_source <- pyCode$minMaxScale$convertArray(Lab_source)
+  labSourceUnique <- unique(Lab_source)
+  if (length(labSourceUnique) <2){
+    warning("length(labSourceUnique) <2")
+  }
+  if (!is.null(names_pop)  & length(names_pop) >= 2){
+    h_source <- rep(0,2)
+    for (k in labSourceUnique)
+      h_source[k] <- sum(Lab_source == k) / length(Lab_source)
+    names_pop <- names_pop[0:2]
+    pyCode$CytOpt_plot$plot_py_1(X_s, X_t, Lab_source, 100 * h_source, names_pop)
+  }
+  
+  if(is.null(cell_type)){
+    message("cell_type is NULL and labels are imputed as an integer sequence")
+    cell_type <- rep(labSourceUnique,length(labSourceUnique))
+  }
+  else cell_type <- rep(cell_type,length(labSourceUnique))
+  if(length(method)>1) method <- method[1]
+  
+  if(thresholding){
+    X_s <- X_s * (X_s> 0)
+    X_t <- X_t * (X_t > 0)
+  }
+  if(minMaxScaler){
+    X_s <- pyCode$minMaxScale$Scale(X_s)
+    X_t <- pyCode$minMaxScale$Scale(X_t)
+  }
+  
+  if(is.null(theta_true)) {
+    message("theta_true is NULL")
+    theta_true <- rep(0,length(labSourceUnique))
+    for (index in seq(1,length(labSourceUnique)))
+      theta_true[index] <- sum(Lab_target == index) / length(Lab_target)
+  }
+  
+  if(length(method)>1) {
+    method <- method[1]
+  }
+  
+  
+  # Optimization ----
+  h <- data.frame("Gold_standard" = theta_true)
+  monitoring <- list()
+  if(method %in% c("desasc", "both")) {
+    message("Running Desent-ascent optimization...")
+    t0 <- Sys.time()
+    res_desasc <- cytopt_desasc_r(X_s, X_t,Lab_source,
+                                  theta_true=theta_true,eps=eps, n_out=n_out,
+                                  n_stoc=n_stoc, step_grad=step_grad)
+    elapsed_time_desac <- Sys.time() - t0
+    message("Done (", round(elapsed_time_desac, digits = 3),"s)")
+    h <- cbind.data.frame(h, "Descent_ascent" = res_desasc[1][[1]])
+    monitoring[["Descent_ascent"]] <- res_desasc[2][[1]]
+  }
+  
+  if(method %in% c("minmax", "both")) {
+    message("Running MinMax optimization...")
+    t0 <- Sys.time()
+    res_minmax <-  cytopt_minmax_r(X_s, X_t, Lab_source,
+                                   eps=eps, lbd=lbd, n_iter=n_iter,
+                                   theta_true=theta_true, step=step, power=power, monitoring=monitoring)
+    elapsed_time_desac <- Sys.time() - t0
+    message("Done (", round(elapsed_time_desac, digits = 3),"s)")
+    h <- cbind.data.frame(h, "MinMax" = res_minmax[1][[1]])
+    monitoring[["MinMax"]] <- res_minmax[2][[1]]
+  }
+  
+  # Output ----
+  res <- list("proportions" = h,
+              "monitoring" = monitoring
+  )
+  class(res) <- "CytOpt"
+  return(res)
 }

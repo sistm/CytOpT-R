@@ -15,7 +15,7 @@ CytOpT(
   theta_true = NULL,
   cell_type = NULL,
   names_pop = NULL,
-  method = c("cytopt_minmax", "cytopt_desasc", "comparison_opt"),
+  method = c("minmax", "desasc", "both"),
   eps = 1e-04,
   n_iter = 4000,
   power = 0.99,
@@ -26,9 +26,9 @@ CytOpT(
   n_stoc = 10,
   n_0 = 10,
   n_stop = 1000,
-  minMaxScaler = T,
-  monitoring = T,
-  thresholding = T
+  minMaxScaler = TRUE,
+  monitoring = TRUE,
+  thresholding = TRUE
 )
 }
 \arguments{
@@ -53,9 +53,9 @@ manual gating.}
 \item{names_pop}{//commentary}
 
 \item{method}{a character string indicating which method to use to
-compute the cytopt, either \code{'cytopt_minmax'}, \code{'cytopt_desasc'}
-or  \code{'comparison_opt'} for Comparison two methods Desasc or Minmax.
-Default is \code{'cytopt_minmax'} since it is the method used in the test.}
+compute the cytopt, either \code{'minmax'}, \code{'desasc'}
+or  \code{'both'} for comparing both Min-max swapping and descent-ascent procedures.
+Default is \code{'minmax'}.}
 
 \item{eps}{an float value of regularization parameter of the Wasserstein distance. Default is \code{1e-04}}
 
