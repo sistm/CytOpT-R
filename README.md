@@ -87,7 +87,19 @@ res$proportions
 ```
 
 ``` r
+Barplot_prop(proportions = res$proportions)
+```
+
+<img src="man/figures/bar-plot-prop.png" width="100%" />
+
+``` r
 Bland_Atlman(res$proportions)
 ```
 
 <img src="man/figures/README-example BA plot-1.png" width="100%" />
+
+``` r
+KL(res$monitoring)
+```
+
+<img src="man/figures/comparison-methods.png" width="100%" />
