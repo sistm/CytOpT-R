@@ -1,41 +1,49 @@
-#' Function to display a bland plot in order to visually assess the agreement between CytOpt estimation
-#' of the class proportions and the estimate of the class proportions provided through manual gating.
+#' Kullback-Leibler divergence plot
+#' 
+#' A plotting function for displaying Kullback-Liebler (KL) divergence across 
+#' iterations of the optimization algorithm(s).
 #'
-#'@param monitoring \code{list} of monitoring estimates from \code{CytOpt()}
-#'
-#'@param additional_info_shape vector of additional information to be used for shape in the plot. Not implemented yet.
+#'@param monitoring \code{list} of monitoring estimates from \code{CytOpt()} output.
+#'@param n_0 first iteration to plot. Default is 10.
+#'@param n_stop last iteration to plot. Default is 1000.
+#'@param title plot title. Default is \code{"Kullback-Liebler divergence trace"}.
 #'
 #'
 #'@import ggplot2
 #'@export
 
 
-KL <- function (monitoring, n_0 = 10, n_stop=1000, additional_info_shape = NULL){
+KL_plot <- function (monitoring, n_0 = 10, n_stop=1000, title = "Kullback-Liebler divergence trace"){
 
-    # checks ----
+  # sanity checks ----
   stopifnot(!(is.integer(n_0) & is.integer(n_stop)))
 
+  # constructing plot data ----
   index <- seq(n_0,n_stop)
   data2Opt <- data.frame("index" = index,
-                        "values"=c(res$monitoring$MinMax[index],
-                                   res$monitoring$Descent_ascent[index]),
-                        "Method"=factor(rep(names(res$monitoring),each=length(index))))
+                        "values"=c(monitoring$MinMax[index],
+                                   monitoring$Descent_ascent[index]),
+                        "Method"=factor(rep(names(monitoring),each=length(index))))
 
   data2Opt$Method <- gsub("MinMax", "MinMax swapping",
                            gsub("Descent_ascent", "Descent-Ascent", data2Opt$Method))
 
-  p <- ggplot(data2Opt, aes(x = index, y = values)) +
-          geom_line(aes(color = Method)) +
-          scale_color_manual(values = c("#00AFBB", "#E7B800")) +
+  # constructing plot
+  
+  cols <- met.brewer("Egypt", type="discrete", n=3)[-1]
+  names(cols) <- c("Descent-Ascent", "MinMax swapping")
+  
+  p <- ggplot(data2Opt, aes_string(x = "index", y = "values")) +
+          geom_line(aes_string(color = "Method")) +
+          scale_color_manual("Algorithm", 
+                             values = cols,
+                             breaks=unique(data2Opt$Method)
+                             ) +
           ylab( expression(paste("KL(", hat(p), "|p)"))) +
           xlab("Iteration") +
-          ggtitle("Comparison optimization procedures") +
+          ggtitle(title) +
           theme_bw()
 
-  if(!is.null(additional_info_shape)){
-    # Not implemented yet
-    #p <- p +
-  }
   return(p)
 
   }
