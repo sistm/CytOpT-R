@@ -25,8 +25,8 @@
 #'
 #'@param n_iter an integer Constant that iterate method select. Default is \code{4000}
 #'
-#'@param monitoring a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
-#' gold-standard. Default is \code{FALSE}
+#'@param monitoring boolean indicating whethen Kullback-Leibler divergence should be 
+#'monitored and store thoughout the optimization iterations. Default is \code{TRUE}.
 #'
 #'@importFrom reticulate import_from_path
 
@@ -36,35 +36,34 @@
 #'@return A list with the following elements:\code{Results_Minmax}
 
 
-cytopt_minmax_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
-                            eps=1e-04, lbd=1e-04, n_iter=4000,
-                            step=5,power=0.99,monitoring=T){
-
+cytopt_minmax_r <- function(X_s, X_t, Lab_source, theta_true,
+                            eps = 1e-04, lbd = 1e-04, n_iter = 4000,
+                            step = 5, power =0.99, monitoring = TRUE){
+  
   # READ PYTHON FILES WITH RETICULATE
   python_path <- system.file("python", package = "CytOpT")
   pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path)
-
-
-
+  
+  
+  
   stopifnot(!is.null(X_s))
   stopifnot(!is.null(X_t))
   stopifnot(!is.null(Lab_source))
-
+  
   X_s <- as.matrix(X_s)
   X_t <- as.matrix(X_t)
   Lab_source <- pyCode$minMaxScale$convertArray(Lab_source)
-
+  
   # Preprocessing of the data
   X_s <- X_s * (X_s > 0)
   X_t <- X_t * (X_t > 0)
-
+  
   X_s <- pyCode$minMaxScale$Scale(X_s)
   X_t <- pyCode$minMaxScale$Scale(X_t)
-
-  Results_Minmax <- pyCode$Tools_CytOpt_MinMax_Swapping$cytopt_minmax(X_s, X_t, Lab_source, eps=eps, lbd=lbd, n_iter=n_iter,
-                  theta_true=theta_true, step=step, power=power, monitoring=monitoring)
-
-
-  return(Results_Minmax)
-
+  
+  output_minmax <- pyCode$Tools_CytOpt_MinMax_Swapping$cytopt_minmax(X_s, X_t, Lab_source, eps=eps, lbd=lbd, n_iter=n_iter,
+                                                                     theta_true=theta_true, step=step, power=power, monitoring=monitoring)
+  
+  return(output_minmax)
+  
 }

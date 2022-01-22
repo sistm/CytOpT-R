@@ -33,6 +33,8 @@ RoxygenNote: 7.1.2
 Encoding: UTF-8
 Imports:
     ggplot2 (>= 3.0.0),
+    MetBrewer,
+    patchwork,
     reshape2,
     reticulate,
     stats,

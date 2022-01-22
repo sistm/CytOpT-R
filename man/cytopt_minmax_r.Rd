@@ -11,13 +11,13 @@ cytopt_minmax_r(
   X_s,
   X_t,
   Lab_source,
-  theta_true = theta_true,
+  theta_true,
   eps = 1e-04,
   lbd = 1e-04,
   n_iter = 4000,
   step = 5,
   power = 0.99,
-  monitoring = T
+  monitoring = TRUE
 )
 }
 \arguments{
@@ -43,8 +43,8 @@ targets the cell type proportion in this Cytometry data set.}
 
 \item{power}{the step size policy of the gradient ascent method is step/n^power.}
 
-\item{monitoring}{a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
-gold-standard. Default is \code{FALSE}}
+\item{monitoring}{boolean indicating whethen Kullback-Leibler divergence should be 
+monitored and store thoughout the optimization iterations. Default is \code{TRUE}.}
 }
 \value{
 A list with the following elements:\code{Results_Minmax}

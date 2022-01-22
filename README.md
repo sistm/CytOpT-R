@@ -61,45 +61,52 @@ Lab_target <- read.csv('tests/ressources/W2_7_clust.csv')[, 2]
 ``` r
 # Define the true proportions in the target data set X_source
 theta_true <- rep(0,10)
-for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
+for (k in 1:10){
+  theta_true[k] <- sum(Lab_target == k) / length(Lab_target)
+}
 ```
 
 ### Proportion estimations using *optimal transport* and *minmax swapping* procedures
 
 ``` r
 # Run CytOpt and compare the two optimization methods
-res <- CytOpT(X_source, X_target, Lab_source, theta_true=theta_true, method='both')
+res <- CytOpT(X_source, X_target, Lab_source, 
+              theta_true=theta_true, method='both')
+#> cell_type is NULL and labels are imputed as an integer sequence
+#> Running Desent-ascent optimization...
+#> Done (27.94s)
+#> Running MinMax optimization...
+#> Done (11.764s)
 ```
 
 ``` r
-res$proportions
+summary(res)
+#> Estimation of cytometry proportion with Descent-Ascent and MinMax swapping algorithms from CytOpt:
 #>    Gold_standard Descent_ascent       MinMax
-#> 1    0.017004001     0.14057981 0.1401250670
-#> 2    0.128736173     0.05715519 0.0603106937
-#> 3    0.048481996     0.03316523 0.0279043837
-#> 4    0.057484114     0.03711204 0.0308999681
-#> 5    0.009090374     0.01239840 0.0004829516
-#> 6    0.002324076     0.01186864 0.0080115266
-#> 7    0.331460344     0.32894280 0.3450634047
-#> 8    0.281713344     0.25608504 0.2458753309
-#> 9    0.102082843     0.10292575 0.1196824127
-#> 10   0.021622735     0.01976710 0.0216442610
+#> 1    0.017004001    0.146001308 0.1418916363
+#> 2    0.128736173    0.057437039 0.0630508365
+#> 3    0.048481996    0.034579209 0.0348050407
+#> 4    0.057484114    0.038897336 0.0325485857
+#> 5    0.009090374    0.012490954 0.0004721661
+#> 6    0.002324076    0.009295304 0.0112336132
+#> 7    0.331460344    0.330020666 0.3275934412
+#> 8    0.281713344    0.232886944 0.2515730151
+#> 9    0.102082843    0.117268733 0.1124620403
+#> 10   0.021622735    0.021122507 0.0243696250
+#> 
+#> Final Kullback-Leibler divergences:
+#>  Descent-Ascent MinMax swapping 
+#>       0.2275526       0.2237798
 ```
 
 ``` r
-Barplot_prop(proportions = res$proportions)
+plot(res)
 ```
 
-<img src="man/figures/bar-plot-prop.png" width="100%" />
+<img src="man/figures/README-plot(res)-1.png" width="100%" />
 
 ``` r
 Bland_Atlman(res$proportions)
 ```
 
-<img src="man/figures/README-example BA plot-1.png" width="100%" />
-
-``` r
-KL(res$monitoring)
-```
-
-<img src="man/figures/comparison-methods.png" width="100%" />
+<img src="man/figures/README-plot(res)-2.png" width="100%" />

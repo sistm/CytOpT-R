@@ -61,22 +61,26 @@ Lab_target <- read.csv('tests/ressources/W2_7_clust.csv')[, 2]
 ```{r example 2}
 # Define the true proportions in the target data set X_source
 theta_true <- rep(0,10)
-for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
+for (k in 1:10){
+  theta_true[k] <- sum(Lab_target == k) / length(Lab_target)
+}
 ```
 
 ### Proportion estimations using *optimal transport* and *minmax swapping* procedures
-```{r example 3, message=FALSE}
+```{r example 3, message=TRUE}
 # Run CytOpt and compare the two optimization methods
-res <- CytOpT(X_source, X_target, Lab_source, theta_true=theta_true, method='both')
+res <- CytOpT(X_source, X_target, Lab_source, 
+              theta_true=theta_true, method='both')
 ```
 
 
 ```{r example res}
-res$proportions
+summary(res)
 ```
 
 
-```{r example BA plot}
+```{r plot(res)}
+plot(res)
 Bland_Atlman(res$proportions)
 ```
 

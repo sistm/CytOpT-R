@@ -10,11 +10,12 @@ cytopt_desasc_r(
   X_s,
   X_t,
   Lab_source,
-  theta_true = theta_true,
+  theta_true = NULL,
   eps = 1e-04,
   n_out = 1000,
   n_stoc = 10,
-  step_grad = 50
+  step_grad = 50,
+  monitoring = TRUE
 )
 }
 \arguments{
@@ -42,6 +43,9 @@ target data sets.}
 algorithm that approximates a maximizer of the semi dual problem}
 
 \item{step_grad}{an integer number step size of the gradient descent algorithm of the outer loop.}
+
+\item{monitoring}{boolean indicating whethen Kullback-Leibler divergence should be 
+monitored and store thoughout the optimization iterations. Default is \code{TRUE}.}
 }
 \value{
 A list with the following elements:\code{h_hat}

@@ -27,6 +27,9 @@
 #'
 #'@param step_grad an integer number step size of the gradient descent algorithm of the outer loop.
 #'
+#'@param monitoring boolean indicating whethen Kullback-Leibler divergence should be 
+#'monitored and store thoughout the optimization iterations. Default is \code{TRUE}.
+#'
 #'@importFrom reticulate import_from_path
 
 #'@export
@@ -34,13 +37,12 @@
 #'@return A list with the following elements:\code{h_hat}
 
 
-cytopt_desasc_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
+cytopt_desasc_r <- function(X_s, X_t, Lab_source, theta_true=NULL,
                             eps=1e-04, n_out=1000, n_stoc=10,
-                            step_grad=50){
+                            step_grad=50, monitoring = TRUE){
   stopifnot(!is.null(X_s))
   stopifnot(!is.null(X_t))
   stopifnot(!is.null(Lab_source))
-  stopifnot(!is.null(theta_true))
 
   # READ PYTHON FILES WITH RETICULATE
   python_path <- system.file("python", package = "CytOpT")
@@ -59,8 +61,8 @@ cytopt_desasc_r <- function(X_s, X_t, Lab_source,theta_true=theta_true,
   X_s <- pyCode$minMaxScale$Scale(X_s)
   X_t <- pyCode$minMaxScale$Scale(X_t)
 
-  h_hat <- pyCode$Tools_CytOpt_Descent_Ascent$cytopt_desasc(X_s, X_t, Lab_source=Lab_source, eps=eps, n_out=n_out,
-                     n_stoc=n_stoc, step_grad=step_grad, theta_true=theta_true)
+  output_desasc <- pyCode$Tools_CytOpt_Descent_Ascent$cytopt_desasc(X_s, X_t, Lab_source=Lab_source, eps=eps, n_out=n_out,
+                                                                    n_stoc=n_stoc, step_grad=step_grad, theta_true=theta_true, monitoring=monitoring)
 
-  return(h_hat)
+  return(output_desasc)
 }

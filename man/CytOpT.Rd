@@ -89,11 +89,11 @@ gold-standard. Default is \code{FALSE}}
 \item{thresholding}{a logical flag.}
 }
 \value{
-A list with the following elements:\itemize{
-  \item \code{h_hat}
-  \item \code{Res_df}
-  \item \code{Dico_res}
-  \item \code{h_monitoring}
+a object of class \code{CytOpt}, which is a list of two elements:\itemize{
+  \item \code{proportions} a \code{data.frame} with the (optionally true and) 
+  estimated proportions for each \code{method}
+  \item \code{monitoring} a list of estimates over the optimization iterations
+  for each \code{method} (listed within)
 }
 }
 \description{

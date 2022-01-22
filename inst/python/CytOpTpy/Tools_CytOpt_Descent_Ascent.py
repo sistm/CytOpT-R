@@ -173,7 +173,8 @@ def gammatrix(X_s, Lab_source):
 
 
 # cytopt
-def cytopt_desasc(X_s, X_t, Lab_source, eps=0.0001, n_out=4000, n_stoc=10, step_grad=50, const=0.1, theta_true=0):
+def cytopt_desasc(X_s, X_t, Lab_source, eps=0.0001, n_out=4000, n_stoc=10, 
+                  step_grad=50, const=0.1, theta_true=None, monitoring=True):
     """
     Function that estimates the class proportions in the target data set.
     It solves the minimization problem with a gradient descent method.
@@ -192,7 +193,7 @@ def cytopt_desasc(X_s, X_t, Lab_source, eps=0.0001, n_out=4000, n_stoc=10, step_
     beta = 1 / J * np.ones(J)
 
     # Storage of the KL between theta_hat and theta_true
-    KL_Storage = np.zeros(n_out)
+    KL_storage = np.zeros(n_out)
 
     for it in range(n_out):
 
@@ -205,16 +206,10 @@ def cytopt_desasc(X_s, X_t, Lab_source, eps=0.0001, n_out=4000, n_stoc=10, step_
         h = h - step_grad * (np.transpose(D.dot(Dif))).dot(grad)
         prop_classes_new = np.exp(h) / np.sum(np.exp(h))
 
-        if it == 0 and not(isinstance(theta_true, list)):
-            theta_true = np.repeat(theta_true, prop_classes_new.shape[0])
+        if monitoring and isinstance(theta_true, list):
+            KL_storage[it] = entropy(pk=prop_classes_new, qk=theta_true)
 
-        # if it % 100 == 0:
-            # print('Iteration ', it, ' - Curent h_hat: \n', prop_classes_new)
-
-        KL_Loss = entropy(pk=prop_classes_new, qk=theta_true)
-        KL_Storage[it] = KL_Loss
-
-    return [prop_classes_new, KL_Storage]
+    return [prop_classes_new, KL_storage]
 
 
 

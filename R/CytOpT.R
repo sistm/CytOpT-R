@@ -59,17 +59,19 @@
 #'
 #'@param thresholding a logical flag.
 #'
+#'
+#'@return a object of class \code{CytOpt}, which is a list of two elements:\itemize{
+#'   \item \code{proportions} a \code{data.frame} with the (optionally true and) 
+#'   estimated proportions for each \code{method}
+#'   \item \code{monitoring} a list of estimates over the optimization iterations
+#'   for each \code{method} (listed within)
+#' }
+#'
 #'@importFrom reticulate import_from_path
 #'@importFrom stats sd
 
 #'@export
 #'
-#'@return A list with the following elements:\itemize{
-#'   \item \code{h_hat}
-#'   \item \code{Res_df}
-#'   \item \code{Dico_res}
-#'   \item \code{h_monitoring}
-#' }
 
 CytOpT <- function (X_s=NULL,
                     X_t=NULL,
@@ -127,29 +129,43 @@ CytOpT <- function (X_s=NULL,
   
   if(is.null(theta_true)) {
     message("theta_true is NULL")
-    theta_true <- rep(0,length(labSourceUnique))
-    for (index in seq(1,length(labSourceUnique)))
-      theta_true[index] <- sum(Lab_target == index) / length(Lab_target)
+    
+    if(!is.null(Lab_target)){
+      message("imputing theta_true from Lab_target")
+      theta_true <- rep(0,length(labSourceUnique))
+      for (index in seq(1,length(labSourceUnique))){
+        theta_true[index] <- sum(Lab_target == index) / length(Lab_target)
+      }
+    }
   }
   
   if(length(method)>1) {
     method <- method[1]
   }
+  stopifnot(method %in% c("desasc", "minmax", "both"))
   
   
   # Optimization ----
-  h <- data.frame("Gold_standard" = theta_true)
-  monitoring <- list()
+
+  h <- list()
+  monitoring_res <- list()
+  
+  if(!is.null(theta_true)){
+    h[["Gold_standard"]] = theta_true
+  }
+  
   if(method %in% c("desasc", "both")) {
     message("Running Desent-ascent optimization...")
     t0 <- Sys.time()
     res_desasc <- cytopt_desasc_r(X_s, X_t,Lab_source,
                                   theta_true=theta_true,eps=eps, n_out=n_out,
-                                  n_stoc=n_stoc, step_grad=step_grad)
+                                  n_stoc=n_stoc, step_grad=step_grad,
+                                  monitoring=monitoring)
     elapsed_time_desac <- Sys.time() - t0
     message("Done (", round(elapsed_time_desac, digits = 3),"s)")
-    h <- cbind.data.frame(h, "Descent_ascent" = res_desasc[1][[1]])
-    monitoring[["Descent_ascent"]] <- res_desasc[2][[1]]
+    
+    h[["Descent_ascent"]] <- res_desasc[1][[1]]
+    monitoring_res[["Descent_ascent"]] <- res_desasc[2][[1]]
   }
   
   if(method %in% c("minmax", "both")) {
@@ -157,16 +173,17 @@ CytOpT <- function (X_s=NULL,
     t0 <- Sys.time()
     res_minmax <-  cytopt_minmax_r(X_s, X_t, Lab_source,
                                    eps=eps, lbd=lbd, n_iter=n_iter,
-                                   theta_true=theta_true, step=step, power=power, monitoring=monitoring)
+                                   theta_true=theta_true, step=step, 
+                                   power=power, monitoring=monitoring)
     elapsed_time_desac <- Sys.time() - t0
     message("Done (", round(elapsed_time_desac, digits = 3),"s)")
-    h <- cbind.data.frame(h, "MinMax" = res_minmax[1][[1]])
-    monitoring[["MinMax"]] <- res_minmax[2][[1]]
+    h[["MinMax"]] <- res_minmax[1][[1]]
+    monitoring_res[["MinMax"]] <- res_minmax[2][[1]]
   }
   
   # Output ----
-  res <- list("proportions" = h,
-              "monitoring" = monitoring
+  res <- list("proportions" = do.call(cbind.data.frame, h),
+              "monitoring" = monitoring_res
   )
   class(res) <- "CytOpt"
   return(res)

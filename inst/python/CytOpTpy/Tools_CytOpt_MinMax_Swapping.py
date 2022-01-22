@@ -53,7 +53,7 @@ def gammatrix(X_s, Lab_source):
 
 # cytopt
 def cytopt_minmax(X_s, X_t, Lab_source, eps=0.0001, lbd=0.0001, n_iter=4000,
-                  step=5, power=0.99, theta_true=0, monitoring=False):
+                  step=5, power=0.99, theta_true=None, monitoring=True):
     """
     Robbins-Monro algorithm to compute an approximate of the vector u^* solution of the maximization problem
     At each step, it is possible to evaluate the vector h_hat to study the convergence of this algorithm.
@@ -85,22 +85,15 @@ def cytopt_minmax(X_s, X_t, Lab_source, eps=0.0001, lbd=0.0001, n_iter=4000,
         grd = grad_f(lbd, eps, X_s, X_t, idx, U, D)
         U = U + gamma / (it + 1) ** c * grd
 
-        if monitoring == True:
-
-            # Computation of the estimate h_hat
-            arg = -(D.T).dot(U) / lbd
-            M = np.max(arg)
-
-            theta_hat = np.exp(arg - M)
-            theta_hat = theta_hat / theta_hat.sum()
-            # if it % 100 == 0:
-                # print('Iteration ', it, ' - Curent theta_hat: \n', theta_hat, '\n')
-            KL_storage[it] = entropy(pk=theta_hat, qk=theta_true)
-
+        # Computation of the estimate h_hat
         arg = -(D.T).dot(U) / lbd
         M = np.max(arg)
 
         theta_hat = np.exp(arg - M)
         theta_hat = theta_hat / theta_hat.sum()
+
+        if monitoring and isinstance(theta_true, list):
+            KL_storage[it] = entropy(pk=theta_hat, qk=theta_true)
+
 
     return (theta_hat, KL_storage)
