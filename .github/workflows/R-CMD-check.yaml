@@ -54,12 +54,14 @@ jobs:
         with:
           extra-packages: rcmdcheck
         
-      - name: Install Python dependencies
+      - name: Install Python dependencies with conda
+        if: runner.os == 'Windows'
         run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            conda install numpy scipy scikit-learn seaborn
-          else
-            pip install numpy scipy scikit-learn seaborn
-        shell: bash
-            
+          conda install numpy scipy scikit-learn seaborn
+      
+      - name: Install Python dependencies with pip
+        if: runner.os == 'Linux' | runner.os == 'MacOS' 
+        run: |
+          pip install numpy scipy scikit-learn seaborn
+
       - uses: r-lib/actions/check-r-package@v2
