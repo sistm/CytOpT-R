@@ -57,11 +57,11 @@ jobs:
       - name: Install Python dependencies with conda on Windows
         if: runner.os == 'Windows'
         run: |
-          conda install numpy scipy scikit-learn seaborn
+          conda install numpy scipy scikit-learn
       
       - name: Install Python dependencies with pip on Linux & Mac
         if: runner.os != 'Windows' 
         run: |
-          pip install numpy scipy scikit-learn seaborn
+          pip install numpy scipy scikit-learn
 
       - uses: r-lib/actions/check-r-package@v2
