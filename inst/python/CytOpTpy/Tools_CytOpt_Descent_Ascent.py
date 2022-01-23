@@ -44,17 +44,6 @@ def grad_h(f, X_s, y, alpha, eps=0, entropy='product'):
         pi = np.exp(arg-Mx)
         pi = pi/pi.sum()
         return(alpha-pi)
-
-def h_function(f, X_s, X_t=None, j=None, beta=None, eps=0,alpha = 0):
-    """
-    Calculate the function h whose expectation equals the semi-dual loss.
-    Maximizing the semi-dual loss allows us to compute the wasserstein distance.
-    """
-    if eps == 0:
-        return(np.sum(f*alpha)+c_transform(f,X_s, X_t=X_t[j]))
-
-    elif entropy == 'standard':
-        return(np.sum(f*alpha)+c_transform(f, X_s, X_t=X_t, j=j, beta=beta, eps=eps)-eps)
                
 
 def Robbins_Wass(X_s, X_t, alpha, beta, eps=0, const=0.1, n_iter=10000):

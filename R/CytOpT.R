@@ -119,7 +119,7 @@ CytOpT <- function (X_s=NULL,
   if(length(method)>1) method <- method[1]
   
   if(thresholding){
-    X_s <- X_s * (X_s> 0)
+    X_s <- X_s * (X_s > 0)
     X_t <- X_t * (X_t > 0)
   }
   if(minMaxScaler){

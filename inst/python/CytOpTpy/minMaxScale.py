@@ -19,7 +19,3 @@ def dot_comput(x, y):
 def getRavel(x):
     x = convertArray(x)
     return x.ravel()
-
-
-def get_tile(x, y):
-    np.tile(x, y)
