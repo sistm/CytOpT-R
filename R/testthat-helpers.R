@@ -55,8 +55,8 @@ skip_if_notall_pythondeps <- function() {
   
   skip_on_cran()
   skip_if_no_python()
-  skip_if_no_sklearn()
   skip_if_no_numpy()
   skip_if_no_scipy()
+  skip_if_no_sklearn()
 
 }
