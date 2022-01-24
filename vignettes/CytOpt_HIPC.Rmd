@@ -1,0 +1,19 @@
+---
+title: "CytOpt_HIPC"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{CytOpt_HIPC}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CytOpT)
+```
