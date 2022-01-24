@@ -1,158 +1,111 @@
-library(reticulate)
-library(tidyverse)
-library(base)
+#' CytOpt on the HIPC Data
+#'
+#' This function aims apply our method  CytOpT on various datasets of the HIPC panel.
+#'
+#' @examples
+#'
+#' \dontrun{
+#'    CytOpt_HIPC_Data_test()
+#' }
+#'
+#' \donttest{
+#'    CytOpt_HIPC_Data_test()
+#' }
 
+CytOpt_HIPC_Data_test <- function() {
+   data(X_source)
+   data(Lab_source)
+   data(Stanford3C)
+   data(Miami3A)
+   data(Ucla2B)
 
-source_python(file = "../../inst/python3/CytOpt_plot.py")
-source_python(file = "../../inst/python3/minMaxScale.py")
-source_python(file = "../../inst/python3/Tools_CytOpt_Descent_Ascent.py")
-source_python(file = "../../inst/python3/Tools_CytOpt_MinMax_Swapping.py")
+   # Descent-ascent procedure
+   # Setting of the parameters for the descent-ascent procedure.
+   n_it_grad <- 10000
+   n_it_sto <- 10
+   pas_grad <- 10
+   eps <- 0.0005
 
+   # Minmax swapping procedure
+   # parameters setting for the second procedure
+   lbd <- 0.0001
+   eps_two <- 0.0001
+   n_iter <- 10000
+   step_size <- 5
+   power <- 0.99
 
-# Data import
-Stanford1A_values <- read.csv("tests/ressources/W2_1_values.csv") %>% select(CD4, CD8)
-Stanford1A_clust <- read.csv('tests/ressources/W2_1_clust.csv') %>% select(x)
+   # ---------------------------- Stanford3C DATA INPUT ----------------------------------------------
+   # Target data : Stanford3C
+   # Preprocessing of the target data
+   X_target_Stanford3C <- (Stanford3C$values)
+   Lab_target_Stanford3C <- (Stanford3C$clust)
 
-#Target Data
-Stanford3C_values <- read.csv('tests/ressources/W2_9_values.csv') %>% select(CD4, CD8)
-Stanford3C_clust <- read.csv('tests/ressources/W2_9_clust.csv') %>% select(x)
+   # Create theta_true example
+   h_true <- rep(0,10)
+   for (k in 1:10) h_true[k] <- sum(Lab_target_Stanford3C == k)/length(Lab_target_Stanford3C)
 
-Miami3A_values <- read.csv('tests/ressources/pM_7_values.csv') %>% select(CD4, CD8)
-Miami3A_clust <- read.csv('tests/ressources/pM_7_clust.csv') %>% select(x)
+   # Descent-ascent procedure
+   h_hat1 <- cytopt_desasc_r(X_s = X_source,
+                             X_t = X_target_Stanford3C,
+                             Lab_source = Lab_source,
+                             eps = eps, n_out = n_it_grad, n_stoc = n_it_sto, step_grad = pas_grad)[1][[1]]
 
+   # Minmax swapping procedure
+   h_hat2 <- cytopt_minmax_r(X_s = X_source,
+                             X_t = X_target_Stanford3C,
+                             Lab_source = X_target_Stanford3C ,
+                            eps = eps_two, lbd = lbd, n_iter = n_iter, step = step_size, power = power)[1][[1]]
+   df_res1 <- data.frame(h_hat1, h_hat2, h_true)
 
-Ucla2B_values <- read.csv('tests/ressources/IU_5_values.csv') %>% select(CD4, CD8)
-Ucla2B_clust <- read.csv('tests/ressources/IU_5_clust.csv') %>% select(x)
+   # Barplot res
+   barplot_prop(df_res1)
 
+   # ---------------------------- Miami3A DATA INPUT ----------------------------------------------
+   # Target Data : Miami3A
+   X_target_Miami3A <- (Miami3A$values)
+   Lab_target_Miami3A <- (Miami3A$clust)
 
-X_source <- convertArray(Stanford1A_values)
-X_source <- X_source * (X_source > 0)
+   h_true <- rep(0,10)
+   for (k in 1:10) h_true[k] <- sum(Lab_target_Miami3A == k)/length(Lab_target_Miami3A)
 
-X_source <- Scale(X_source)
+   # Descent-ascent procedure
+   h_hat1 <- cytopt_desasc_r(X_s = X_source,X_t = X_target_Miami3A,
+                             Lab_source = Lab_source,
+                             eps = eps, n_out = n_it_grad, n_stoc = n_it_sto, step_grad = pas_grad)[1][[1]]
 
-Lab_source <- convertArray(as.array(Stanford1A_clust[,'x']))
+   # Minmax swapping procedure
+   h_hat2 <- cytopt_minmax_r(X_s = X_source,
+                             X_t = X_target_Miami3A,
+                             Lab_source = X_target_Stanford3C ,
+                             eps = eps_two, lbd = lbd, n_iter = n_iter, step = step_size, power = power)[1][[1]]
 
+   df_res1 <- data.frame(h_hat1, h_hat2, h_true)
 
-X_target <- convertArray(Stanford3C_values)
-X_target <- X_target * (X_target > 0)
-X_target <- Scale(X_target)
-Lab_target <- convertArray(Stanford3C_clust[,'x'])
+   # Barplot res
+   barplot_prop(df_res1)
 
+   # ---------------------------- UCLA2B DATA INPUT ----------------------------------------------
+   # Target Data : UCLA2B
+   X_target_UCLA2B <- (UCLA2B$values)
+   Lab_target_UCLA2B <- (UCLA2B$clust)
 
+   h_true <- rep(0,10)
+   for (k in 1:10) h_true[k] <- sum(Lab_target_UCLA2B == k)/length(Lab_target_UCLA2B)
 
-theta_true <- rep(0,10)
-for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
+   # Descent-ascent procedure
+   h_hat1 <- cytopt_desasc_r(X_s = X_source,X_t = X_target_UCLA2B,
+                             Lab_source = Lab_source,
+                             eps = eps, n_out = n_it_grad, n_stoc = n_it_sto, step_grad = pas_grad)[1][[1]]
 
-eps <- 0.0001
-n_out <- 4000
-n_stoc <- 10
-step_grad <- 50
+   # Minmax swapping procedure
+   h_hat2 <- cytopt_minmax_r(X_s = X_source,
+                             X_t = X_target_UCLA2B,
+                             Lab_source = X_target_Stanford3C ,
+                             eps = eps_two, lbd = lbd, n_iter = n_iter, step = step_size, power = power)[1][[1]]
 
-t0 <- Sys.time()
-Results_Desasc <- cytopt_desasc(X_source, X_target, convertArray(Lab_source), eps=eps, n_out=n_out, n_stoc=n_stoc,
-                           step_grad=step_grad, theta_true=theta_true)
-elapsed_time <- Sys.time() - t0
+   df_res1 <- data.frame(h_hat1, h_hat2, h_true)
 
-cat('Elapsed time:', elapsed_time/60, 'mins')
-h_hat1 <- Results_Desasc[1][[1]]
-
-
-eps <- 0.0001
-lbd <- 0.0001
-n_iter <- 4000
-step_grad <- 5
-power <- 0.99
-
-
-t0 <- Sys.time()
-
-Results_Minmax <- cytopt_minmax(X_source, X_target, convertArray(Lab_source), eps=0.0001, lbd=0.0001, n_iter=n_iter,
-                  theta_true=theta_true, step=step_grad, power=power, monitoring=FALSE)
-
-
-elapsed_time <- Sys.time()-t0
-cat('Elapsed time:', elapsed_time/60, 'mins')
-
-h_hat2 <- Results_Minmax[1][[1]]
-
-Proportion <- c(h_hat1, h_hat2, theta_true)
-Classes <- rep(1:10,3)
-Methode <- rep(c('CytOpt_DesAsc', 'CytOpt_Minmax', 'Manual'), each = 10)
-df_res1 <- data.frame('Proportions' = Proportion, 'Classes' = Classes, 'Methode' = Methode)
-
-plot_py_prop2(df_res1)
-
-
-X_target <- convertArray(Miami3A_values)
-X_target <- X_target * (X_target > 0)
-X_target <- Scale(X_target)
-Lab_target <- convertArray(Miami3A_clust[,'x'])
-
-
-h_true <- rep(0,10)
-for (k in 1:10) h_true[k] <- sum(Lab_target == k)/length(Lab_target)
-
-
-t0 <- Sys.time()
-h_hat1 <- cytopt_desasc(X_source, X_target, convertArray(Lab_source), eps=eps, n_out=n_out, n_stoc=n_stoc,
-                           step_grad=step_grad, theta_true=theta_true)[1][[1]]
-elapsed_time <- Sys.time() - t0
-
-cat('Elapsed_time :', elapsed_time/60, 'mins')
-
-t0 <- Sys.time()
-Results_Minmax <- cytopt_minmax(X_source, X_target, convertArray(Lab_source), eps=0.0001, lbd=0.0001, n_iter=n_iter,
-                  theta_true=theta_true, step=step_grad, power=power, monitoring=FALSE)
-
-elapsed_time <- Sys.time()-t0
-
-
-cat('Elapsed time : ',elapsed_time/60, 'Mins')
-
-h_hat2 <- Results_Minmax[1][[1]]
-
-Proportion <- c(h_hat1, h_hat2, h_true)
-Diff_prop <- getRavel(convertArray(h_true)) - getRavel(h_hat1)
-Mean_prop <- (getRavel(convertArray(h_true)) + getRavel(h_hat1))/2
-
-Classes <- rep(1:10,3)
-Methode <- rep(c('CytOpt_DesAsc', 'CytOpt_Minmax', 'Manual'), each = 10)
-df_res1 <- data.frame('Proportions' = Proportion, 'Classes' = Classes, 'Methode' = Methode)
-plot_py_prop2(df_res1)
-
-
-
-
-X_target <- convertArray(Ucla2B_values)
-X_target <- X_target * (X_target > 0)
-X_target <- Scale(X_target)
-Lab_target <- convertArray(Ucla2B_clust[,'x'])
-
-
-h_true <- rep(0,10)
-for (k in 1:10) h_true[k] <- sum(Lab_target == k)/length(Lab_target)
-
-
-t0 <- Sys.time()
-h_hat1 <- cytopt_desasc(X_source, X_target, convertArray(Lab_source), eps=eps, n_out=n_out, n_stoc=n_stoc,
-                           step_grad=step_grad, theta_true=h_true)[1][[1]]
-elapsed_time <- Sys.time() - t0
-
-
-cat('Elapsed_time :', elapsed_time/60, 'mins')
-
-t0 <- Sys.time()
-results <- cytopt_minmax(X_source, X_target, convertArray(Lab_source), eps=0.0001, lbd=0.0001, n_iter=n_iter,
-                  theta_true=h_true, step=step_grad, power=power, monitoring=FALSE)
-elapsed_time <- Sys.time() - t0
-
-
-cat('Elapsed time : ',elapsed_time/60, 'Mins')
-
-h_hat2 <- results[1][[1]]
-
-Proportion <- c(h_hat1, h_hat2, h_true)
-Methode <- rep(c('CytOpt_DesAsc', 'CytOpt_Minmax', 'Manual'), each = 10)
-df_res1 <- data.frame('Proportions' = Proportion, 'Classes' = Classes, 'Methode' = Methode)
-
-plot_py_prop2(df_res1)
+   # Barplot res
+   barplot_prop(df_res1)
+   return()
+}
