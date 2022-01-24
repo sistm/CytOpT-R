@@ -1,18 +1,13 @@
-#' @title Miami3A
+#' @title Miami3A_values
 #'
-#' Here we create a list Miami3A, of two components with data types of type dataframe.
+#' Here we create a dataframe with Miami data.
 #'
 #' @docType data
 #'
 #' @keywords data
 #'
-#' @name Miami3A
+#' @name Miami3A_values
 #'
-#' @usage data(Miami3A)
+#' @usage data(Miami3A_values)
 #'
-#' @format The Miami3A data list is divided into two elements:
-#' \describe{
-#'   \item{values}{The values measured}
-#'   \item{clust}{The clust of population}
-#' }
-"Miami3A"
+"Miami3A_values"

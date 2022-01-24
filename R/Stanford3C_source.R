@@ -1,18 +1,13 @@
-#' @title Stanford3C
+#' @title Stanford3C_values
 #'
-#' Here we create a list Stanford3C, of two components with data types of type dataframe.
+#' Here we create a dataframe with Miami data.
 #'
 #' @docType data
 #'
 #' @keywords data
 #'
-#' @name Stanford3C
+#' @name Stanford3C_values
 #'
-#' @usage data(Stanford3C)
+#' @usage data(Stanford3C_values)
 #'
-#' @format The Stanford3C data list is divided into two elements:
-#' \describe{
-#'   \item{values}{The values measured}
-#'   \item{clust}{The clust of population}
-#' }
-"Stanford3C"
+"Stanford3C_values"
