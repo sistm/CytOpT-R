@@ -15,9 +15,11 @@
 CytOpt_HIPC_Data_test <- function() {
    data(X_source)
    data(Lab_source)
-   data(Stanford3C)
-   data(Miami3A)
-   data(Ucla2B)
+   data(Stanford3C_values)
+   data(Stanford3C_clust)
+   data(Miami3A_values)
+   data(Miami3A_clust)
+
 
    # Descent-ascent procedure
    # Setting of the parameters for the descent-ascent procedure.
@@ -37,8 +39,8 @@ CytOpt_HIPC_Data_test <- function() {
    # ---------------------------- Stanford3C DATA INPUT ----------------------------------------------
    # Target data : Stanford3C
    # Preprocessing of the target data
-   X_target_Stanford3C <- (Stanford3C$values)
-   Lab_target_Stanford3C <- (Stanford3C$clust)
+   X_target_Stanford3C <- (Stanford3C_values)
+   Lab_target_Stanford3C <- (Stanford3C_clust)
 
    # Create theta_true example
    h_true <- rep(0,10)
@@ -62,8 +64,8 @@ CytOpt_HIPC_Data_test <- function() {
 
    # ---------------------------- Miami3A DATA INPUT ----------------------------------------------
    # Target Data : Miami3A
-   X_target_Miami3A <- (Miami3A$values)
-   Lab_target_Miami3A <- (Miami3A$clust)
+   X_target_Miami3A <- (Miami3A_values)
+   Lab_target_Miami3A <- (Miami3A_clust)
 
    h_true <- rep(0,10)
    for (k in 1:10) h_true[k] <- sum(Lab_target_Miami3A == k)/length(Lab_target_Miami3A)
@@ -84,28 +86,5 @@ CytOpt_HIPC_Data_test <- function() {
    # Barplot res
    barplot_prop(df_res1)
 
-   # ---------------------------- UCLA2B DATA INPUT ----------------------------------------------
-   # Target Data : UCLA2B
-   X_target_UCLA2B <- (UCLA2B$values)
-   Lab_target_UCLA2B <- (UCLA2B$clust)
-
-   h_true <- rep(0,10)
-   for (k in 1:10) h_true[k] <- sum(Lab_target_UCLA2B == k)/length(Lab_target_UCLA2B)
-
-   # Descent-ascent procedure
-   h_hat1 <- cytopt_desasc_r(X_s = X_source,X_t = X_target_UCLA2B,
-                             Lab_source = Lab_source,
-                             eps = eps, n_out = n_it_grad, n_stoc = n_it_sto, step_grad = pas_grad)[1][[1]]
-
-   # Minmax swapping procedure
-   h_hat2 <- cytopt_minmax_r(X_s = X_source,
-                             X_t = X_target_UCLA2B,
-                             Lab_source = X_target_Stanford3C ,
-                             eps = eps_two, lbd = lbd, n_iter = n_iter, step = step_size, power = power)[1][[1]]
-
-   df_res1 <- data.frame(h_hat1, h_hat2, h_true)
-
-   # Barplot res
-   barplot_prop(df_res1)
    return()
 }
