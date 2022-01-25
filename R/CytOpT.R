@@ -48,10 +48,6 @@
 #'@param n_stoc an integer number of iterations in the inner loop. This loop corresponds to the stochastic
 #'algorithm that approximates a maximizer of the semi dual problem. Default is \code{10}
 #'
-#'@param n_0 an integer value. Default is \code{10}
-#'
-#'@param n_stop an integer value. Default is \code{1000}
-#'
 #'@param monitoring a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
 #'gold-standard. Default is \code{FALSE}
 #'
@@ -69,9 +65,43 @@
 #'
 #'@importFrom reticulate import_from_path
 #'@importFrom stats sd
-
+#'
 #'@export
 #'
+#'@examples
+#'if(interactive()){
+#' #'head(X_source)
+#'head(X_target)
+#'head(Lab_source)
+#'head(Lab_target)
+#'
+#'# create theta true variable
+#'theta_true <- rep(0,10)
+#'for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
+#'
+#'# Minmax swapping procedure
+#'# parameters setting for the second procedure
+#'lbd <- 0.0001
+#'eps_two <- 0.0001
+#'n_iter <- 10000
+#'step_size <- 5
+#'power <- 0.99
+#'
+#'# Run Minmax swapping
+#'
+#'# Build the Minmax swapping procedure
+#'res <- CytOpT(X_source,X_target,Lab_source,theta_true=theta_true,
+#' eps = eps_two, lbd = lbd, n_iter = n_iter, step = step_size, power = power, method='minmax')
+#'
+#'# Summary res CytOpT
+#'summary(res)
+#'
+#'# Kullback-Leibler divergence \+ proportions plot
+#'plot(res)
+#'
+#'# BA plot
+#'Bland_Atlman(res$proportions)
+#'}
 
 CytOpT <- function (X_s=NULL,
                     X_t=NULL,
@@ -82,8 +112,8 @@ CytOpT <- function (X_s=NULL,
                     names_pop=NULL,
                     method = c("minmax","desasc","both"),
                     eps=1e-04, n_iter=4000, power=0.99, step_grad=50,
-                    step=5,lbd=1e-04, n_out=1000, n_stoc=10, n_0 = 10,
-                    n_stop=1000, minMaxScaler=TRUE, monitoring=TRUE, thresholding=TRUE){
+                    step=5,lbd=1e-04, n_out=1000, n_stoc=10,
+                    minMaxScaler=TRUE, monitoring=TRUE, thresholding=TRUE){
   
   # Sanity checks ----
   stopifnot(is.data.frame(X_s) | is.array(X_s))
