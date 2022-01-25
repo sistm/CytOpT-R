@@ -7,7 +7,6 @@ output:
     toc: yes
 vignette: >
   %\VignetteIndexEntry{User guide for executing `CytOpT` on `HIPC` data}
-  %\VignetteEngine{knitr::knitr}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
