@@ -70,7 +70,7 @@
 #'
 #'@examples
 #'if(interactive()){
-#' #'head(X_source)
+#'head(X_source)
 #'head(X_target)
 #'head(Lab_source)
 #'head(Lab_target)
