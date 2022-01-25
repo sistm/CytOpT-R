@@ -24,8 +24,6 @@ CytOpT(
   lbd = 1e-04,
   n_out = 1000,
   n_stoc = 10,
-  n_0 = 10,
-  n_stop = 1000,
   minMaxScaler = TRUE,
   monitoring = TRUE,
   thresholding = TRUE
@@ -77,10 +75,6 @@ target data sets. Default is \code{1000}}
 \item{n_stoc}{an integer number of iterations in the inner loop. This loop corresponds to the stochastic
 algorithm that approximates a maximizer of the semi dual problem. Default is \code{10}}
 
-\item{n_0}{an integer value. Default is \code{10}}
-
-\item{n_stop}{an integer value. Default is \code{1000}}
-
 \item{minMaxScaler}{a logical flag indicating to possibly Scaler}
 
 \item{monitoring}{a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
@@ -101,4 +95,39 @@ Function to estimate the type cell proportions in an unclassified cytometry data
 by using the classification Lab_source from an other cytometry data set X_s. With this function
 the computation of the estimate of the class proportions is done with a descent ascent or minmax
 or two algorithms.
+}
+\examples{
+if(interactive()){
+#'head(X_source)
+head(X_target)
+head(Lab_source)
+head(Lab_target)
+
+# create theta true variable
+theta_true <- rep(0,10)
+for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
+
+# Minmax swapping procedure
+# parameters setting for the second procedure
+lbd <- 0.0001
+eps_two <- 0.0001
+n_iter <- 10000
+step_size <- 5
+power <- 0.99
+
+# Run Minmax swapping
+
+# Build the Minmax swapping procedure
+res <- CytOpT(X_source,X_target,Lab_source,theta_true=theta_true,
+eps = eps_two, lbd = lbd, n_iter = n_iter, step = step_size, power = power, method='minmax')
+
+# Summary res CytOpT
+summary(res)
+
+# Kullback-Leibler divergence \+ proportions plot
+plot(res)
+
+# BA plot
+Bland_Atlman(res$proportions)
+}
 }
