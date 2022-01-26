@@ -33,7 +33,7 @@ targets the cell type proportion in this Cytometry data set}
 the gap between the estimate of our method and the estimate of the cell type proportions derived from
 manual gating.}
 
-\item{eps}{an float value of regularization parameter of the Wasserstein distance}
+\item{eps}{an float value of regularization parameter of the Wasserstein distance. Default is \code{1e-04}.}
 
 \item{n_out}{an integer number of iterations in the outer loop. This loop corresponds to the gradient
 descent algorithm to minimize the regularized Wasserstein distance between the source and

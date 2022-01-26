@@ -16,7 +16,7 @@
 #'the gap between the estimate of our method and the estimate of the cell type proportions derived from
 #'manual gating.
 #'
-#'@param eps an float value of regularization parameter of the Wasserstein distance
+#'@param eps an float value of regularization parameter of the Wasserstein distance. Default is \code{1e-04}.
 #'
 #'@param n_out an integer number of iterations in the outer loop. This loop corresponds to the gradient
 #'descent algorithm to minimize the regularized Wasserstein distance between the source and
