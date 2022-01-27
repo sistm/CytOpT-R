@@ -37,8 +37,8 @@
 
 
 cytopt_minmax_r <- function(X_s, X_t, Lab_source, theta_true,
-                            eps = 1e-04, lbd = 1e-04, n_iter = 4000,
-                            step = 5, power =0.99, monitoring = TRUE){
+                            eps = 1e-04, lbd = 1e-04, n_iter = 10000,
+                            step = 5, power =0.99, monitoring = FALSE){
   
   # READ PYTHON FILES WITH RETICULATE
   python_path <- system.file("python", package = "CytOpT")

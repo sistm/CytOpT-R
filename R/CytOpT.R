@@ -111,9 +111,9 @@ CytOpT <- function (X_s=NULL,
                     cell_type=NULL,
                     names_pop=NULL,
                     method = c("minmax","desasc","both"),
-                    eps=1e-04, n_iter=4000, power=0.99, step_grad=50,
-                    step=5,lbd=1e-04, n_out=1000, n_stoc=10,
-                    minMaxScaler=TRUE, monitoring=TRUE, thresholding=TRUE){
+                    eps=1e-04, n_iter=10000, power=0.99, step_grad=10,
+                    step=5,lbd=1e-04, n_out=5000, n_stoc=10,
+                    minMaxScaler=TRUE, monitoring=FALSE, thresholding=TRUE){
   
   # Sanity checks ----
   stopifnot(is.data.frame(X_s) | is.array(X_s))

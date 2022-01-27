@@ -51,7 +51,7 @@ def gammatrix(X_s, Lab_source):
 
 
 # cytopt
-def cytopt_minmax(X_s, X_t, Lab_source, eps=0.0001, lbd=0.0001, n_iter=4000,
+def cytopt_minmax(X_s, X_t, Lab_source, eps=0.0001, lbd=0.0001, n_iter=10000,
                   step=5, power=0.99, theta_true=None, monitoring=True):
     """
     Robbins-Monro algorithm to compute an approximate of the vector u^* solution of the maximization problem

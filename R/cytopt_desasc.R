@@ -38,8 +38,8 @@
 
 
 cytopt_desasc_r <- function(X_s, X_t, Lab_source, theta_true=NULL,
-                            eps=1e-04, n_out=1000, n_stoc=10,
-                            step_grad=50, monitoring = TRUE){
+                            eps=1e-04, n_out=5000, n_stoc=10,
+                            step_grad=10, monitoring = FALSE){
   stopifnot(!is.null(X_s))
   stopifnot(!is.null(X_t))
   stopifnot(!is.null(Lab_source))
