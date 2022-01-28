@@ -21,8 +21,8 @@ KL_plot <- function (monitoring, n_0 = 10, n_stop=1000, title = "Kullback-Lieble
   # constructing plot data ----
   index <- seq(n_0,n_stop)
   data2Opt <- data.frame("index" = index,
-                        "values"=c(monitoring$MinMax[index],
-                                   monitoring$Descent_ascent[index]),
+                        "values"=c(monitoring$Descent_ascent[index],
+                                   monitoring$MinMax[index]),
                         "Method"=factor(rep(names(monitoring),each=length(index))))
 
   data2Opt$Method <- gsub("MinMax", "MinMax swapping",
