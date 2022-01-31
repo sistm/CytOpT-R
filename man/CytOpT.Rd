@@ -8,13 +8,11 @@ the computation of the estimate of the class proportions is done with a descent 
 or two algorithms.}
 \usage{
 CytOpT(
-  X_s = NULL,
-  X_t = NULL,
-  Lab_source = NULL,
+  X_s,
+  X_t,
+  Lab_source,
   Lab_target = NULL,
   theta_true = NULL,
-  cell_type = NULL,
-  names_pop = NULL,
   method = c("minmax", "desasc", "both"),
   eps = 1e-04,
   n_iter = 4000,
@@ -30,43 +28,42 @@ CytOpT(
 )
 }
 \arguments{
-\item{X_s}{a cytometry dataframe. The columns correspond to the different biological markers tracked.
+\item{X_s}{a cytometry dataframe with only \code{d} numerical variables for \code{ns} observations. 
+The columns correspond to the different biological markers measured.
 One line corresponds to the cytometry measurements performed on one cell. The classification
 of this Cytometry data set must be provided with the Lab_source parameters.}
 
-\item{X_t}{a cytometry dataframe. The columns correspond to the different biological markers tracked.
+\item{X_t}{a cytometry dataframe with only \code{d} numerical variables for \code{nt} observations. 
+The columns correspond to the different biological markers measured.
 One line corresponds to the cytometry measurements performed on one cell. The CytOpT algorithm
 targets the cell type proportion in this Cytometry data set}
 
-\item{Lab_source}{a vector of length \code{n} Classification of the X_s cytometry data set}
+\item{Lab_source}{a vector of length \code{ns} Classification of the X_s cytometry data set}
 
-\item{Lab_target}{a vector of length \code{n} classification of the X_t cytometry data set}
+\item{Lab_target}{a vector of length \code{nt} Classification of the X_s cytometry data set}
 
-\item{theta_true}{If available, the true proportions in the target data set X_s. It allows to assess
-the gap between the estimate of our method and the estimate of the cell type proportions derived from
-manual gating.}
-
-\item{cell_type}{a vector indicate type of cell}
-
-\item{names_pop}{//commentary}
+\item{theta_true}{If available, gold-standard proportions in the target data 
+set \code{X_t} derived from manual gating. It allows to assess the gap between 
+the estimate and the gold-standard. Default is \code{NULL}, in which case no 
+assessment is performed.}
 
 \item{method}{a character string indicating which method to use to
 compute the cytopt, either \code{'minmax'}, \code{'desasc'}
 or  \code{'both'} for comparing both Min-max swapping and descent-ascent procedures.
 Default is \code{'minmax'}.}
 
-\item{eps}{an float value of regularization parameter of the Wasserstein distance. Default is \code{1e-04}}
+\item{eps}{a float value of regularization parameter of the Wasserstein distance. Default is \code{1e-04}}
 
 \item{n_iter}{an integer Constant that iterate method select. Default is \code{4000}}
 
-\item{power}{an float constant the step size policy of the gradient ascent method is step/n^power. Default is \code{0.99}}
+\item{power}{a float constant the step size policy of the gradient ascent method is step/n^power. Default is \code{0.99}}
 
 \item{step_grad}{an integer number step size of the gradient descent algorithm of the outer loop.
 Default is \code{50}}
 
 \item{step}{an integer constant that multiply the step-size policy. Default is \code{5}}
 
-\item{lbd}{an float constant that multiply the step-size policy. Default is \code{1e-04}}
+\item{lbd}{a float constant that multiply the step-size policy. Default is \code{1e-04}}
 
 \item{n_out}{an integer number of iterations in the outer loop. This loop corresponds to the gradient
 descent algorithm to minimize the regularized Wasserstein distance between the source and
@@ -98,36 +95,14 @@ or two algorithms.
 }
 \examples{
 if(interactive()){
-head(X_source)
-head(X_target)
-head(Lab_source)
-head(Lab_target)
 
-# create theta true variable
-theta_true <- rep(0,10)
-for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
-
-# Minmax swapping procedure
-# parameters setting for the second procedure
-lbd <- 0.0001
-eps_two <- 0.0001
-n_iter <- 10000
-step_size <- 5
-power <- 0.99
-
-# Run Minmax swapping
-
-# Build the Minmax swapping procedure
-res <- CytOpT(X_source,X_target,Lab_source,theta_true=theta_true,
-eps = eps_two, lbd = lbd, n_iter = n_iter, step = step_size, power = power, method='minmax')
-
-# Summary res CytOpT
+res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A, 
+             Lab_source = HIPC_Stanford_1228_1A_labels,
+             eps = 0.0001, lbd = 0.0001, n_iter = 10000, n_stoc=10,
+             step_grad = 10, step = 5, power = 0.99, 
+             method='minmax')
 summary(res)
-
-# Kullback-Leibler divergence \+ proportions plot
 plot(res)
 
-# BA plot
-Bland_Atlman(res$proportions)
 }
 }

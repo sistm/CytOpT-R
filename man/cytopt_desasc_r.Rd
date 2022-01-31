@@ -29,9 +29,10 @@ targets the cell type proportion in this Cytometry data set}
 
 \item{Lab_source}{a vector of length \code{n} Classification of the X_s cytometry data set}
 
-\item{theta_true}{If available, the true proportions in the target data set X_s. It allows to assess
-the gap between the estimate of our method and the estimate of the cell type proportions derived from
-manual gating.}
+\item{theta_true}{If available, gold-standard proportions in the target data 
+set \code{X_t} derived from manual gating. It allows to assess the gap between 
+the estimate and the gold-standard. Default is \code{NULL}, in which case no 
+assessment is performed.}
 
 \item{eps}{an float value of regularization parameter of the Wasserstein distance. Default is \code{1e-04}.}
 

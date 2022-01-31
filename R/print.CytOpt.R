@@ -2,7 +2,7 @@
 #'
 #'print S3 method for CytOpt object
 #'
-#'@param x an object of class \code{CytOpt} a summary is desired.
+#'@param x an object of class \code{CytOpt} to print.
 #'@param ... further arguments passed to or from other methods. Not implemented.
 #'
 #'@method print CytOpt

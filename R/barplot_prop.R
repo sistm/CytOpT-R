@@ -3,6 +3,7 @@
 #'
 #'@param proportions \code{data.frame} of (true and) estimated proportions from \code{CytOpt()}
 #'@param title plot title. Default is \code{""}, i.e. no title.
+#'@param xaxis_angle scalar indicating an angle to tilt the labels of x_axis. Default is \code{45}.
 #'
 #'
 #'@importFrom reshape2 melt
@@ -11,7 +12,7 @@
 #'@export
 
 
-barplot_prop <- function (proportions, title = ""){
+barplot_prop <- function (proportions, title = "", xaxis_angle = 45){
   
   proportions$Population <- rownames(proportions)
   data2barplot <- reshape2::melt(proportions, id.vars="Population",
@@ -41,6 +42,9 @@ barplot_prop <- function (proportions, title = ""){
     theme(legend.title=element_blank()) +
     theme_bw()
   
+  if(!is.null(xaxis_angle)){
+    p <- p + theme(axis.text.x = element_text(angle=xaxis_angle, hjust = 1))
+  }
   return(p)
   
 }

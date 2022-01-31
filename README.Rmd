@@ -50,27 +50,23 @@ This is a basic example of `CytOpt` usage:
 ```{r example 1, message=FALSE}
 library(CytOpT)
 # Load source Data
-X_source <- read.csv('tests/ressources/W2_1_values.csv')
-Lab_source <- read.csv('tests/ressources/W2_1_clust.csv')[, 2]
-
-# Load target Data
-X_target <- read.csv('tests/ressources/W2_7_values.csv')
-Lab_target <- read.csv('tests/ressources/W2_7_clust.csv')[, 2]
+data("HIPC_Stanford")
 ```
 
 ```{r example 2}
-# Define the true proportions in the target data set X_source
-theta_true <- rep(0,10)
-for (k in 1:10){
-  theta_true[k] <- sum(Lab_target == k) / length(Lab_target)
-}
+# Define the true proportions in the target data set
+gold_standard_manual_prop <- c(table(HIPC_Stanford_1369_1A_labels)/length(HIPC_Stanford_1369_1A_labels))
 ```
 
 ### Proportion estimations using *optimal transport* and *minmax swapping* procedures
 ```{r example 3, message=TRUE}
 # Run CytOpt and compare the two optimization methods
-res <- CytOpT(X_source, X_target, Lab_source, 
-              theta_true=theta_true, method='both')
+res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A, 
+              Lab_source = HIPC_Stanford_1228_1A_labels,
+              theta_true = gold_standard_manual_prop,
+              eps = 0.0001, lbd = 0.0001, n_iter = 10000, n_stoc=10,
+              step_grad = 10, step = 5, power = 0.99, 
+              method='both')
 ```
 
 
@@ -81,7 +77,7 @@ summary(res)
 
 ```{r plot(res)}
 plot(res)
-Bland_Atlman(res$proportions)
+Bland_Altman(res$proportions)
 ```
 
 

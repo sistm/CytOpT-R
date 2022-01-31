@@ -1,6 +1,6 @@
 ---
 title: "User guide for executing `CytOpT` on `HIPC` data"
-author: "Paul Freulon, Kalidou BA, Jérémie Bigot, Boris Hejblum"
+author: "Paul Freulon, Jérémie Bigot, Kalidou BA, Boris Hejblum"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
@@ -18,116 +18,81 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Introduction
+# Introduction
 
-We introduce `CytOpT`, a supervised method that directly estimates the cell class proportions, without a preliminary clustering or classification step.
+`CytOpT` is a supervised method that directly estimates the cell proportions in a flow-cytometry data set by using a source gating as its input and relies on regularized optimal transport.
 
-`CytOpT` uses regularized optimal transport to directly estimate the different cell population proportions from a biological sample characterized with flow cytometry measurements.
+# Analysis of HIPC data
 
-From our numerical experiments, the computation time to get an estimate of the class proportions with the descent-ascent procedure is between 10 and 20 minutes. With the minmax swapping procedure, this computation time is between 1 and 3 minutes
+As an illustrative example, we analyze here the flow cytometry data from the T-cell panel of the Human Immunology Project Consortium (HIPC) publicly available on ImmuneSpace [Gottardo et al. [2014]](https://www.nature.com/articles/nbt.2777).
 
-## HIPC data
-As an illustrative example, we shall analyze in the flow cytometry data from the T-cell panel of the Human Immunology Project Consortium (HIPC) publicly available on ImmuneSpace [Gottardo et al. [2014]](https://www.nature.com/articles/nbt.2777).
+An `HIPC` data set has the following structure (split into 2 files):
 
-An `HIPC` data set has the following structure :
+ - `xx_y_values`: flow-cytometry measurements
+ - `xx_y_clust`: file with the corresponding manual clustering
 
-- xx_y_values : Cytometry measurements
-
-- xx_y_clust : Corresponding manual clustering
-
-- xx labels the center where the data analysis was performed.
-
-- y labels the patient and the replicate of the biological sample.
+Above, `xx` denotes the center where the data analysis was performed, and `y` denotes the patient and the replicate of the biological sample in question.
 
 
 ## Data load
 
-```{r,  message = FALSE, warning = FALSE}
+```{r}
 library(CytOpT)
-data(X_source)
-data(X_target)
-data(Lab_source)
-data(Lab_target)
+data("HIPC_Stanford")
 ```
 
+Here are the first few lines of the flow-cytometry measurements from patient *1228* replicate *1A*:
+```{r}
+knitr::kable(head(HIPC_Stanford_1228_1A))
+```
+The manual clustering of these data into 10 cell populations (`r paste0(levels(HIPC_Stanford_1228_1A_labels), collapse=", ")`) can be accessed from the `HIPC_Stanford_1228_1A_labels` object.
 
-```{r,  message = FALSE, warning = FALSE}
-head(X_source)
-head(Lab_source)
+We will use the manual gating from patient *1228* replicate *1A* as our source proportions to infer proportions for patient *1369* replicate *1A*.
+
+## Computation of the benchmark class proportions for target data
+
+Because in this example, we know the true proportions in the target data set `HIPC_Stanford_1369_1A`, we can assess the gap between the estimate form `CytOpt` and the cellular proportions from the reference manual gating. For this purpose, we compute those manual proportions with:
+```{r}
+gold_standard_manual_prop <- c(table(HIPC_Stanford_1369_1A_labels)/length(HIPC_Stanford_1369_1A_labels))
 ```
 
+## `CytOpT`
 
 
-```{r,  message = FALSE, warning = FALSE}
-head(X_target)
-head(Lab_target)
-```
-## Computation of the benchmark class proportions
-
-Create theta_true example. If available, the true proportions in the target data set X_source. It allows to assess the gap between the estimate of our method and the estimate of the cell type proportions derived from manual gating.
+### Optimization
 
 ```{r}
-theta_true <- rep(0,10)
-for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
+set.seed(123)
+res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A, 
+              Lab_source = HIPC_Stanford_1228_1A_labels,
+              theta_true = gold_standard_manual_prop,
+              eps = 0.0001, lbd = 0.0001, n_iter = 10000, n_stoc=10,
+              step_grad = 10, step = 5, power = 0.99, 
+              method='both')
 ```
 
-## Parameters
-- Setting of the parameters for the descent-ascent procedure.
 
+### Results
+
+The results from `CytOpt` for both optimization algorithms are:
 ```{r}
-n_it_grad <- 10000
-n_it_sto <- 10
-pas_grad <- 10
-eps <- 0.0005
-```
-
-- Setting of the parameters for the Minmax swapping procedure
-```{r}
-lbd <- 0.0001
-eps_two <- 0.0001
-n_iter <- 10000
-step_size <- 5
-power <- 0.99
-```
-
-## CytOpT function
-
-The main function of the package is `CytOpT()`.
-
-This function to estimate the type cell proportions in an unclassified cytometry data set denoted X_source by using the classification Lab_source from other cytometry data set X_source.
-
-With this function the computation of the estimate of the class proportions is done with a Descent-ascent `desasc` or Minmax swapping `minmax` or both algorithms `both`.
-
-
-```{r}
-res <- CytOpT(X_source, X_target, Lab_source, theta_true=theta_true,
-              eps = eps_two, lbd = lbd, n_iter = n_iter,n_stoc=n_it_sto,
-              step_grad=pas_grad, step = step_size, power = power, method='both')
 summary(res)
 ```
 
-
-## Figures
-
-- Evolution of the Kullback-Leibler $(KL)$ divergence along the iterations of the two minimization procedures.
-
-1. For the descent-ascent procedure, the iterations displayed correspond to this iterations of the outer loop. This comparison has been realized when the source data set is Stanford1A segmented into 10 classes.
-
-2. From our numerical experiments, we have found that the sequence of estimates $\hat{\pi}$ produced by the second algorithm described in `Minmax swapping` procedure levels off approximately five times faster than the sequence of estimates produced with the descent-ascent procedure `Descent-Ascent`.
-
-
-```{r res, fig.width = 6, fig.asp = .62}
+Some visualizations are provided by the `plot()` method:
+```{r, fig.width = 7, fig.asp = .8}
 plot(res)
 ```
 
-- We also relied on graphical diagnoses from Bland-Altman plots to visually assess and compare the performance of CytOpT for class proportions estimation. Those provide an overview of CytOpT behavior and performance on a collection of several cytometry data sets at once. For one target data set, a Bland-Altman plot compares the estimation $\hat{\pi} = (\hat{\pi}_{1}, ..., \hat{\pi}_{K})$ with the benchmark $\pi = (\pi_{1}, ...,\pi_{K})$ by plotting the difference $\hat{\pi}-\pi$ against the mean $(\hat{\pi}-\pi)/2$
+### Performance evaluation
 
-```{r BA, fig.width = 6, fig.asp = .62}
-Bland_Atlman(res$proportions)
+Concordance between the manual gating gold-standard and `CytOpt`estimation can be graphically diagnosed with Bland-Altman plots:
+
+```{r BA, fig.width = 7, fig.asp = .8}
+Bland_Altman(res$proportions)
 ```
 
-
-The methods implemented in this package are detailed in the following article:
+The methods implemented in the `CytOpt` package are detailed in the following article:
 
 > Paul Freulon, Jérémie Bigot, Boris P. Hejblum. CytOpT: Optimal
 > Transport with Domain Adaptation for Interpreting Flow Cytometry data

@@ -7,7 +7,7 @@
 \method{print}{CytOpt}(x, ...)
 }
 \arguments{
-\item{x}{an object of class \code{CytOpt} a summary is desired.}
+\item{x}{an object of class \code{CytOpt} to print.}
 
 \item{...}{further arguments passed to or from other methods. Not implemented.}
 }

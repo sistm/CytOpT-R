@@ -3,43 +3,41 @@
 #' the computation of the estimate of the class proportions is done with a descent ascent or minmax
 #' or two algorithms.
 #'
-#'@param X_s a cytometry dataframe. The columns correspond to the different biological markers tracked.
+#'@param X_s a cytometry dataframe with only \code{d} numerical variables for \code{ns} observations. 
+#' The columns correspond to the different biological markers measured.
 #'One line corresponds to the cytometry measurements performed on one cell. The classification
 #'of this Cytometry data set must be provided with the Lab_source parameters.
 #'
-#'@param X_t a cytometry dataframe. The columns correspond to the different biological markers tracked.
+#'@param X_t a cytometry dataframe with only \code{d} numerical variables for \code{nt} observations. 
+#'The columns correspond to the different biological markers measured.
 #'One line corresponds to the cytometry measurements performed on one cell. The CytOpT algorithm
 #'targets the cell type proportion in this Cytometry data set
 #'
-#'@param Lab_source a vector of length \code{n} Classification of the X_s cytometry data set
-#'
-#'@param cell_type a vector indicate type of cell
-#'
-#'@param names_pop //commentary
-#'
-#'@param Lab_target a vector of length \code{n} classification of the X_t cytometry data set
+#'@param Lab_source a vector of length \code{ns} Classification of the X_s cytometry data set
+#'@param Lab_target a vector of length \code{nt} Classification of the X_s cytometry data set
 #'
 #'@param method a character string indicating which method to use to
 #'compute the cytopt, either \code{'minmax'}, \code{'desasc'}
 #' or  \code{'both'} for comparing both Min-max swapping and descent-ascent procedures.
 #'Default is \code{'minmax'}.
 #'
-#'@param theta_true If available, the true proportions in the target data set X_s. It allows to assess
-#'the gap between the estimate of our method and the estimate of the cell type proportions derived from
-#'manual gating.
+#'@param theta_true If available, gold-standard proportions in the target data 
+#'set \code{X_t} derived from manual gating. It allows to assess the gap between 
+#'the estimate and the gold-standard. Default is \code{NULL}, in which case no 
+#'assessment is performed.
 #'
-#'@param eps an float value of regularization parameter of the Wasserstein distance. Default is \code{1e-04}
+#'@param eps a float value of regularization parameter of the Wasserstein distance. Default is \code{1e-04}
 #'
 #' @param n_iter an integer Constant that iterate method select. Default is \code{4000}
 #'
-#' @param power an float constant the step size policy of the gradient ascent method is step/n^power. Default is \code{0.99}
+#' @param power a float constant the step size policy of the gradient ascent method is step/n^power. Default is \code{0.99}
 #'
 #'@param step_grad an integer number step size of the gradient descent algorithm of the outer loop.
 #' Default is \code{50}
 #'
 #'@param step an integer constant that multiply the step-size policy. Default is \code{5}
 #'
-#'@param lbd an float constant that multiply the step-size policy. Default is \code{1e-04}
+#'@param lbd a float constant that multiply the step-size policy. Default is \code{1e-04}
 #'
 #'@param n_out an integer number of iterations in the outer loop. This loop corresponds to the gradient
 #'descent algorithm to minimize the regularized Wasserstein distance between the source and
@@ -70,46 +68,22 @@
 #'
 #'@examples
 #'if(interactive()){
-#'head(X_source)
-#'head(X_target)
-#'head(Lab_source)
-#'head(Lab_target)
 #'
-#'# create theta true variable
-#'theta_true <- rep(0,10)
-#'for (k in 1:10) theta_true[k] <- sum(Lab_target == k)/length(Lab_target)
-#'
-#'# Minmax swapping procedure
-#'# parameters setting for the second procedure
-#'lbd <- 0.0001
-#'eps_two <- 0.0001
-#'n_iter <- 10000
-#'step_size <- 5
-#'power <- 0.99
-#'
-#'# Run Minmax swapping
-#'
-#'# Build the Minmax swapping procedure
-#'res <- CytOpT(X_source,X_target,Lab_source,theta_true=theta_true,
-#' eps = eps_two, lbd = lbd, n_iter = n_iter, step = step_size, power = power, method='minmax')
-#'
-#'# Summary res CytOpT
+#'res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A, 
+#'              Lab_source = HIPC_Stanford_1228_1A_labels,
+#'              eps = 0.0001, lbd = 0.0001, n_iter = 10000, n_stoc=10,
+#'              step_grad = 10, step = 5, power = 0.99, 
+#'              method='minmax')
 #'summary(res)
-#'
-#'# Kullback-Leibler divergence \+ proportions plot
 #'plot(res)
 #'
-#'# BA plot
-#'Bland_Atlman(res$proportions)
 #'}
 
-CytOpT <- function (X_s=NULL,
-                    X_t=NULL,
-                    Lab_source=NULL,
+CytOpT <- function (X_s,
+                    X_t,
+                    Lab_source,
                     Lab_target=NULL,
                     theta_true=NULL,
-                    cell_type=NULL,
-                    names_pop=NULL,
                     method = c("minmax","desasc","both"),
                     eps=1e-04, n_iter=4000, power=0.99, step_grad=50,
                     step=5,lbd=1e-04, n_out=1000, n_stoc=10,
@@ -118,8 +92,45 @@ CytOpT <- function (X_s=NULL,
   # Sanity checks ----
   stopifnot(is.data.frame(X_s) | is.array(X_s))
   stopifnot(is.data.frame(X_t) | is.array(X_t))
-  stopifnot(!is.null(Lab_source) | !is.null(Lab_target))
+  stopifnot(!is.null(Lab_source))
   stopifnot(is.logical(monitoring))
+  
+  if(!is.numeric(Lab_source)){
+    if(!is.factor(Lab_source)){
+      Lab_source <- as.factor(Lab_source)
+    }
+    Lab_source_fact <- Lab_source
+    Lab_source <- as.numeric(Lab_source)
+  }
+  
+  if(is.null(theta_true)) {
+    message("theta_true is NULL")
+    if(!is.null(Lab_target)){
+      message("imputing theta_true from Lab_target")
+      theta_true <- c(table(Lab_target)/length(Lab_target))
+    }else{
+      message("No gold-standard available")
+    }
+  }
+  
+  if(!is.null(theta_true)) {
+    if(length(theta_true) != nlevels(Lab_source_fact)){
+      stop("Number of cell populations is different between `Lab_source` and `theta_true`!")
+    }
+    if(!is.null(names(theta_true))){
+      if(any(names(theta_true) != levels(Lab_source_fact))){
+        stop("Cell population order differ between `Lab_source` and `theta_true`!")
+      }
+    }
+  }
+  
+  if(!is.null(Lab_target) & !is.numeric(Lab_target)){
+    if(!is.factor(Lab_target)){
+      Lab_target <- factor(Lab_target, levels=levels(Lab_source_fact))
+    }
+    Lab_target_fact <- Lab_target
+    Lab_target <- as.numeric(Lab_target)
+  }
   
   
   # READ PYTHON FILES WITH RETICULATE ----
@@ -133,19 +144,7 @@ CytOpT <- function (X_s=NULL,
   if (length(labSourceUnique) <2){
     warning("length(labSourceUnique) <2")
   }
-  if (!is.null(names_pop)  & length(names_pop) >= 2){
-    h_source <- rep(0,2)
-    for (k in labSourceUnique)
-      h_source[k] <- sum(Lab_source == k) / length(Lab_source)
-    names_pop <- names_pop[0:2]
-    pyCode$CytOpt_plot$plot_py_1(X_s, X_t, Lab_source, 100 * h_source, names_pop)
-  }
   
-  if(is.null(cell_type)){
-    message("cell_type is NULL and labels are imputed as an integer sequence")
-    cell_type <- rep(labSourceUnique,length(labSourceUnique))
-  }
-  else cell_type <- rep(cell_type,length(labSourceUnique))
   if(length(method)>1) method <- method[1]
   
   if(thresholding){
@@ -155,18 +154,6 @@ CytOpT <- function (X_s=NULL,
   if(minMaxScaler){
     X_s <- pyCode$minMaxScale$Scale(X_s)
     X_t <- pyCode$minMaxScale$Scale(X_t)
-  }
-  
-  if(is.null(theta_true)) {
-    message("theta_true is NULL")
-    
-    if(!is.null(Lab_target)){
-      message("imputing theta_true from Lab_target")
-      theta_true <- rep(0,length(labSourceUnique))
-      for (index in seq(1,length(labSourceUnique))){
-        theta_true[index] <- sum(Lab_target == index) / length(Lab_target)
-      }
-    }
   }
   
   if(length(method)>1) {
@@ -181,7 +168,7 @@ CytOpT <- function (X_s=NULL,
   monitoring_res <- list()
   
   if(!is.null(theta_true)){
-    h[["Gold_standard"]] = theta_true
+    h[["Gold_standard"]] <- c(theta_true)
   }
   
   if(method %in% c("desasc", "both")) {
@@ -212,6 +199,9 @@ CytOpT <- function (X_s=NULL,
   }
   
   # Output ----
+  if(is.null(names(h[[1]]))){
+    names(h[[1]]) <- levels(Lab_source_fact)
+  }
   res <- list("proportions" = do.call(cbind.data.frame, h),
               "monitoring" = monitoring_res
   )

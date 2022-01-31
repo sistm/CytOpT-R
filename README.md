@@ -50,53 +50,48 @@ This is a basic example of `CytOpt` usage:
 ``` r
 library(CytOpT)
 # Load source Data
-X_source <- read.csv('tests/ressources/W2_1_values.csv')
-Lab_source <- read.csv('tests/ressources/W2_1_clust.csv')[, 2]
-
-# Load target Data
-X_target <- read.csv('tests/ressources/W2_7_values.csv')
-Lab_target <- read.csv('tests/ressources/W2_7_clust.csv')[, 2]
+data("HIPC_Stanford")
 ```
 
 ``` r
-# Define the true proportions in the target data set X_source
-theta_true <- rep(0,10)
-for (k in 1:10){
-  theta_true[k] <- sum(Lab_target == k) / length(Lab_target)
-}
+# Define the true proportions in the target data set
+gold_standard_manual_prop <- c(table(HIPC_Stanford_1369_1A_labels)/length(HIPC_Stanford_1369_1A_labels))
 ```
 
 ### Proportion estimations using *optimal transport* and *minmax swapping* procedures
 
 ``` r
 # Run CytOpt and compare the two optimization methods
-res <- CytOpT(X_source, X_target, Lab_source, 
-              theta_true=theta_true, method='both')
-#> cell_type is NULL and labels are imputed as an integer sequence
+res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A, 
+              Lab_source = HIPC_Stanford_1228_1A_labels,
+              theta_true = gold_standard_manual_prop,
+              eps = 0.0001, lbd = 0.0001, n_iter = 10000, n_stoc=10,
+              step_grad = 10, step = 5, power = 0.99, 
+              method='both')
 #> Running Desent-ascent optimization...
-#> Done (27.94s)
+#> Done (14.995s)
 #> Running MinMax optimization...
-#> Done (11.764s)
+#> Done (16.96s)
 ```
 
 ``` r
 summary(res)
-#> Estimation of cytometry proportion with Descent-Ascent and MinMax swapping algorithms from CytOpt:
-#>    Gold_standard Descent_ascent       MinMax
-#> 1    0.017004001    0.146001308 0.1418916363
-#> 2    0.128736173    0.057437039 0.0630508365
-#> 3    0.048481996    0.034579209 0.0348050407
-#> 4    0.057484114    0.038897336 0.0325485857
-#> 5    0.009090374    0.012490954 0.0004721661
-#> 6    0.002324076    0.009295304 0.0112336132
-#> 7    0.331460344    0.330020666 0.3275934412
-#> 8    0.281713344    0.232886944 0.2515730151
-#> 9    0.102082843    0.117268733 0.1124620403
-#> 10   0.021622735    0.021122507 0.0243696250
+#> Estimation of cell proportions with Descent-Ascent and MinMax swapping  from CytOpt:
+#>                     Gold_standard Descent_ascent       MinMax
+#> CD8 Effector          0.017004001     0.09340403 4.425717e-02
+#> CD8 Naive             0.128736173     0.10588996 1.043952e-01
+#> CD8 Central Memory    0.048481996     0.06887050 3.668802e-02
+#> CD8 Effector Memory   0.057484114     0.08328624 7.635311e-02
+#> CD8 Activated         0.009090374     0.04086176 8.601677e-03
+#> CD4 Effector          0.002324076     0.01461945 8.564472e-06
+#> CD4 Naive             0.331460344     0.25969356 3.522540e-01
+#> CD4 Central Memory    0.281713344     0.14725293 2.032700e-01
+#> CD4 Effector Memory   0.102082843     0.14391672 1.621501e-01
+#> CD4 Activated         0.021622735     0.04220485 1.202218e-02
 #> 
 #> Final Kullback-Leibler divergences:
 #>  Descent-Ascent MinMax swapping 
-#>       0.2275526       0.2237798
+#>      0.20054067      0.05445004
 ```
 
 ``` r
@@ -106,7 +101,7 @@ plot(res)
 <img src="man/figures/README-plot(res)-1.png" width="100%" />
 
 ``` r
-Bland_Atlman(res$proportions)
+Bland_Altman(res$proportions)
 ```
 
 <img src="man/figures/README-plot(res)-2.png" width="100%" />

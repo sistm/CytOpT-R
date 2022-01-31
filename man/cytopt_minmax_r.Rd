@@ -11,7 +11,7 @@ cytopt_minmax_r(
   X_s,
   X_t,
   Lab_source,
-  theta_true,
+  theta_true = NULL,
   eps = 1e-04,
   lbd = 1e-04,
   n_iter = 4000,
@@ -31,7 +31,10 @@ targets the cell type proportion in this Cytometry data set.}
 
 \item{Lab_source}{Classification of the X_s Cytometry data set}
 
-\item{theta_true}{True proportions in the target data set derived from manual gating.}
+\item{theta_true}{If available, gold-standard proportions in the target data 
+set \code{X_t} derived from manual gating. It allows to assess the gap between 
+the estimate and the gold-standard. Default is \code{NULL}, in which case no 
+assessment is performed.}
 
 \item{eps}{Regularization parameter of the Wasserstein distance}
 

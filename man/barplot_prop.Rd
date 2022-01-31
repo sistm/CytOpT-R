@@ -5,12 +5,14 @@
 \title{Function to display a bland plot in order to visually assess the agreement between CytOpt estimation
 of the class proportions and the estimate of the class proportions provided through manual gating.}
 \usage{
-barplot_prop(proportions, title = "")
+barplot_prop(proportions, title = "", xaxis_angle = 45)
 }
 \arguments{
 \item{proportions}{\code{data.frame} of (true and) estimated proportions from \code{CytOpt()}}
 
 \item{title}{plot title. Default is \code{""}, i.e. no title.}
+
+\item{xaxis_angle}{scalar indicating an angle to tilt the labels of x_axis. Default is \code{45}.}
 }
 \description{
 Function to display a bland plot in order to visually assess the agreement between CytOpt estimation

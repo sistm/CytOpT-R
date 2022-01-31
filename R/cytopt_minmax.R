@@ -15,7 +15,10 @@
 #'
 #'@param eps Regularization parameter of the Wasserstein distance
 #'
-#'@param theta_true True proportions in the target data set derived from manual gating.
+#'@param theta_true If available, gold-standard proportions in the target data 
+#'set \code{X_t} derived from manual gating. It allows to assess the gap between 
+#'the estimate and the gold-standard. Default is \code{NULL}, in which case no 
+#'assessment is performed.
 #'
 #'@param step Constant that multiply the step-size policy
 #'
@@ -36,7 +39,7 @@
 #'@return A list with the following elements:\code{Results_Minmax}
 
 
-cytopt_minmax_r <- function(X_s, X_t, Lab_source, theta_true,
+cytopt_minmax_r <- function(X_s, X_t, Lab_source, theta_true = NULL,
                             eps = 1e-04, lbd = 1e-04, n_iter = 4000,
                             step = 5, power =0.99, monitoring = TRUE){
   
