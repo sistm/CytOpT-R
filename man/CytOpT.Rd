@@ -15,15 +15,15 @@ CytOpT(
   theta_true = NULL,
   method = c("minmax", "desasc", "both"),
   eps = 1e-04,
-  n_iter = 4000,
+  n_iter = 10000,
   power = 0.99,
-  step_grad = 50,
+  step_grad = 10,
   step = 5,
   lbd = 1e-04,
-  n_out = 1000,
+  n_out = 5000,
   n_stoc = 10,
   minMaxScaler = TRUE,
-  monitoring = TRUE,
+  monitoring = FALSE,
   thresholding = TRUE
 )
 }
@@ -54,12 +54,12 @@ Default is \code{'minmax'}.}
 
 \item{eps}{a float value of regularization parameter of the Wasserstein distance. Default is \code{1e-04}}
 
-\item{n_iter}{an integer Constant that iterate method select. Default is \code{4000}}
+\item{n_iter}{an integer Constant that iterate method select. Default is \code{10000}}
 
 \item{power}{a float constant the step size policy of the gradient ascent method is step/n^power. Default is \code{0.99}}
 
 \item{step_grad}{an integer number step size of the gradient descent algorithm of the outer loop.
-Default is \code{50}}
+Default is \code{10}}
 
 \item{step}{an integer constant that multiply the step-size policy. Default is \code{5}}
 
@@ -72,12 +72,14 @@ target data sets. Default is \code{1000}}
 \item{n_stoc}{an integer number of iterations in the inner loop. This loop corresponds to the stochastic
 algorithm that approximates a maximizer of the semi dual problem. Default is \code{10}}
 
-\item{minMaxScaler}{a logical flag indicating to possibly Scaler}
+\item{minMaxScaler}{a logical flag indicating to whether to scale observations 
+between 0 and 1. Default is \code{TRUE}.}
 
 \item{monitoring}{a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
-gold-standard. Default is \code{FALSE}}
+gold-standard. Default is \code{FALSE}.}
 
-\item{thresholding}{a logical flag.}
+\item{thresholding}{a logical flag indicating whether to threshold negative 
+values.  Default is \code{TRUE}.}
 }
 \value{
 a object of class \code{CytOpt}, which is a list of two elements:\itemize{
@@ -98,8 +100,6 @@ if(interactive()){
 
 res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A, 
              Lab_source = HIPC_Stanford_1228_1A_labels,
-             eps = 0.0001, lbd = 0.0001, n_iter = 10000, n_stoc=10,
-             step_grad = 10, step = 5, power = 0.99, 
              method='minmax')
 summary(res)
 plot(res)

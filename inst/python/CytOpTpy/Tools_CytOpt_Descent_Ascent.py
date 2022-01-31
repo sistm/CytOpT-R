@@ -162,8 +162,8 @@ def gammatrix(X_s, Lab_source):
 
 
 # cytopt
-def cytopt_desasc(X_s, X_t, Lab_source, eps=0.0001, n_out=4000, n_stoc=10, 
-                  step_grad=50, const=0.1, theta_true=None, monitoring=True):
+def cytopt_desasc(X_s, X_t, Lab_source, eps=0.0001, n_out=5000, n_stoc=10, 
+                  step_grad=10, const=0.1, theta_true=None, monitoring=False):
     """
     Function that estimates the class proportions in the target data set.
     It solves the minimization problem with a gradient descent method.

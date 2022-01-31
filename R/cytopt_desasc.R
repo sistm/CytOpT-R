@@ -21,15 +21,16 @@
 #'
 #'@param n_out an integer number of iterations in the outer loop. This loop corresponds to the gradient
 #'descent algorithm to minimize the regularized Wasserstein distance between the source and
-#'target data sets.
+#'target data sets. Default is \code{5000}.
 #'
 #'@param n_stoc an integer number of iterations in the inner loop. This loop corresponds to the stochastic
-#'algorithm that approximates a maximizer of the semi dual problem
+#'algorithm that approximates a maximizer of the semi-dual problem. Default is \code{10}.
 #'
-#'@param step_grad an integer number step size of the gradient descent algorithm of the outer loop.
+#'@param step_grad an integer number step size of the gradient descent algorithm 
+#'of the outer loop. Default is \code{10}.
 #'
 #'@param monitoring boolean indicating whethen Kullback-Leibler divergence should be 
-#'monitored and store thoughout the optimization iterations. Default is \code{TRUE}.
+#'monitored and store thoughout the optimization iterations. Default is \code{FALSE}.
 #'
 #'@importFrom reticulate import_from_path
 
@@ -39,8 +40,8 @@
 
 
 cytopt_desasc_r <- function(X_s, X_t, Lab_source, theta_true=NULL,
-                            eps=1e-04, n_out=1000, n_stoc=10,
-                            step_grad=50, monitoring = TRUE){
+                            eps=1e-04, n_out=5000, n_stoc=10,
+                            step_grad=10, monitoring = FALSE){
   stopifnot(!is.null(X_s))
   stopifnot(!is.null(X_t))
   stopifnot(!is.null(Lab_source))

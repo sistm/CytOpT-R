@@ -14,10 +14,10 @@ cytopt_minmax_r(
   theta_true = NULL,
   eps = 1e-04,
   lbd = 1e-04,
-  n_iter = 4000,
+  n_iter = 10000,
   step = 5,
   power = 0.99,
-  monitoring = TRUE
+  monitoring = FALSE
 )
 }
 \arguments{
@@ -38,16 +38,17 @@ assessment is performed.}
 
 \item{eps}{Regularization parameter of the Wasserstein distance}
 
-\item{lbd}{an float constant that multiply the step-size policy. Default is \code{1e-04}}
+\item{lbd}{an float constant that multiply the step-size policy. Default is \code{1e-04}.}
 
-\item{n_iter}{an integer Constant that iterate method select. Default is \code{4000}}
+\item{n_iter}{an integer Constant that iterate method select. Default is \code{10000}.}
 
-\item{step}{Constant that multiply the step-size policy}
+\item{step}{Constant that multiply the step-size policy. Default is \code{5}.}
 
-\item{power}{the step size policy of the gradient ascent method is step/n^power.}
+\item{power}{the step size policy of the gradient ascent method is step/n^power.
+Default is \code{0.99}.}
 
 \item{monitoring}{boolean indicating whethen Kullback-Leibler divergence should be 
-monitored and store thoughout the optimization iterations. Default is \code{TRUE}.}
+monitored and store thoughout the optimization iterations. Default is \code{FALSE}.}
 }
 \value{
 A list with the following elements:\code{Results_Minmax}
