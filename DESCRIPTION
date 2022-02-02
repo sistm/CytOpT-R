@@ -2,7 +2,7 @@ Package: CytOpT
 Type: Package
 Title: Optimal Transport for gating transfer in Cytometry data with domain adaptaton
 Version: 0.9
-Date: 2022-01-21
+Date: 2022-02-02
 Authors@R: c(person("Boris Hejblum", "Developer", role = c("aut", "cre"), email = "boris.hejblum@u-bordeaux.fr"),
               person("Paul Freulon", "Developer", role = c("aut"), email = "paul.freulon@math.u-bordeaux.fr"),
               person("Kalidou BA", "Developer", role = c("aut", "trl")))
