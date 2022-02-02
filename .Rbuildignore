@@ -5,3 +5,5 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^man/figures*
+^CRAN-SUBMISSION$
+^cran-comments\.md$

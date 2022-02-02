@@ -84,7 +84,8 @@ plot(res)
 
 ### Performance evaluation
 
-Concordance between the manual gating gold-standard and `CytOpt`estimation can be graphically diagnosed with Bland-Altman plots:
+Concordance between the manual gating gold-standard and `CytOpt` estimation can 
+be graphically diagnosed with Bland-Altman plots:
 
 ```{r BA, fig.width = 7, fig.asp = .8}
 Bland_Altman(res$proportions)
