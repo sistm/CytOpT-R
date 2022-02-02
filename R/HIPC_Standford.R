@@ -60,7 +60,8 @@
 #'ImmunoPhenotyping Consortium. Scientific Reports. 10(6):20686. DOI: 10.1038/srep20686.
 #'
 #'
-#'@source \url{https://www.immuneprofiling.org/} \url{https://www.immunespace.org/} 
+#'@source \url{https://www.immuneprofiling.org/hipc/page/show} 
+#'\url{https://www.immunespace.org} 
 #'\url{https://www.immunespace.org/project/HIPC/Lyoplate/begin.view?pageId=study.DATA_ANALYSIS}
 "HIPC_Stanford_1228_1A"
 "HIPC_Stanford_1228_1A_labels"
