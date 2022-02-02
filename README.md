@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/sistm/CytOpt-R/workflows/R-CMD-check/badge.svg)](https://github.com/sistm/CytOpt-R/actions)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/CytOpT)](https://CRAN.R-project.org/package=CytOpT)
 <!-- badges: end -->
 
 `CytOpT` uses regularized optimal transport to directly estimate the
@@ -49,6 +51,8 @@ This is a basic example of `CytOpt` usage:
 
 ``` r
 library(CytOpT)
+#> Warning in register(): Can't find generic `scale_type` in package ggplot2 to
+#> register S3 method.
 # Load source Data
 data("HIPC_Stanford")
 ```
@@ -69,29 +73,29 @@ res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A,
               step_grad = 10, step = 5, power = 0.99, 
               method='both')
 #> Running Desent-ascent optimization...
-#> Done (14.995s)
+#> Done (1.408s)
 #> Running MinMax optimization...
-#> Done (16.96s)
+#> Done (18.869s)
 ```
 
 ``` r
 summary(res)
 #> Estimation of cell proportions with Descent-Ascent and MinMax swapping  from CytOpt:
-#>                     Gold_standard Descent_ascent       MinMax
-#> CD8 Effector          0.017004001     0.09340403 4.425717e-02
-#> CD8 Naive             0.128736173     0.10588996 1.043952e-01
-#> CD8 Central Memory    0.048481996     0.06887050 3.668802e-02
-#> CD8 Effector Memory   0.057484114     0.08328624 7.635311e-02
-#> CD8 Activated         0.009090374     0.04086176 8.601677e-03
-#> CD4 Effector          0.002324076     0.01461945 8.564472e-06
-#> CD4 Naive             0.331460344     0.25969356 3.522540e-01
-#> CD4 Central Memory    0.281713344     0.14725293 2.032700e-01
-#> CD4 Effector Memory   0.102082843     0.14391672 1.621501e-01
-#> CD4 Activated         0.021622735     0.04220485 1.202218e-02
+#>                     Gold_standard Descent_ascent      MinMax
+#> CD8 Effector          0.017004001    0.053840853 0.045459289
+#> CD8 Naive             0.128736173    0.086107758 0.105080403
+#> CD8 Central Memory    0.048481996    0.037818291 0.038277845
+#> CD8 Effector Memory   0.057484114    0.064050408 0.070288205
+#> CD8 Activated         0.009090374    0.018054875 0.008915075
+#> CD4 Effector          0.002324076    0.007303098 0.005434024
+#> CD4 Naive             0.331460344    0.355519302 0.344481072
+#> CD4 Central Memory    0.281713344    0.191385560 0.211017717
+#> CD4 Effector Memory   0.102082843    0.170991204 0.166204283
+#> CD4 Activated         0.021622735    0.014928650 0.004842086
 #> 
 #> Final Kullback-Leibler divergences:
 #>  Descent-Ascent MinMax swapping 
-#>      0.20054067      0.05445004
+#>               0               0
 ```
 
 ``` r
