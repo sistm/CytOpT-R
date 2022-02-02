@@ -12,9 +12,18 @@ vignette: >
 ---
 
 ```{r knitrsetup, include = FALSE}
+
+library(reticulate)
+# this vignette requires python 3.7 or newer to run
+eval <- tryCatch({
+  numeric_version(py_config()$version) >= "3.7" && py_numpy_available() && 
+    py_module_available("scipy") && py_module_available("sklearn")
+}, error = function(e) FALSE)
+
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = eval
 )
 ```
 
