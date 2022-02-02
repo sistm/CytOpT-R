@@ -45,7 +45,7 @@ Above, `xx` denotes the center where the data analysis was performed, and `y` de
 
 ## Data load
 
-```{r}
+```{r, eval=TRUE}
 library(CytOpT)
 data("HIPC_Stanford")
 ```
