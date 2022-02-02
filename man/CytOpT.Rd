@@ -75,7 +75,7 @@ algorithm that approximates a maximizer of the semi dual problem. Default is \co
 \item{minMaxScaler}{a logical flag indicating to whether to scale observations 
 between 0 and 1. Default is \code{TRUE}.}
 
-\item{monitoring}{a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
+\item{monitoring}{a logical flag indicating to possibly monitor the gap between the estimated proportions and the manual
 gold-standard. Default is \code{FALSE}.}
 
 \item{thresholding}{a logical flag indicating whether to threshold negative 

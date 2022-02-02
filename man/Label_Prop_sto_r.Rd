@@ -35,7 +35,7 @@ targets the cell type proportion in this Cytometry data set}
 
 \item{minMaxScaler}{a logical flag indicating to possibly Scaler}
 
-\item{monitoring}{a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
+\item{monitoring}{a logical flag indicating to possibly monitor the gap between the estimated proportions and the manual
 gold-standard. Default is \code{FALSE}}
 
 \item{thresholding}{a logical flag.}

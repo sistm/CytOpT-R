@@ -29,8 +29,8 @@
 #'
 #'@param n_iter an integer Constant that iterate method select. Default is \code{10000}.
 #'
-#'@param monitoring boolean indicating whethen Kullback-Leibler divergence should be 
-#'monitored and store thoughout the optimization iterations. Default is \code{FALSE}.
+#'@param monitoring boolean indicating whether Kullback-Leibler divergence should be 
+#'monitored and store throughout the optimization iterations. Default is \code{FALSE}.
 #'
 #'@importFrom reticulate import_from_path
 

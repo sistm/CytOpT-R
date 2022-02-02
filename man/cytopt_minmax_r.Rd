@@ -47,8 +47,8 @@ assessment is performed.}
 \item{power}{the step size policy of the gradient ascent method is step/n^power.
 Default is \code{0.99}.}
 
-\item{monitoring}{boolean indicating whethen Kullback-Leibler divergence should be 
-monitored and store thoughout the optimization iterations. Default is \code{FALSE}.}
+\item{monitoring}{boolean indicating whether Kullback-Leibler divergence should be 
+monitored and store throughout the optimization iterations. Default is \code{FALSE}.}
 }
 \value{
 A list with the following elements:\code{Results_Minmax}

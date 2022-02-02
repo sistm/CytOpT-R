@@ -29,8 +29,8 @@
 #'@param step_grad an integer number step size of the gradient descent algorithm 
 #'of the outer loop. Default is \code{10}.
 #'
-#'@param monitoring boolean indicating whethen Kullback-Leibler divergence should be 
-#'monitored and store thoughout the optimization iterations. Default is \code{FALSE}.
+#'@param monitoring boolean indicating whether Kullback-Leibler divergence should be 
+#'monitored and store throughout the optimization iterations. Default is \code{FALSE}.
 #'
 #'@importFrom reticulate import_from_path
 

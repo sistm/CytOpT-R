@@ -46,8 +46,8 @@ algorithm that approximates a maximizer of the semi-dual problem. Default is \co
 \item{step_grad}{an integer number step size of the gradient descent algorithm 
 of the outer loop. Default is \code{10}.}
 
-\item{monitoring}{boolean indicating whethen Kullback-Leibler divergence should be 
-monitored and store thoughout the optimization iterations. Default is \code{FALSE}.}
+\item{monitoring}{boolean indicating whether Kullback-Leibler divergence should be 
+monitored and store throughout the optimization iterations. Default is \code{FALSE}.}
 }
 \value{
 A list with the following elements:\code{h_hat}

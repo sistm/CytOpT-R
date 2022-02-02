@@ -16,7 +16,7 @@
 #'
 #'@param n_iter an integer Constant that iterate method select. Default is \code{4000}
 #'
-#'@param monitoring a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
+#'@param monitoring a logical flag indicating to possibly monitor the gap between the estimated proportions and the manual
 #'gold-standard. Default is \code{FALSE}
 #'
 #'@param minMaxScaler a logical flag indicating to possibly Scaler

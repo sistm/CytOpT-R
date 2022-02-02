@@ -46,7 +46,7 @@
 #'@param n_stoc an integer number of iterations in the inner loop. This loop corresponds to the stochastic
 #'algorithm that approximates a maximizer of the semi dual problem. Default is \code{10}
 #'
-#'@param monitoring a logical flag indicating to possibly monitor the gap between the estimated proprotions and the manual
+#'@param monitoring a logical flag indicating to possibly monitor the gap between the estimated proportions and the manual
 #'gold-standard. Default is \code{FALSE}.
 #'
 #'@param minMaxScaler a logical flag indicating to whether to scale observations 
