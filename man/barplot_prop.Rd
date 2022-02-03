@@ -14,6 +14,9 @@ barplot_prop(proportions, title = "", xaxis_angle = 45)
 
 \item{xaxis_angle}{scalar indicating an angle to tilt the labels of x_axis. Default is \code{45}.}
 }
+\value{
+a \code{\link[ggplot2]{ggplot}} object
+}
 \description{
 Function to display a bland plot in order to visually assess the agreement between CytOpt estimation
 of the class proportions and the estimate of the class proportions provided through manual gating.

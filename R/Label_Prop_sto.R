@@ -23,7 +23,9 @@
 #'
 #'@param thresholding a logical flag.
 #'
-#' @importFrom reticulate import_from_path
+#'@return a \code{\link[ggplot2]{ggplot}} object
+#'
+#'@importFrom reticulate import_from_path
 #'@export
 #'
 #'@return A list with the following elements:\itemize{
@@ -35,7 +37,7 @@
 
 Label_Prop_sto_r <- function (X_s,X_t,
                               Lab_source=NULL,eps=1e-04, const=1e-01, n_iter=4000,
-                              minMaxScaler=T, monitoring=T, thresholding=T){
+                              minMaxScaler=TRUE, monitoring=TRUE, thresholding=TRUE){
 
 
      # check

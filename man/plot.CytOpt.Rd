@@ -11,6 +11,10 @@
 
 \item{...}{further arguments passed to or from other methods. Not implemented.}
 }
+\value{
+a \code{\link[ggplot2]{ggplot}} object, potentially composed through 
+\code{\link[patchwork]{patchwork}}
+}
 \description{
 plot S3 method for CytOpt object
 }

@@ -11,9 +11,9 @@ Label_Prop_sto_r(
   eps = 1e-04,
   const = 0.1,
   n_iter = 4000,
-  minMaxScaler = T,
-  monitoring = T,
-  thresholding = T
+  minMaxScaler = TRUE,
+  monitoring = TRUE,
+  thresholding = TRUE
 )
 }
 \arguments{
@@ -41,6 +41,8 @@ gold-standard. Default is \code{FALSE}}
 \item{thresholding}{a logical flag.}
 }
 \value{
+a \code{\link[ggplot2]{ggplot}} object
+
 A list with the following elements:\itemize{
   \item \code{Lab_target_hat_one}
   \item \code{Lab_target_hat_two}

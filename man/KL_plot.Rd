@@ -20,6 +20,9 @@ KL_plot(
 
 \item{title}{plot title. Default is \code{"Kullback-Liebler divergence trace"}.}
 }
+\value{
+a \code{\link[ggplot2]{ggplot}} object
+}
 \description{
 A plotting function for displaying Kullback-Liebler (KL) divergence across 
 iterations of the optimization algorithm(s).

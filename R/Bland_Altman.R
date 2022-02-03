@@ -8,6 +8,7 @@
 #'
 #'@param additional_info_shape vector of additional information to be used for shape in the plot. Not implemented yet.
 #'
+#'#'@return a \code{\link[ggplot2]{ggplot}} object
 #'
 #'@importFrom stats sd relevel
 #'@importFrom reshape2 melt

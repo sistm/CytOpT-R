@@ -8,6 +8,7 @@
 #'@param n_stop last iteration to plot. Default is 1000.
 #'@param title plot title. Default is \code{"Kullback-Liebler divergence trace"}.
 #'
+#'@return a \code{\link[ggplot2]{ggplot}} object
 #'
 #'@import ggplot2
 #'@export

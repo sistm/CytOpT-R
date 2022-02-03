@@ -5,6 +5,7 @@
 #'@param title plot title. Default is \code{""}, i.e. no title.
 #'@param xaxis_angle scalar indicating an angle to tilt the labels of x_axis. Default is \code{45}.
 #'
+#'@return a \code{\link[ggplot2]{ggplot}} object
 #'
 #'@importFrom reshape2 melt
 #'@import ggplot2

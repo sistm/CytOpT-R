@@ -9,7 +9,9 @@ Bland_Altman(proportions, additional_info_shape = NULL)
 \arguments{
 \item{proportions}{\code{data.frame} of true and estimated proportion returned from \code{\link{CytOpT}()}.}
 
-\item{additional_info_shape}{vector of additional information to be used for shape in the plot. Not implemented yet.}
+\item{additional_info_shape}{vector of additional information to be used for shape in the plot. Not implemented yet.
+
+#'@return a \code{\link[ggplot2]{ggplot}} object}
 }
 \description{
 Function to display a Bland & Altman plot in order to visually assess the agreement between CytOpt estimation

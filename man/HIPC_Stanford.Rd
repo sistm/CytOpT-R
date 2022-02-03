@@ -21,7 +21,7 @@ The data are composed of 4 objects:
 }
 \source{
 \url{https://www.immuneprofiling.org/hipc/page/show} 
-\url{https://www.immunespace.org} 
+\url{https://www.immunespace.org/} 
 \url{https://www.immunespace.org/project/HIPC/Lyoplate/begin.view?pageId=study.DATA_ANALYSIS}
 }
 \usage{

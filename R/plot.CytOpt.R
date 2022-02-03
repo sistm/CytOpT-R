@@ -5,6 +5,9 @@
 #'@param x an object of class \code{CytOpt} to plot.
 #'@param ... further arguments passed to or from other methods. Not implemented.
 #'
+#'@return a \code{\link[ggplot2]{ggplot}} object, potentially composed through 
+#'\code{\link[patchwork]{patchwork}}
+#'
 #'@method plot CytOpt
 #'@import patchwork
 #'@export

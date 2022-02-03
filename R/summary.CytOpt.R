@@ -5,6 +5,8 @@
 #'@param object	an object of class \code{CytOpt} to summarized.
 #'@param ... further arguments passed to or from other methods. Not implemented.
 #'
+#'@return a \code{list} object
+#'
 #'@method summary CytOpt
 #'@export
 #'
@@ -16,7 +18,7 @@
 #'              eps = 0.0001, lbd = 0.0001, n_iter = 10000, n_stoc=10,
 #'              step_grad = 10, step = 5, power = 0.99, 
 #'              method='minmax')
-#'plot(res)
+#'summary(res)
 #'
 #'}
 
@@ -42,6 +44,8 @@ summary.CytOpt <- function(object, ...){
 #'
 #'@param x	an object of class \code{summary.CytOpt} to print.
 #'@param ... further arguments passed to or from other methods. Not implemented.
+#'
+#'@return NULL
 #'
 #'@method print summary.CytOpt
 #'@export
