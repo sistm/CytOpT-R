@@ -41,7 +41,8 @@ Imports:
     testthat (>= 3.0.0)
 Suggests:
     rmarkdown,
-    knitr
+    knitr,
+    covr
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Language: en-US

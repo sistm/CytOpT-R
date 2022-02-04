@@ -13,11 +13,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-# CytOpT
+# `CytOpT` <a><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/sistm/CytOpt-R/workflows/R-CMD-check/badge.svg)](https://github.com/sistm/CytOpt-R/actions)
+[![Codecov test coverage](https://codecov.io/gh/sistm/CytOpT-R/branch/main/graph/badge.svg)](https://app.codecov.io/gh/sistm/CytOpT-R?branch=main)
 [![CRAN status](https://www.r-pkg.org/badges/version/CytOpT)](https://CRAN.R-project.org/package=CytOpT)
 <!-- badges: end -->
 
