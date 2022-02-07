@@ -85,27 +85,27 @@ res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A,
 #> Running Desent-ascent optimization...
 #> Done in 1.1 mins
 #> Running MinMax optimization...
-#> Done in 17.7 secs
+#> Done in 13.5 secs
 ```
 
 ``` r
 summary(res)
 #> Estimation of cell proportions with Descent-Ascent and MinMax swapping from CytOpt:
 #>                     Gold_standard Descent_ascent      MinMax
-#> CD8 Effector          0.017004001     0.05453731 0.045075672
-#> CD8 Naive             0.128736173     0.08928331 0.098249477
-#> CD8 Central Memory    0.048481996     0.03773986 0.037042809
-#> CD8 Effector Memory   0.057484114     0.06401477 0.067066526
-#> CD8 Activated         0.009090374     0.01799109 0.013237704
-#> CD4 Effector          0.002324076     0.00836774 0.004478523
-#> CD4 Naive             0.331460344     0.35235646 0.350022651
-#> CD4 Central Memory    0.281713344     0.19980412 0.209094239
-#> CD4 Effector Memory   0.102082843     0.16089777 0.167157940
-#> CD4 Activated         0.021622735     0.01500757 0.008574457
+#> CD8 Effector          0.017004001    0.053970346 0.045636532
+#> CD8 Naive             0.128736173    0.089491676 0.102912047
+#> CD8 Central Memory    0.048481996    0.038212880 0.037441192
+#> CD8 Effector Memory   0.057484114    0.063097296 0.079989626
+#> CD8 Activated         0.009090374    0.018202322 0.006208429
+#> CD4 Effector          0.002324076    0.007743922 0.003777156
+#> CD4 Naive             0.331460344    0.336833238 0.339676815
+#> CD4 Central Memory    0.281713344    0.211623669 0.204859935
+#> CD4 Effector Memory   0.102082843    0.166240048 0.165973919
+#> CD4 Activated         0.021622735    0.014584604 0.013524349
 #> 
 #> Final Kullback-Leibler divergences:
 #>  Descent-Ascent MinMax swapping 
-#>      0.07194681      0.05692023
+#>      0.06873468      0.05561437
 ```
 
 ``` r
