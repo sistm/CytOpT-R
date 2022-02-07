@@ -38,7 +38,17 @@ article:
 
 ## Installation
 
-You can install the development version of CytOpT like so:
+You can install and load `CytOpT` into `R` from
+[`CRAN`](https://CRAN.R-project.org/package=CytOpT) with the following
+commands:
+
+``` r
+install.packages("CytOpT")
+library(CytOpT)
+```
+
+Alternatively, you can install the development version of CytOpT like
+so:
 
 ``` r
 remotes::install_github("sistm/CytOpT-R")
@@ -53,8 +63,6 @@ This is a basic example of `CytOpt` usage:
 
 ``` r
 library(CytOpT)
-#> Warning in register(): Can't find generic `scale_type` in package ggplot2 to
-#> register S3 method.
 # Load source Data
 data("HIPC_Stanford")
 ```
@@ -73,41 +81,41 @@ res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A,
               theta_true = gold_standard_manual_prop,
               eps = 0.0001, lbd = 0.0001, n_iter = 10000, n_stoc=10,
               step_grad = 10, step = 5, power = 0.99, 
-              method='both')
+              method='both', monitoring=TRUE)
 #> Running Desent-ascent optimization...
-#> Done (1.225s)
+#> Done in 1.1 mins
 #> Running MinMax optimization...
-#> Done (15.882s)
+#> Done in 17.7 secs
 ```
 
 ``` r
 summary(res)
-#> Estimation of cell proportions with Descent-Ascent and MinMax swapping  from CytOpt:
-#>                     Gold_standard Descent_ascent       MinMax
-#> CD8 Effector          0.017004001    0.053007362 4.398042e-02
-#> CD8 Naive             0.128736173    0.086930527 9.946454e-02
-#> CD8 Central Memory    0.048481996    0.038561452 3.732584e-02
-#> CD8 Effector Memory   0.057484114    0.060961666 7.529719e-02
-#> CD8 Activated         0.009090374    0.017531805 7.953411e-03
-#> CD4 Effector          0.002324076    0.007820667 3.355994e-08
-#> CD4 Naive             0.331460344    0.369196422 3.595619e-01
-#> CD4 Central Memory    0.281713344    0.197760829 2.060629e-01
-#> CD4 Effector Memory   0.102082843    0.153615144 1.623523e-01
-#> CD4 Activated         0.021622735    0.014614126 8.001463e-03
+#> Estimation of cell proportions with Descent-Ascent and MinMax swapping from CytOpt:
+#>                     Gold_standard Descent_ascent      MinMax
+#> CD8 Effector          0.017004001     0.05453731 0.045075672
+#> CD8 Naive             0.128736173     0.08928331 0.098249477
+#> CD8 Central Memory    0.048481996     0.03773986 0.037042809
+#> CD8 Effector Memory   0.057484114     0.06401477 0.067066526
+#> CD8 Activated         0.009090374     0.01799109 0.013237704
+#> CD4 Effector          0.002324076     0.00836774 0.004478523
+#> CD4 Naive             0.331460344     0.35235646 0.350022651
+#> CD4 Central Memory    0.281713344     0.19980412 0.209094239
+#> CD4 Effector Memory   0.102082843     0.16089777 0.167157940
+#> CD4 Activated         0.021622735     0.01500757 0.008574457
 #> 
 #> Final Kullback-Leibler divergences:
 #>  Descent-Ascent MinMax swapping 
-#>               0               0
+#>      0.07194681      0.05692023
 ```
 
 ``` r
 plot(res)
 ```
 
-<img src="man/figures/README-plot(res)-1.png" width="100%" />
+<img src="man/figures/README-summary-plots-1.png" width="100%" />
 
 ``` r
 Bland_Altman(res$proportions)
 ```
 
-<img src="man/figures/README-plot(res)-2.png" width="100%" />
+<img src="man/figures/README-BAplot-1.png" width="100%" />

@@ -36,7 +36,8 @@
 Bland_Altman <- function (proportions, additional_info_shape = NULL){
   
   if(colnames(proportions)[1]!="Gold_standard"){
-    stop("Bland-Altman is only available if a gold standard was available when running CytOpt. It seems this was not the case...")
+    stop("Bland-Altman is only available if a gold standard was available when ",
+         "running CytOpt. It seems this was not the case...")
   }
   
   proportions$Population <- rownames(proportions)

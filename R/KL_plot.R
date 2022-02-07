@@ -24,7 +24,7 @@
 #'              theta_true = gold_standard_manual_prop,
 #'              eps = 0.0001, lbd = 0.0001, n_iter = 10000, n_stoc=10,
 #'              step_grad = 10, step = 5, power = 0.99, 
-#'              method='minmax')
+#'              method='minmax', monitoring = TRUE)
 #'plot(res)
 #'
 #'}

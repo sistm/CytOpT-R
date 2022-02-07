@@ -97,7 +97,7 @@ def Label_Prop_sto(L_source, f, X, Y, alpha, beta, eps):
     thanks to the approximation of the transport plan and the classification of the source data.
     We got the approximation of the transport plan with the stochastic algorithm.
     """
-    print(alpha)
+    #print(alpha)
     I = X.shape[0]
     J = Y.shape[0]
     N_cl = L_source.shape[0]
@@ -107,7 +107,7 @@ def Label_Prop_sto(L_source, f, X, Y, alpha, beta, eps):
     for j in range(J):
         f_ce_Y[j] = c_transform(f, X, Y, j, beta, eps)
 
-    print('Computation of ctransform done.')
+    #print('Computation of ctransform done.')
 
     L_target = np.zeros((N_cl,J))
 

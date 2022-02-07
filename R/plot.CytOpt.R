@@ -26,7 +26,7 @@
 
 plot.CytOpt <- function(x, ...){
   
-  if(colnames(x$proportions)[1] == "Gold_standard"){
+  if(colnames(x$proportions)[1] == "Gold_standard" & !is.null(x$monitoring)){
     KL_plot(x$monitoring) /
       barplot_prop(x$proportions)
   }else{

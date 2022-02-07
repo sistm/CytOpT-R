@@ -37,7 +37,16 @@ The methods implemented in this package are detailed in the following article:
 
 ## Installation
 
-You can install the development version of CytOpT like so:
+You can install and load `CytOpT` into `R` from 
+[`CRAN`](https://CRAN.R-project.org/package=CytOpT) with the following commands:
+
+```{r CRAN-install, eval=FALSE}
+install.packages("CytOpT")
+library(CytOpT)
+```
+
+
+Alternatively, you can install the development version of CytOpT like so:
 ```{r GitHub-install, eval=FALSE}
 remotes::install_github("sistm/CytOpT-R")
 library(CytOpT)
@@ -49,36 +58,39 @@ library(CytOpT)
 This is a basic example of `CytOpt` usage:
 
 ### Data import
-```{r example 1, message=FALSE}
+```{r, message=FALSE}
 library(CytOpT)
 # Load source Data
 data("HIPC_Stanford")
 ```
 
-```{r example 2}
+```{r}
 # Define the true proportions in the target data set
 gold_standard_manual_prop <- c(table(HIPC_Stanford_1369_1A_labels)/length(HIPC_Stanford_1369_1A_labels))
 ```
 
 ### Proportion estimations using *optimal transport* and *minmax swapping* procedures
-```{r example 3, message=TRUE}
+```{r}
 # Run CytOpt and compare the two optimization methods
 res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A, 
               Lab_source = HIPC_Stanford_1228_1A_labels,
               theta_true = gold_standard_manual_prop,
               eps = 0.0001, lbd = 0.0001, n_iter = 10000, n_stoc=10,
               step_grad = 10, step = 5, power = 0.99, 
-              method='both')
+              method='both', monitoring=TRUE)
 ```
 
 
-```{r example res}
+```{r}
 summary(res)
 ```
 
 
-```{r plot(res)}
+```{r summary-plots}
 plot(res)
+```
+
+```{r BAplot}
 Bland_Altman(res$proportions)
 ```
 

@@ -110,6 +110,9 @@ CytOpT <- function (X_s,
       theta_true <- c(table(Lab_target)/length(Lab_target))
     }else{
       message("No gold-standard available")
+      if(monitoring){
+        warning("Monitoring is impossible without a gold standard.")
+      }
     }
   }
   
@@ -172,14 +175,15 @@ CytOpT <- function (X_s,
   }
   
   if(method %in% c("desasc", "both")) {
-    message("Running Desent-ascent optimization...")
+    message("Running Descent-ascent optimization...")
     t0 <- Sys.time()
     res_desasc <- cytopt_desasc_r(X_s, X_t,Lab_source,
                                   theta_true=theta_true,eps=eps, n_out=n_out,
                                   n_stoc=n_stoc, step_grad=step_grad,
                                   monitoring=monitoring)
     elapsed_time_desac <- Sys.time() - t0
-    message("Done (", round(elapsed_time_desac, digits = 3),"s)")
+    message("Done in ", round(elapsed_time_desac, digits = 1), " ",
+            units(elapsed_time_desac))
     
     h[["Descent_ascent"]] <- res_desasc[1][[1]]
     monitoring_res[["Descent_ascent"]] <- res_desasc[2][[1]]
@@ -192,8 +196,9 @@ CytOpT <- function (X_s,
                                    eps=eps, lbd=lbd, n_iter=n_iter,
                                    theta_true=theta_true, step=step, 
                                    power=power, monitoring=monitoring)
-    elapsed_time_desac <- Sys.time() - t0
-    message("Done (", round(elapsed_time_desac, digits = 3),"s)")
+    elapsed_time_minmax <- Sys.time() - t0
+    message("Done in ", round(elapsed_time_minmax, digits = 1), " ",
+            units(elapsed_time_minmax))
     h[["MinMax"]] <- res_minmax[1][[1]]
     monitoring_res[["MinMax"]] <- res_minmax[2][[1]]
   }
@@ -203,7 +208,7 @@ CytOpT <- function (X_s,
     names(h[[1]]) <- levels(Lab_source_fact)
   }
   res <- list("proportions" = do.call(cbind.data.frame, h),
-              "monitoring" = monitoring_res
+              "monitoring" = if(monitoring){monitoring_res}else{NULL}
   )
   class(res) <- "CytOpt"
   return(res)

@@ -2,12 +2,12 @@
 % Please edit documentation in R/Label_Prop_sto.R
 \name{Label_Prop_sto_r}
 \alias{Label_Prop_sto_r}
-\title{Function to.}
+\title{Computes a classification on the target data}
 \usage{
 Label_Prop_sto_r(
   X_s,
   X_t,
-  Lab_source = NULL,
+  Lab_source,
   eps = 1e-04,
   const = 0.1,
   n_iter = 4000,
@@ -43,11 +43,20 @@ gold-standard. Default is \code{FALSE}}
 \value{
 a \code{\link[ggplot2]{ggplot}} object
 
-A list with the following elements:\itemize{
-  \item \code{Lab_target_hat_one}
-  \item \code{Lab_target_hat_two}
-}
+a vector of length \code{nrow(X_t)} with the propagated labels
 }
 \description{
-Function to.
+Computes a classification on the target data thanks to the approximation of 
+the transport plan and the classification of the source data.
+Transport plan is approximated with the stochastic algorithm.
+}
+\examples{
+
+if(interactive()){
+
+res <- Label_Prop_sto_r(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A, 
+             Lab_source = HIPC_Stanford_1228_1A_labels)
+
+}
+
 }
