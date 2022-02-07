@@ -24,7 +24,7 @@
 #'              theta_true = gold_standard_manual_prop,
 #'              eps = 0.0001, lbd = 0.0001, n_iter = 10000, n_stoc=10,
 #'              step_grad = 10, step = 5, power = 0.99, 
-#'              method='minmax', monitoring = TRUE)
+#'              method='both', monitoring = TRUE)
 #'plot(res)
 #'
 #'}
@@ -35,6 +35,11 @@ KL_plot <- function (monitoring, n_0 = 10, n_stop=1000, title = "Kullback-Lieble
   # sanity checks ----
   stopifnot(!(is.integer(n_0) & is.integer(n_stop)))
 
+  #message
+  message("Plotting KL divergence for iterations ", n_0, " to ", n_stop, " while there", 
+          " were at least ", length(monitoring[[1]]), " iterations performed ",
+          "for each method.")
+  
   # constructing plot data ----
   index <- seq(n_0,n_stop)
   data2Opt <- data.frame("index" = index,

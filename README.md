@@ -83,33 +83,37 @@ res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A,
               step_grad = 10, step = 5, power = 0.99, 
               method='both', monitoring=TRUE)
 #> Running Descent-ascent optimization...
-#> Done in 1.2 mins
+#> Done in 1.1 mins
 #> Running MinMax optimization...
-#> Done in 12.6 secs
+#> Done in 15.3 secs
 ```
 
 ``` r
 summary(res)
 #> Estimation of cell proportions with Descent-Ascent and MinMax swapping from CytOpt:
 #>                     Gold_standard Descent_ascent      MinMax
-#> CD8 Effector          0.017004001    0.053373073 0.049165803
-#> CD8 Naive             0.128736173    0.090347127 0.101853869
-#> CD8 Central Memory    0.048481996    0.037840538 0.035433512
-#> CD8 Effector Memory   0.057484114    0.066705538 0.073213153
-#> CD8 Activated         0.009090374    0.017815159 0.006404042
-#> CD4 Effector          0.002324076    0.007442363 0.013276764
-#> CD4 Naive             0.331460344    0.345556315 0.334588823
-#> CD4 Central Memory    0.281713344    0.204513209 0.206829823
-#> CD4 Effector Memory   0.102082843    0.161762256 0.151074689
-#> CD4 Activated         0.021622735    0.014644421 0.028159522
+#> CD8 Effector          0.017004001    0.051811765 0.044949922
+#> CD8 Naive             0.128736173    0.088553804 0.101069760
+#> CD8 Central Memory    0.048481996    0.036842527 0.036233461
+#> CD8 Effector Memory   0.057484114    0.062380003 0.070825666
+#> CD8 Activated         0.009090374    0.017439071 0.005579535
+#> CD4 Effector          0.002324076    0.007844185 0.007394887
+#> CD4 Naive             0.331460344    0.360283016 0.332733654
+#> CD4 Central Memory    0.281713344    0.203949350 0.204808587
+#> CD4 Effector Memory   0.102082843    0.156117274 0.169102276
+#> CD4 Activated         0.021622735    0.014779005 0.027302251
 #> 
 #> Final Kullback-Leibler divergences:
 #>  Descent-Ascent MinMax swapping 
-#>      0.06790844      0.06172906
+#>      0.06534157      0.05700472 
+#> Number of iterations:
+#>  Descent-Ascent MinMax swapping 
+#>            5000           10000
 ```
 
 ``` r
 plot(res)
+#> Plotting KL divergence for iterations 10 to 1000 while there were at least 5000 iterations performed for each method.
 ```
 
 <img src="man/figures/README-summary-plots-1.png" width="100%" />

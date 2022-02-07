@@ -29,6 +29,7 @@ summary.CytOpt <- function(object, ...){
 
   if(!is.null(s$proportions$Gold_standard)){
     s[["KLdiv"]] <- lapply(object$monitoring, function(x){x[length(x)]})
+    s[["n_iter"]] <- lapply(object$monitoring, function(x){length(x)})
   }else{
     s[["KLdiv"]] <- NULL
   }
@@ -69,5 +70,12 @@ print.summary.CytOpt <- function(x, ...){
                           ))
     cat("\nFinal Kullback-Leibler divergences:\n")
     print(KLdivs)
+    
+    niter <- unlist(x$n_iter)
+    names(niter) <- gsub("MinMax", "MinMax swapping", 
+                          gsub("Descent_ascent", "Descent-Ascent", names(niter)
+                          ))
+    cat("Number of iterations:\n")
+    print(unlist(niter))
   }
 }
