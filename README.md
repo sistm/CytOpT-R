@@ -82,30 +82,30 @@ res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A,
               eps = 0.0001, lbd = 0.0001, n_iter = 10000, n_stoc=10,
               step_grad = 10, step = 5, power = 0.99, 
               method='both', monitoring=TRUE)
-#> Running Desent-ascent optimization...
-#> Done in 1.1 mins
+#> Running Descent-ascent optimization...
+#> Done in 1.2 mins
 #> Running MinMax optimization...
-#> Done in 13.5 secs
+#> Done in 12.6 secs
 ```
 
 ``` r
 summary(res)
 #> Estimation of cell proportions with Descent-Ascent and MinMax swapping from CytOpt:
 #>                     Gold_standard Descent_ascent      MinMax
-#> CD8 Effector          0.017004001    0.053970346 0.045636532
-#> CD8 Naive             0.128736173    0.089491676 0.102912047
-#> CD8 Central Memory    0.048481996    0.038212880 0.037441192
-#> CD8 Effector Memory   0.057484114    0.063097296 0.079989626
-#> CD8 Activated         0.009090374    0.018202322 0.006208429
-#> CD4 Effector          0.002324076    0.007743922 0.003777156
-#> CD4 Naive             0.331460344    0.336833238 0.339676815
-#> CD4 Central Memory    0.281713344    0.211623669 0.204859935
-#> CD4 Effector Memory   0.102082843    0.166240048 0.165973919
-#> CD4 Activated         0.021622735    0.014584604 0.013524349
+#> CD8 Effector          0.017004001    0.053373073 0.049165803
+#> CD8 Naive             0.128736173    0.090347127 0.101853869
+#> CD8 Central Memory    0.048481996    0.037840538 0.035433512
+#> CD8 Effector Memory   0.057484114    0.066705538 0.073213153
+#> CD8 Activated         0.009090374    0.017815159 0.006404042
+#> CD4 Effector          0.002324076    0.007442363 0.013276764
+#> CD4 Naive             0.331460344    0.345556315 0.334588823
+#> CD4 Central Memory    0.281713344    0.204513209 0.206829823
+#> CD4 Effector Memory   0.102082843    0.161762256 0.151074689
+#> CD4 Activated         0.021622735    0.014644421 0.028159522
 #> 
 #> Final Kullback-Leibler divergences:
 #>  Descent-Ascent MinMax swapping 
-#>      0.06873468      0.05561437
+#>      0.06790844      0.06172906
 ```
 
 ``` r

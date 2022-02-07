@@ -86,11 +86,11 @@ summary(res)
 ```
 
 
-```{r summary-plots, fig.retina=2}
+```{r summary-plots, fig.retina=1.4}
 plot(res)
 ```
 
-```{r BAplot, fig.retina=2}
+```{r BAplot, fig.retina=1.4, fig.height=4}
 Bland_Altman(res$proportions)
 ```
 
