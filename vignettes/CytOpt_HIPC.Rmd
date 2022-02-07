@@ -88,7 +88,7 @@ summary(res)
 ```
 
 Some visualizations are provided by the `plot()` method:
-```{r, fig.width = 7, fig.asp = .8}
+```{r, fig.width = 7, fig.asp = .8, fig.retina=2}
 plot(res)
 ```
 
@@ -97,7 +97,7 @@ plot(res)
 Concordance between the manual gating gold-standard and `CytOpt` estimation can 
 be graphically diagnosed with Bland-Altman plots:
 
-```{r BA, fig.width = 7, fig.asp = .6}
+```{r BA, fig.width = 7, fig.asp = .6, fig.retina = 2}
 Bland_Altman(res$proportions)
 ```
 
