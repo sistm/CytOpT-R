@@ -1,10 +1,11 @@
-# NEWS in package `CytOpT`
+# CytOpT
 
-## Minor release - version 0.9.3 (2022-02-08):  
+## CytOpt 0.9.3 - Minor release (2022-02-08):  
  
 * bug fixes
+
 * added a logo
 
-## Initial release - version 0.9.1 (2022-02-03):  
+## CytOpt 0.9.1 - Initial release (2022-02-03):  
 
 * this is an R package wrapped around the core Python code of the CytOpT library

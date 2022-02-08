@@ -26,8 +26,7 @@ Config/reticulate:
   )
 License: GPL (>= 2)
 Repository: CRAN
-URL: https://github.com/sistm/CytOpT-R/,
-    https://sistm.github.io/CytOpT-R/
+URL: https://sistm.github.io/CytOpT-R/, https://github.com/sistm/CytOpT-R/
 Depends: R (>= 3.6)
 LazyData: true
 RoxygenNote: 7.1.2
