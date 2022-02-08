@@ -1,0 +1,10 @@
+url: https://sistm.github.io/CytOpT-R/
+
+template:
+  bootstrap: 5
+  bootswatch: cyborg
+  theme: atom-one-dark
+
+authors:
+  Boris Hejblum:
+    href: https://borishejblum.science
