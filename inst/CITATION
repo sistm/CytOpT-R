@@ -10,6 +10,7 @@ citEntry(
   number   = "",
   pages    = "2006.09003",
   url      = "https://arxiv.org/abs/2006.09003",
+  note   = "R package version 0.9.4",
   textVersion = paste("Freulon P, Bigot J, Hejblum BP (2020). CytOpT: Optimal Transport with Domain Adaptation for Interpreting Flow Cytometry data. arXiv 2006.09003.")
 )
 
