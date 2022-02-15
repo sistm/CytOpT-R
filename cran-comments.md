@@ -1,10 +1,8 @@
-## Fix update
-This is a quick fix to initial submission. Notably, in this version I have:  
- * Removed unnecessary (large) resource files
- * fixed a few minor bugs
- * added CITATION
- * added a pkgdown companion website
-
+Dear CRAN maintainers, I am aware this update comes very shortly after the initial release of CytOpT on CRAN and I apologize.
+However, a quick fix to the code is needed as the main function of the package was not working as intended: indeed, it failed to adequatly monitor the optimization progress, and the subsequent plot() method was also not behaving properly, throwing an error in certain configurations.
+Again, Apologies for submitting an update so quickly, I am fully aware of the CRAN policy on submission frequency, and future updates to CytOpT will not be submitted until a few months pass.
+Thank you.
+ 
 ## R CMD check results
 
  * local R installation, R 4.1.2
