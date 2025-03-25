@@ -1,63 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/404.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/articles/CytOpt_HIPC.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/index.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/reference/Bland_Altman.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/reference/CytOpT.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/reference/HIPC_Stanford.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/reference/KL_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/reference/Label_Prop_sto_r.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/reference/barplot_prop.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/reference/cytopt_desasc_r.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/reference/cytopt_minmax_r.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/reference/plot.CytOpt.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/reference/print.CytOpt.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/reference/print.summary.CytOpt.html</loc>
-  </url>
-  <url>
-    <loc>https://sistm.github.io/CytOpT-R/reference/summary.CytOpt.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://sistm.github.io/CytOpT-R/404.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/LICENSE.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/articles/CytOpt_HIPC.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/articles/index.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/authors.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/index.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/news/index.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/reference/Bland_Altman.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/reference/CytOpT.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/reference/HIPC_Stanford.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/reference/KL_plot.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/reference/Label_Prop_sto_r.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/reference/barplot_prop.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/reference/cytopt_desasc_r.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/reference/cytopt_minmax_r.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/reference/index.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/reference/plot.CytOpt.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/reference/print.CytOpt.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/reference/print.summary.CytOpt.html</loc></url>
+<url><loc>https://sistm.github.io/CytOpT-R/reference/summary.CytOpt.html</loc></url>
 </urlset>
+
