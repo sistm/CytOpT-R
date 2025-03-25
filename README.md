@@ -33,7 +33,9 @@ The methods implemented in this package are detailed in the following
 article:
 
 > Paul Freulon, Jérémie Bigot, Boris P. Hejblum. CytOpT: Optimal
-> Transport with Domain Adaptation for Interpreting Flow Cytometry data
+> Transport with Domain Adaptation for Interpreting Flow Cytometry data.
+> *Annals of Applied Statistics*, *17*(2), 1086-1104.
+> <doi:10.1214/22-AOAS1660> <https://doi.org/10.1214/22-AOAS1660>
 > <https://arxiv.org/abs/2006.09003>
 
 ## Installation
@@ -85,29 +87,29 @@ res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A,
 #> Converting `X_s` from data.frame to matrix type
 #> Converting `X_t` from data.frame to matrix type
 #> Running Descent-ascent optimization...
-#> Done in 34.8 secs
+#> Done in 41 secs
 #> Running MinMax optimization...
-#> Done in 9 secs
+#> Done in 13.1 secs
 ```
 
 ``` r
 summary(res)
 #> Estimation of cell proportions with Descent-Ascent and MinMax swapping from CytOpt:
 #>                     Gold_standard Descent_ascent      MinMax
-#> CD8 Effector          0.017004001    0.054036845 0.041607931
-#> CD8 Naive             0.128736173    0.090298071 0.101728390
-#> CD8 Central Memory    0.048481996    0.037308518 0.033985173
-#> CD8 Effector Memory   0.057484114    0.065037680 0.065902469
-#> CD8 Activated         0.009090374    0.018299906 0.014798738
-#> CD4 Effector          0.002324076    0.007991691 0.007774069
-#> CD4 Naive             0.331460344    0.350327762 0.334132167
-#> CD4 Central Memory    0.281713344    0.206010781 0.199079907
-#> CD4 Effector Memory   0.102082843    0.156372210 0.187550009
-#> CD4 Activated         0.021622735    0.014316537 0.013441148
+#> CD8 Effector          0.017004001    0.053759778 0.047393221
+#> CD8 Naive             0.128736173    0.088769005 0.107816158
+#> CD8 Central Memory    0.048481996    0.038397834 0.033566658
+#> CD8 Effector Memory   0.057484114    0.063361303 0.065816317
+#> CD8 Activated         0.009090374    0.018372778 0.009994826
+#> CD4 Effector          0.002324076    0.008558555 0.004906936
+#> CD4 Naive             0.331460344    0.342921952 0.342097994
+#> CD4 Central Memory    0.281713344    0.214043702 0.194972841
+#> CD4 Effector Memory   0.102082843    0.157122353 0.185355840
+#> CD4 Activated         0.021622735    0.014692740 0.008079209
 #> 
 #> Final Kullback-Leibler divergences:
 #>  Descent-Ascent MinMax swapping 
-#>      0.06708789      0.06806565 
+#>      0.06512061      0.07230307 
 #> Number of iterations:
 #>  Descent-Ascent MinMax swapping 
 #>            5000           10000

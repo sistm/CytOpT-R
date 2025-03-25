@@ -32,7 +32,10 @@ The main function of the package is `CytOpT()`.
 
 The methods implemented in this package are detailed in the following article:
 
-> Paul Freulon, Jérémie Bigot, Boris P. Hejblum. CytOpT: Optimal Transport with Domain Adaptation for Interpreting Flow Cytometry data
+> Paul Freulon, Jérémie Bigot, Boris P. Hejblum. CytOpT: Optimal Transport with Domain Adaptation for Interpreting Flow Cytometry data.
+> _Annals of Applied Statistics_, *17*(2), 1086-1104.
+> doi:10.1214/22-AOAS1660 
+> https://doi.org/10.1214/22-AOAS1660
 > https://arxiv.org/abs/2006.09003
 
 ## Installation

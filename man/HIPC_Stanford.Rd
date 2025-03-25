@@ -20,9 +20,9 @@ The data are composed of 4 objects:
 }
 }
 \source{
-\url{https://www.immuneprofiling.org/hipc/page/show} 
-\url{https://www.immunespace.org/} 
-\url{https://www.immunespace.org/project/HIPC/Lyoplate/begin.view?pageId=study.DATA_ANALYSIS}
+\url{https://www.hipc-dashboard.org/}
+\url{https://immunespace.org/}
+\url{https://datatools.immunespace.org/project/HIPC/Lyoplate/begin.view?pageId=study.DATA_ANALYSIS}
 }
 \usage{
 data(HIPC_Stanford)
@@ -31,15 +31,15 @@ data(HIPC_Stanford)
 HIPC T cell data set from HIPC program for patients 1228 and 1369 (replicate 1A from Stanford).
 }
 \details{
-This immunophenotyping T cell panel from the Lyoplate HIPC dataset 
+This immunophenotyping T cell panel from the Lyoplate HIPC dataset
 was used as part of the FlowCAP III Lyoplate challenge.
 
-Flow cytometry data set from the HIPC T-cell panel study. In the 
-HIPC T-cell panel study, Flow cytometry was measured in 3 samples for each 
-3 patients (IDs: 1228, 1349 and 1369) with 3 replicates each (1A, 2B and 3C) 
-in 7 centers (NHLBI, Yale, UCLA, CIMR, Baylor, Stanford and Miami), i.e. 63 
-data sets in total. Manual gating was performed in the different centers to 
-cluster te observed cells into one of 10 cellular populations: 
+Flow cytometry data set from the HIPC T-cell panel study. In the
+HIPC T-cell panel study, Flow cytometry was measured in 3 samples for each
+3 patients (IDs: 1228, 1349 and 1369) with 3 replicates each (1A, 2B and 3C)
+in 7 centers (NHLBI, Yale, UCLA, CIMR, Baylor, Stanford and Miami), i.e. 63
+data sets in total. Manual gating was performed in the different centers to
+cluster te observed cells into one of 10 cellular populations:
 \enumerate{
 \item{CD8 Effector}
 \item{CD8 Naive}
@@ -54,16 +54,16 @@ cluster te observed cells into one of 10 cellular populations:
 }
 }
 \references{
-Maecker HT, McCoy JP & Nussenblatt R (2012). Standardizing 
-immunophenotyping for the human immunology project. Nature Reviews Immunology, 
+Maecker HT, McCoy JP & Nussenblatt R (2012). Standardizing
+immunophenotyping for the human immunology project. Nature Reviews Immunology,
 12(3):191--200. DOI: 10.1038/nri3158
 
-Finak G, Langweiler M, Jaimes M, Malek M, Taghiyar J, Korin Y, Raddassi K, 
-Devine L, Obermoser G, Pekalski ML, Pontikos N, Diaz A, Heck S, Villanova F, 
-Terrazzini N, Kern F, Qian Y, Stanton R, Wang K, Brandes A, Ramey J, 
-Aghaeepour N, Mosmann T, Scheuermann RH, Reed E, Palucka K, Pascual V, 
-Blomberg BB, Nestle F, Nussenblatt RB, Brinkman RR, Gottardo R, Maecker H & 
-McCoy JP (2016). Standardizing Flow Cytometry Immunophenotyping Analysis from the Human 
+Finak G, Langweiler M, Jaimes M, Malek M, Taghiyar J, Korin Y, Raddassi K,
+Devine L, Obermoser G, Pekalski ML, Pontikos N, Diaz A, Heck S, Villanova F,
+Terrazzini N, Kern F, Qian Y, Stanton R, Wang K, Brandes A, Ramey J,
+Aghaeepour N, Mosmann T, Scheuermann RH, Reed E, Palucka K, Pascual V,
+Blomberg BB, Nestle F, Nussenblatt RB, Brinkman RR, Gottardo R, Maecker H &
+McCoy JP (2016). Standardizing Flow Cytometry Immunophenotyping Analysis from the Human
 ImmunoPhenotyping Consortium. Scientific Reports. 10(6):20686. DOI: 10.1038/srep20686.
 }
 \keyword{data}

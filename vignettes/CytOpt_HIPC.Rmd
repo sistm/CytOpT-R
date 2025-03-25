@@ -107,4 +107,7 @@ The methods implemented in the `CytOpt` package are detailed in the following ar
 
 > Paul Freulon, Jérémie Bigot, Boris P. Hejblum. CytOpT: Optimal
 > Transport with Domain Adaptation for Interpreting Flow Cytometry data
-> <https://arxiv.org/abs/2006.09003>
+> _Annals of Applied Statistics_, *17*(2), 1086-1104.
+> doi:10.1214/22-AOAS1660 
+> https://doi.org/10.1214/22-AOAS1660
+> https://arxiv.org/abs/2006.09003
