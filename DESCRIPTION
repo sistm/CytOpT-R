@@ -1,8 +1,8 @@
 Package: CytOpT
 Type: Package
 Title: Optimal Transport for Gating Transfer in Cytometry Data with Domain Adaptation
-Version: 0.9.4
-Date: 2022-02-08
+Version: 0.9.5
+Date: 2025-03-2
 Authors@R: c(person("Boris", "Hejblum", role = c("aut", "cre"), email = "boris.hejblum@u-bordeaux.fr"),
               person("Paul", "Freulon", role = c("aut"), email = "paul.freulon@math.u-bordeaux.fr"),
               person("Kalidou", "Ba", role = c("aut", "trl")))
@@ -29,7 +29,7 @@ Repository: CRAN
 URL: https://sistm.github.io/CytOpT-R/, https://github.com/sistm/CytOpT-R/
 Depends: R (>= 3.6)
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.2
 Encoding: UTF-8
 Imports:
     ggplot2 (>= 3.0.0),

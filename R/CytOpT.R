@@ -14,7 +14,7 @@
 #'targets the cell type proportion in this Cytometry data set
 #'
 #'@param Lab_source a vector of length \code{ns} Classification of the X_s cytometry data set
-#'@param Lab_target a vector of length \code{nt} Classification of the X_s cytometry data set
+#'@param Lab_target a vector of length \code{nt} Classification of the X_t cytometry data set
 #'
 #'@param method a character string indicating which method to use to
 #'compute the cytopt, either \code{'minmax'}, \code{'desasc'}

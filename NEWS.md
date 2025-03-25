@@ -1,3 +1,8 @@
+# CytOpT 0.9.5 
+*Minor release*
+
+* typos and forced type conversion
+
 # CytOpT 0.9.4 
 *Minor release*
 

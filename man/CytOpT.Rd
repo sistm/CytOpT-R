@@ -28,23 +28,23 @@ CytOpT(
 )
 }
 \arguments{
-\item{X_s}{a cytometry dataframe with only \code{d} numerical variables for \code{ns} observations. 
+\item{X_s}{a cytometry dataframe with only \code{d} numerical variables for \code{ns} observations.
 The columns correspond to the different biological markers measured.
 One line corresponds to the cytometry measurements performed on one cell. The classification
 of this Cytometry data set must be provided with the Lab_source parameters.}
 
-\item{X_t}{a cytometry dataframe with only \code{d} numerical variables for \code{nt} observations. 
+\item{X_t}{a cytometry dataframe with only \code{d} numerical variables for \code{nt} observations.
 The columns correspond to the different biological markers measured.
 One line corresponds to the cytometry measurements performed on one cell. The CytOpT algorithm
 targets the cell type proportion in this Cytometry data set}
 
 \item{Lab_source}{a vector of length \code{ns} Classification of the X_s cytometry data set}
 
-\item{Lab_target}{a vector of length \code{nt} Classification of the X_s cytometry data set}
+\item{Lab_target}{a vector of length \code{nt} Classification of the X_t cytometry data set}
 
-\item{theta_true}{If available, gold-standard proportions in the target data 
-set \code{X_t} derived from manual gating. It allows to assess the gap between 
-the estimate and the gold-standard. Default is \code{NULL}, in which case no 
+\item{theta_true}{If available, gold-standard proportions in the target data
+set \code{X_t} derived from manual gating. It allows to assess the gap between
+the estimate and the gold-standard. Default is \code{NULL}, in which case no
 assessment is performed.}
 
 \item{method}{a character string indicating which method to use to
@@ -72,18 +72,18 @@ target data sets. Default is \code{1000}}
 \item{n_stoc}{an integer number of iterations in the inner loop. This loop corresponds to the stochastic
 algorithm that approximates a maximizer of the semi dual problem. Default is \code{10}}
 
-\item{minMaxScaler}{a logical flag indicating to whether to scale observations 
+\item{minMaxScaler}{a logical flag indicating to whether to scale observations
 between 0 and 1. Default is \code{TRUE}.}
 
 \item{monitoring}{a logical flag indicating to possibly monitor the gap between the estimated proportions and the manual
 gold-standard. Default is \code{FALSE}.}
 
-\item{thresholding}{a logical flag indicating whether to threshold negative 
+\item{thresholding}{a logical flag indicating whether to threshold negative
 values.  Default is \code{TRUE}.}
 }
 \value{
 a object of class \code{CytOpt}, which is a list of two elements:\itemize{
-  \item \code{proportions} a \code{data.frame} with the (optionally true and) 
+  \item \code{proportions} a \code{data.frame} with the (optionally true and)
   estimated proportions for each \code{method}
   \item \code{monitoring} a list of estimates over the optimization iterations
   for each \code{method} (listed within)
@@ -98,7 +98,7 @@ or two algorithms.
 \examples{
 if(interactive()){
 
-res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A, 
+res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A,
              Lab_source = HIPC_Stanford_1228_1A_labels,
              method='minmax')
 summary(res)

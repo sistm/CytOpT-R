@@ -2,16 +2,18 @@ citHeader("To cite CytOpT in publications please use:")
 
 citEntry(
   entry    = "Article",
-  key      = "freulon2020cytopt",
+  key      = "freulon2023cytopt",
   title    = "CytOpT: Optimal Transport with Domain Adaptation for Interpreting Flow Cytometry data",
   author   = "Freulon, Paul and Bigot, J\'{e}r\'{e}mie and Hejblum, Boris P",
-  journal  = "arXiv",
-  year     = "2020",
+  journal  = "Annals of Applied Statistics",
+  year     = "2023",
+  volume   = "17",
   number   = "",
+  doi      = "10.1214/22-AOAS1660",
   pages    = "2006.09003",
   url      = "https://arxiv.org/abs/2006.09003",
-  note   = "R package version 0.9.4",
-  textVersion = paste("Freulon P, Bigot J, Hejblum BP (2020). CytOpT: Optimal Transport with Domain Adaptation for Interpreting Flow Cytometry data. arXiv 2006.09003.")
+  note     = "R package version 0.9.5",
+  textVersion = paste("Freulon P, Bigot J, Hejblum BP (2020). CytOpT: Optimal Transport with Domain Adaptation for Interpreting Flow Cytometry data. Annals of Applied Statistics 17(2):1086-1104, 2023. DOI: 10.1214/22-AOAS1660.")
 )
 
 citFooter("We have invested a lot of time and effort in implementing CytOpT, ", "please cite it when using it for data analysis or research.")
