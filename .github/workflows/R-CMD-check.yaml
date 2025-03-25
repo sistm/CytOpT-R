@@ -1,12 +1,13 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
     branches: [main, master]
   pull_request:
-    branches: [main, master]
 
-name: R-CMD-check
+name: R-CMD-check.yaml
+
+permissions: read-all
 
 jobs:
   R-CMD-check:
@@ -18,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release'}
+          - {os: macos-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
@@ -29,7 +30,7 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -38,31 +39,38 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
-          
-      - uses: actions/setup-python@v2
+
+      - uses: actions/setup-python@v4
         with:
-          python-version: '3.8' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
-   
-      - uses: conda-incubator/setup-miniconda@v2
-        with:
-          auto-update-conda: true
-          python-version: 3.8
-          activate-environment: r-reticulate
+          python-version: '3.8'
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          cache-version: 3
-          extra-packages: rcmdcheck
-        
-      - name: Install Python dependencies with conda on Windows
-        if: runner.os == 'Windows'
+          extra-packages: any::rcmdcheck local::.
+          needs: check
+          cache-version: 1
+
+      - name: setup r-reticulate venv
+        shell: Rscript {0}
         run: |
-          conda install numpy scipy scikit-learn seaborn
-      
-      - name: Install Python dependencies with pip on Linux & Mac
-        if: runner.os != 'Windows' 
-        run: |
-          pip install numpy scipy scikit-learn seaborn
+
+          library(reticulate)
+
+          path_to_venv <- virtualenv_create(
+            envname = "r-reticulate",
+            python = Sys.which("python"), # placed on PATH by the setup-python action
+            packages = c(
+              "docutils", "pandas", "scipy", "matplotlib", "ipython",
+              "tabulate", "plotly", "psutil", "kaleido", "wrapt", "numpy",
+              "scikit-learn", "scipy"
+            )
+          )
+
+          writeLines(
+            paste0("RETICULATE_PYTHON=", virtualenv_python(path_to_venv)),
+            Sys.getenv("GITHUB_ENV"))
 
       - uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-snapshots: true
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
