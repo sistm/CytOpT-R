@@ -45,35 +45,15 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.8'
-
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck local::.
           needs: check
           cache-version: 1
 
-      - name: setup r-reticulate venv
-        shell: Rscript {0}
-        run: |
-
-          library(reticulate)
-
-          path_to_venv <- virtualenv_create(
-            envname = "r-reticulate",
-            python = Sys.which("python"), # placed on PATH by the setup-python action
-            packages = c(
-              "docutils", "pandas", "scipy", "matplotlib", "ipython",
-              "tabulate", "plotly", "psutil", "kaleido", "wrapt", "numpy",
-              "scikit-learn", "scipy"
-            )
-          )
-
-          writeLines(
-            paste0("RETICULATE_PYTHON=", virtualenv_python(path_to_venv)),
-            Sys.getenv("GITHUB_ENV"))
+      - run: |
+          library(CytOpT)      # <-- declare requirements in .onLoad()
+          reticulate::py_config() # <-- resolves the ephemeral python environment
 
       - uses: r-lib/actions/check-r-package@v2
         with:
