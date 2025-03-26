@@ -52,7 +52,7 @@ jobs:
           cache-version: 1
 
       - run: |
-          library(CytOpT)      # <-- declare requirements in .onLoad()
+          library("CytOpT")      # <-- declare requirements in .onLoad()
           reticulate::py_config() # <-- resolves the ephemeral python environment
 
       - uses: r-lib/actions/check-r-package@v2
