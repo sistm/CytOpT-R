@@ -148,8 +148,8 @@ CytOpT <- function (X_s,
   # READ PYTHON FILES WITH RETICULATE ----
   python_path <- system.file("python", package = "CytOpT")
   pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path)
-  message(names(pyCode))
-  message(names(pyCode$minMaxScale))
+  message(paste(names(pyCode), collapse=" "))
+  message(paste(names(pyCode$minMaxScale), collapse=" "))
 
   # Preprocessing ----
   Lab_source <- pyCode$minMaxScale$convertArray(Lab_source)
