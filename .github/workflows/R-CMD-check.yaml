@@ -51,7 +51,9 @@ jobs:
           needs: check
           cache-version: 1
 
-      - run: |
+      - name: configure Python dependencies (new way)
+        shell: Rscript {0}
+        run: |
           library("CytOpT")      # <-- declare requirements in .onLoad()
           reticulate::py_config() # <-- resolves the ephemeral python environment
 
