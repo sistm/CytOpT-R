@@ -151,6 +151,8 @@ CytOpT <- function (X_s,
 
 
   # Preprocessing ----
+  names(pyCode)
+  names(pyCode$minMaxScale)
   Lab_source <- pyCode$minMaxScale$convertArray(Lab_source)
   labSourceUnique <- unique(Lab_source)
   if (length(labSourceUnique) <2){
