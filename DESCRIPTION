@@ -16,14 +16,6 @@ Description: Supervised learning from a source distribution (with known segmenta
              (due to technical variability from the technology of measurements). Supervised learning technique based 
              on the Wasserstein metric that is used to estimate an optimal re-weighting of class proportions in a 
              mixture model Details are presented in Freulon P, Bigot J and Hejblum BP (2023) <doi:10.1214/22-AOAS1660>.
-Config/reticulate:
-  list(
-    packages = list(
-      list(package = "numpy"),
-      list(package = "scikit-learn"),
-      list(package = "scipy")
-    )
-  )
 License: GPL (>= 2)
 Repository: CRAN
 URL: https://sistm.github.io/CytOpT-R/, https://github.com/sistm/CytOpT-R/

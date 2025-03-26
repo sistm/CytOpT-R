@@ -1,3 +1,5 @@
 .onLoad <- function(libname, pkgname) {
-  reticulate::configure_environment(pkgname)
+  reticulate::py_require("numpy")
+  reticulate::py_require("scikit-learn")
+  reticulate::py_require("scipy")
 }

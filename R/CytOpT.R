@@ -146,8 +146,11 @@ CytOpT <- function (X_s,
 
 
   # READ PYTHON FILES WITH RETICULATE ----
+  cat("coucou")
   python_path <- system.file("python", package = "CytOpT")
+  cat("coucou2")
   pyCode <- reticulate::import_from_path("CytOpTpy", path = python_path)
+  cat("coucou3")
   message(paste(names(pyCode), collapse=" "))
   message(paste(names(pyCode$minMaxScale), collapse=" "))
 
