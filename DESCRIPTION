@@ -1,7 +1,7 @@
 Package: CytOpT
 Type: Package
 Title: Optimal Transport for Gating Transfer in Cytometry Data with Domain Adaptation
-Version: 0.9.6
+Version: 0.9.7
 Date: 2025-03-26
 Authors@R: c(person("Boris", "Hejblum", role = c("aut", "cre"), email = "boris.hejblum@u-bordeaux.fr"),
               person("Paul", "Freulon", role = c("aut"), email = "paul.freulon@math.u-bordeaux.fr"),
@@ -15,7 +15,7 @@ Description: Supervised learning from a source distribution (with known segmenta
              different samples, thus accounting for possible mis-alignment of a given cell population across sample 
              (due to technical variability from the technology of measurements). Supervised learning technique based 
              on the Wasserstein metric that is used to estimate an optimal re-weighting of class proportions in a 
-             mixture model Details are presented in Freulon P, Bigot J and Hejblum BP (2023) <arxiv:10.1214/22-AOAS1660>.
+             mixture model Details are presented in Freulon P, Bigot J and Hejblum BP (2023) <doi:10.1214/22-AOAS1660>.
 Config/reticulate:
   list(
     packages = list(
