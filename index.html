@@ -17,8 +17,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Optimal Transport for Gating Transfer in Cytometry Data with Domain Adaptation">
-<meta name="description" content="Supervised learning from a source distribution (with known segmentation into cell sub-populations) to fit a target distribution with unknown segmentation. It relies regularized optimal transport to directly estimate the different cell population proportions from a biological sample characterized with flow cytometry measurements. It is based on the regularized Wasserstein metric to compare cytometry measurements from different samples, thus accounting for possible mis-alignment of a given cell population across sample (due to technical variability from the technology of measurements). Supervised learning technique based on the Wasserstein metric that is used to estimate an optimal re-weighting of class proportions in a mixture model Details are presented in Freulon P, Bigot J and Hejblum BP (2021) &lt;arXiv:2006.09003&gt;.">
-<meta property="og:description" content="Supervised learning from a source distribution (with known segmentation into cell sub-populations) to fit a target distribution with unknown segmentation. It relies regularized optimal transport to directly estimate the different cell population proportions from a biological sample characterized with flow cytometry measurements. It is based on the regularized Wasserstein metric to compare cytometry measurements from different samples, thus accounting for possible mis-alignment of a given cell population across sample (due to technical variability from the technology of measurements). Supervised learning technique based on the Wasserstein metric that is used to estimate an optimal re-weighting of class proportions in a mixture model Details are presented in Freulon P, Bigot J and Hejblum BP (2021) &lt;arXiv:2006.09003&gt;.">
+<meta name="description" content="Supervised learning from a source distribution (with known segmentation into cell sub-populations) to fit a target distribution with unknown segmentation. It relies regularized optimal transport to directly estimate the different cell population proportions from a biological sample characterized with flow cytometry measurements. It is based on the regularized Wasserstein metric to compare cytometry measurements from different samples, thus accounting for possible mis-alignment of a given cell population across sample (due to technical variability from the technology of measurements). Supervised learning technique based on the Wasserstein metric that is used to estimate an optimal re-weighting of class proportions in a mixture model Details are presented in Freulon P, Bigot J and Hejblum BP (2023) &lt;doi:10.1214/22-AOAS1660&gt;.">
+<meta property="og:description" content="Supervised learning from a source distribution (with known segmentation into cell sub-populations) to fit a target distribution with unknown segmentation. It relies regularized optimal transport to directly estimate the different cell population proportions from a biological sample characterized with flow cytometry measurements. It is based on the regularized Wasserstein metric to compare cytometry measurements from different samples, thus accounting for possible mis-alignment of a given cell population across sample (due to technical variability from the technology of measurements). Supervised learning technique based on the Wasserstein metric that is used to estimate an optimal re-weighting of class proportions in a mixture model Details are presented in Freulon P, Bigot J and Hejblum BP (2023) &lt;doi:10.1214/22-AOAS1660&gt;.">
 <meta property="og:image" content="https://sistm.github.io/CytOpT-R/logo.png">
 </head>
 <body>
@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">CytOpT</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +76,7 @@
 <p>The main function of the package is <code><a href="reference/CytOpT.html">CytOpT()</a></code>.</p>
 <p>The methods implemented in this package are detailed in the following article:</p>
 <blockquote>
-<p>Paul Freulon, Jérémie Bigot, Boris P. Hejblum. CytOpT: Optimal Transport with Domain Adaptation for Interpreting Flow Cytometry data <a href="https://arxiv.org/abs/2006.09003" class="external-link uri">https://arxiv.org/abs/2006.09003</a></p>
+<p>Paul Freulon, Jérémie Bigot, Boris P. Hejblum. CytOpT: Optimal Transport with Domain Adaptation for Interpreting Flow Cytometry data. <em>Annals of Applied Statistics</em>, <em>17</em>(2), 1086-1104. <a href="doi:10.1214/22-AOAS1660" class="uri">doi:10.1214/22-AOAS1660</a> <a href="https://doi.org/10.1214/22-AOAS1660" class="external-link uri">https://doi.org/10.1214/22-AOAS1660</a> <a href="https://arxiv.org/abs/2006.09003" class="external-link uri">https://arxiv.org/abs/2006.09003</a></p>
 </blockquote>
 </div>
 <div class="section level2">
@@ -120,27 +120,27 @@
 <span><span class="co">#&gt; Converting `X_s` from data.frame to matrix type</span></span>
 <span><span class="co">#&gt; Converting `X_t` from data.frame to matrix type</span></span>
 <span><span class="co">#&gt; Running Descent-ascent optimization...</span></span>
-<span><span class="co">#&gt; Done in 34.8 secs</span></span>
+<span><span class="co">#&gt; Done in 41 secs</span></span>
 <span><span class="co">#&gt; Running MinMax optimization...</span></span>
-<span><span class="co">#&gt; Done in 9 secs</span></span></code></pre></div>
+<span><span class="co">#&gt; Done in 13.1 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Estimation of cell proportions with Descent-Ascent and MinMax swapping from CytOpt:</span></span>
 <span><span class="co">#&gt;                     Gold_standard Descent_ascent      MinMax</span></span>
-<span><span class="co">#&gt; CD8 Effector          0.017004001    0.054036845 0.041607931</span></span>
-<span><span class="co">#&gt; CD8 Naive             0.128736173    0.090298071 0.101728390</span></span>
-<span><span class="co">#&gt; CD8 Central Memory    0.048481996    0.037308518 0.033985173</span></span>
-<span><span class="co">#&gt; CD8 Effector Memory   0.057484114    0.065037680 0.065902469</span></span>
-<span><span class="co">#&gt; CD8 Activated         0.009090374    0.018299906 0.014798738</span></span>
-<span><span class="co">#&gt; CD4 Effector          0.002324076    0.007991691 0.007774069</span></span>
-<span><span class="co">#&gt; CD4 Naive             0.331460344    0.350327762 0.334132167</span></span>
-<span><span class="co">#&gt; CD4 Central Memory    0.281713344    0.206010781 0.199079907</span></span>
-<span><span class="co">#&gt; CD4 Effector Memory   0.102082843    0.156372210 0.187550009</span></span>
-<span><span class="co">#&gt; CD4 Activated         0.021622735    0.014316537 0.013441148</span></span>
+<span><span class="co">#&gt; CD8 Effector          0.017004001    0.053759778 0.047393221</span></span>
+<span><span class="co">#&gt; CD8 Naive             0.128736173    0.088769005 0.107816158</span></span>
+<span><span class="co">#&gt; CD8 Central Memory    0.048481996    0.038397834 0.033566658</span></span>
+<span><span class="co">#&gt; CD8 Effector Memory   0.057484114    0.063361303 0.065816317</span></span>
+<span><span class="co">#&gt; CD8 Activated         0.009090374    0.018372778 0.009994826</span></span>
+<span><span class="co">#&gt; CD4 Effector          0.002324076    0.008558555 0.004906936</span></span>
+<span><span class="co">#&gt; CD4 Naive             0.331460344    0.342921952 0.342097994</span></span>
+<span><span class="co">#&gt; CD4 Central Memory    0.281713344    0.214043702 0.194972841</span></span>
+<span><span class="co">#&gt; CD4 Effector Memory   0.102082843    0.157122353 0.185355840</span></span>
+<span><span class="co">#&gt; CD4 Activated         0.021622735    0.014692740 0.008079209</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Final Kullback-Leibler divergences:</span></span>
 <span><span class="co">#&gt;  Descent-Ascent MinMax swapping </span></span>
-<span><span class="co">#&gt;      0.06708789      0.06806565 </span></span>
+<span><span class="co">#&gt;      0.06512061      0.07230307 </span></span>
 <span><span class="co">#&gt; Number of iterations:</span></span>
 <span><span class="co">#&gt;  Descent-Ascent MinMax swapping </span></span>
 <span><span class="co">#&gt;            5000           10000</span></span></code></pre></div>
