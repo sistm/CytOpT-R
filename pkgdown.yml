@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   CytOpt_HIPC: CytOpt_HIPC.html
-last_built: 2025-03-26T20:14Z
+last_built: 2025-03-27T11:49Z
 urls:
   reference: https://sistm.github.io/CytOpT-R/reference
   article: https://sistm.github.io/CytOpT-R/articles
