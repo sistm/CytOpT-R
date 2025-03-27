@@ -62,7 +62,7 @@ We will use the manual gating from patient *1228* replicate *1A* as our source p
 ## Computation of the benchmark class proportions for target data
 
 Because in this example, we know the true proportions in the target data set `HIPC_Stanford_1369_1A`, we can assess the gap between the estimate form `CytOpt` and the cellular proportions from the reference manual gating. For this purpose, we compute those manual proportions with:
-```{r}
+```{r goldstandard, eval=TRUE}
 gold_standard_manual_prop <- c(table(HIPC_Stanford_1369_1A_labels)/length(HIPC_Stanford_1369_1A_labels))
 ```
 
@@ -71,7 +71,7 @@ gold_standard_manual_prop <- c(table(HIPC_Stanford_1369_1A_labels)/length(HIPC_S
 
 ### Optimization
 
-```{r optimiztion, eval=TRUE}
+```{r optimization, eval=TRUE}
 set.seed(123)
 res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A, 
               Lab_source = HIPC_Stanford_1228_1A_labels,
