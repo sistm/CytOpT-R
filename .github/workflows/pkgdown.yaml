@@ -41,8 +41,10 @@ jobs:
           python-version: '3.10'
 
       - name: Setup r-reticulate env
-        run: reticulate::virtualenv_create("r-reticulate", Sys.which("python"))
         shell: Rscript {0}
+        run: |
+          reticulate::virtualenv_create("r-reticulate", Sys.which("python"))
+          reticulate::py_install(c("sklearn", "scipy")
 
       - name: configure Python dependencies
         shell: Rscript {0}
