@@ -65,7 +65,7 @@
                         <h4 data-toc-skip class="author">Paul Freulon,
 Jérémie Bigot, Kalidou BA, Boris Hejblum</h4>
             
-            <h4 data-toc-skip class="date">2025-03-27</h4>
+            <h4 data-toc-skip class="date">2025-03-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sistm/CytOpT-R/blob/main/vignettes/CytOpt_HIPC.Rmd" class="external-link"><code>vignettes/CytOpt_HIPC.Rmd</code></a></small>
       <div class="d-none name"><code>CytOpt_HIPC.Rmd</code></div>
@@ -141,13 +141,7 @@ compute those manual proportions with:</p>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CytOpT.html">CytOpT</a></span><span class="op">(</span>X_s <span class="op">=</span> <span class="va">HIPC_Stanford_1228_1A</span>, X_t <span class="op">=</span> <span class="va">HIPC_Stanford_1369_1A</span>, </span>
 <span>              Lab_source <span class="op">=</span> <span class="va">HIPC_Stanford_1228_1A_labels</span>,</span>
 <span>              theta_true <span class="op">=</span> <span class="va">gold_standard_manual_prop</span>,</span>
-<span>              method<span class="op">=</span><span class="st">'both'</span>, monitoring <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Converting `X_s` from data.frame to matrix type</span></span>
-<span><span class="co">#&gt; Converting `X_t` from data.frame to matrix type</span></span>
-<span><span class="co">#&gt; Running Descent-ascent optimization...</span></span>
-<span><span class="co">#&gt; Done in 1.3 mins</span></span>
-<span><span class="co">#&gt; Running MinMax optimization...</span></span>
-<span><span class="co">#&gt; Done in 14.9 secs</span></span></code></pre></div>
+<span>              method<span class="op">=</span><span class="st">'both'</span>, monitoring <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="results">Results<a class="anchor" aria-label="anchor" href="#results"></a>
@@ -155,32 +149,11 @@ compute those manual proportions with:</p>
 <p>The results from <code>CytOpt</code> for both optimization algorithms
 are:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Estimation of cell proportions with Descent-Ascent and MinMax swapping from CytOpt:</span></span>
-<span><span class="co">#&gt;                     Gold_standard Descent_ascent      MinMax</span></span>
-<span><span class="co">#&gt; CD8 Effector          0.017004001     0.05272204 0.045985216</span></span>
-<span><span class="co">#&gt; CD8 Naive             0.128736173     0.08816681 0.095541974</span></span>
-<span><span class="co">#&gt; CD8 Central Memory    0.048481996     0.03838305 0.038709326</span></span>
-<span><span class="co">#&gt; CD8 Effector Memory   0.057484114     0.06525651 0.070101308</span></span>
-<span><span class="co">#&gt; CD8 Activated         0.009090374     0.01730247 0.012411960</span></span>
-<span><span class="co">#&gt; CD4 Effector          0.002324076     0.00779117 0.006258734</span></span>
-<span><span class="co">#&gt; CD4 Naive             0.331460344     0.35167220 0.370493494</span></span>
-<span><span class="co">#&gt; CD4 Central Memory    0.281713344     0.20486731 0.198639437</span></span>
-<span><span class="co">#&gt; CD4 Effector Memory   0.102082843     0.15898735 0.158295442</span></span>
-<span><span class="co">#&gt; CD4 Activated         0.021622735     0.01485110 0.003563109</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Final Kullback-Leibler divergences:</span></span>
-<span><span class="co">#&gt;  Descent-Ascent MinMax swapping </span></span>
-<span><span class="co">#&gt;      0.06657539      0.06737910 </span></span>
-<span><span class="co">#&gt; Number of iterations:</span></span>
-<span><span class="co">#&gt;  Descent-Ascent MinMax swapping </span></span>
-<span><span class="co">#&gt;            5000           10000</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
 <p>Some visualizations are provided by the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>
 method:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Plotting KL divergence for iterations 10 to 1000 while there were at least 5000 iterations performed for each method.</span></span></code></pre></div>
-<p><img src="CytOpt_HIPC_files/figure-html/plots-1.png" width="672"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="performance-evaluation">Performance evaluation<a class="anchor" aria-label="anchor" href="#performance-evaluation"></a>
@@ -190,7 +163,6 @@ method:</p>
 Bland-Altman plots:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/Bland_Altman.html">Bland_Altman</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">proportions</span><span class="op">)</span></span></code></pre></div>
-<p><img src="CytOpt_HIPC_files/figure-html/BA-1.png" width="672"></p>
 <hr>
 <p>The methods implemented in the <code>CytOpt</code> package are
 detailed in the following article:</p>
