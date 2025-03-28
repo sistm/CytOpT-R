@@ -76,6 +76,9 @@ Jérémie Bigot, Kalidou BA, Boris Hejblum</h4>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">eval_is</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
 <p><code>CytOpT</code> is a supervised method that directly estimates
 the cell proportions in a flow-cytometry data set by using a source
 gating as its input and relies on regularized optimal transport.</p>
@@ -102,12 +105,12 @@ the biological sample in question.</p>
 <div class="section level3">
 <h3 id="data-load">Data load<a class="anchor" aria-label="anchor" href="#data-load"></a>
 </h3>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sistm.github.io/CytOpT-R/">CytOpT</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"HIPC_Stanford"</span><span class="op">)</span></span></code></pre></div>
 <p>Here are the first few lines of the flow-cytometry measurements from
 patient <em>1228</em> replicate <em>1A</em>:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">HIPC_Stanford_1228_1A</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The manual clustering of these data into 10 cell populations (CD8
 Effector, CD8 Naive, CD8 Central Memory, CD8 Effector Memory, CD8
@@ -126,7 +129,7 @@ data set <code>HIPC_Stanford_1369_1A</code>, we can assess the gap
 between the estimate form <code>CytOpt</code> and the cellular
 proportions from the reference manual gating. For this purpose, we
 compute those manual proportions with:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gold_standard_manual_prop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">HIPC_Stanford_1369_1A_labels</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">HIPC_Stanford_1369_1A_labels</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -136,7 +139,7 @@ compute those manual proportions with:</p>
 <div class="section level4">
 <h4 id="optimization">Optimization<a class="anchor" aria-label="anchor" href="#optimization"></a>
 </h4>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CytOpT.html">CytOpT</a></span><span class="op">(</span>X_s <span class="op">=</span> <span class="va">HIPC_Stanford_1228_1A</span>, X_t <span class="op">=</span> <span class="va">HIPC_Stanford_1369_1A</span>, </span>
 <span>              Lab_source <span class="op">=</span> <span class="va">HIPC_Stanford_1228_1A_labels</span>,</span>
@@ -148,11 +151,11 @@ compute those manual proportions with:</p>
 </h4>
 <p>The results from <code>CytOpt</code> for both optimization algorithms
 are:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
 <p>Some visualizations are provided by the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>
 method:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
@@ -161,7 +164,7 @@ method:</p>
 <p>Concordance between the manual gating gold-standard and
 <code>CytOpt</code> estimation can be graphically diagnosed with
 Bland-Altman plots:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/Bland_Altman.html">Bland_Altman</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">proportions</span><span class="op">)</span></span></code></pre></div>
 <hr>
 <p>The methods implemented in the <code>CytOpt</code> package are
