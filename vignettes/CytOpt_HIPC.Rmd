@@ -12,11 +12,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r knitrsetup, include = FALSE}
-
+```{r knitrsetup, include = FALSE, eval=TRUE}
 library(reticulate)
 # this vignette requires python 3.7 or newer to run
-eval <- tryCatch({
+eval_is <- tryCatch({
   numeric_version(py_config()$version) >= "3.7" && py_numpy_available() && 
     py_module_available("scipy") && py_module_available("sklearn")
 }, error = function(e) FALSE)
@@ -24,11 +23,16 @@ eval <- tryCatch({
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = eval
+  eval = eval_is
 )
 ```
 
 # Introduction
+
+```{r eval=TRUE}
+eval_is
+```
+
 
 `CytOpT` is a supervised method that directly estimates the cell proportions in a flow-cytometry data set by using a source gating as its input and relies on regularized optimal transport.
 
