@@ -46,7 +46,7 @@ Above, `xx` denotes the center where the data analysis was performed, and `y` de
 
 ## Data load
 
-```{r pkg and data loading, eval=TRUE}
+```{r pkg and data loading}
 library(CytOpT)
 data("HIPC_Stanford")
 ```
@@ -62,7 +62,7 @@ We will use the manual gating from patient *1228* replicate *1A* as our source p
 ## Computation of the benchmark class proportions for target data
 
 Because in this example, we know the true proportions in the target data set `HIPC_Stanford_1369_1A`, we can assess the gap between the estimate form `CytOpt` and the cellular proportions from the reference manual gating. For this purpose, we compute those manual proportions with:
-```{r goldstandard, eval=TRUE}
+```{r goldstandard}
 gold_standard_manual_prop <- c(table(HIPC_Stanford_1369_1A_labels)/length(HIPC_Stanford_1369_1A_labels))
 ```
 
@@ -71,7 +71,7 @@ gold_standard_manual_prop <- c(table(HIPC_Stanford_1369_1A_labels)/length(HIPC_S
 
 ### Optimization
 
-```{r optimization, eval=TRUE}
+```{r optimization}
 set.seed(123)
 res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A, 
               Lab_source = HIPC_Stanford_1228_1A_labels,
@@ -83,12 +83,12 @@ res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A,
 ### Results
 
 The results from `CytOpt` for both optimization algorithms are:
-```{r results, eval=TRUE}
+```{r results}
 summary(res)
 ```
 
 Some visualizations are provided by the `plot()` method:
-```{r plots, eval=TRUE, fig.width = 7, fig.asp = .8, fig.retina=2}
+```{r plots, fig.width = 7, fig.asp = .8, fig.retina=2}
 plot(res)
 ```
 
@@ -97,7 +97,7 @@ plot(res)
 Concordance between the manual gating gold-standard and `CytOpt` estimation can 
 be graphically diagnosed with Bland-Altman plots:
 
-```{r BA, eval=TRUE, fig.width = 7, fig.asp = .6, fig.retina = 2}
+```{r BA, fig.width = 7, fig.asp = .6, fig.retina = 2}
 Bland_Altman(res$proportions)
 ```
 
