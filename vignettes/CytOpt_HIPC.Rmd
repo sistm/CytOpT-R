@@ -29,14 +29,6 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-```{r eval=TRUE}
-numeric_version(py_config()$version)
-py_numpy_available()
-py_module_available("scipy")
-py_module_available("sklearn")
-```
-
-
 `CytOpT` is a supervised method that directly estimates the cell proportions in a flow-cytometry data set by using a source gating as its input and relies on regularized optimal transport.
 
 # Analysis of HIPC data
@@ -59,7 +51,7 @@ data("HIPC_Stanford")
 ```
 
 Here are the first few lines of the flow-cytometry measurements from patient *1228* replicate *1A*:
-```{r}
+```{r Stanford_1228_1A_head, echo=FALSE}
 knitr::kable(head(HIPC_Stanford_1228_1A))
 ```
 The manual clustering of these data into 10 cell populations (`r paste0(levels(HIPC_Stanford_1228_1A_labels), collapse=", ")`) can be accessed from the `HIPC_Stanford_1228_1A_labels` object.
@@ -70,7 +62,8 @@ We will use the manual gating from patient *1228* replicate *1A* as our source p
 
 Because in this example, we know the true proportions in the target data set `HIPC_Stanford_1369_1A`, we can assess the gap between the estimate form `CytOpt` and the cellular proportions from the reference manual gating. For this purpose, we compute those manual proportions with:
 ```{r goldstandard}
-gold_standard_manual_prop <- c(table(HIPC_Stanford_1369_1A_labels)/length(HIPC_Stanford_1369_1A_labels))
+gold_standard_manual_prop <- c(table(HIPC_Stanford_1369_1A_labels) /
+                                 length(HIPC_Stanford_1369_1A_labels))
 ```
 
 ## `CytOpT`
