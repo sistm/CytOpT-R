@@ -36,6 +36,14 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Setup r-reticulate env
+        run: reticulate::virtualenv_create("r-reticulate", Sys.which("python"))
+        shell: Rscript {0}
+
       - name: configure Python dependencies
         shell: Rscript {0}
         run: |
@@ -43,8 +51,7 @@ jobs:
           reticulate::py_config() # <-- resolves the ephemeral python environment
 
       - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = TRUE, install = TRUE)
-        shell: Rscript {0}
+        run: Rscript -e 'pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)'
 
       - name: Deploy to GitHub pages 🚀
         if: github.event_name != 'pull_request'
