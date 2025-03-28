@@ -44,7 +44,7 @@ jobs:
         shell: Rscript {0}
         run: |
           reticulate::virtualenv_create("r-reticulate", Sys.which("python"))
-          reticulate::py_install(c("sklearn", "scipy")
+          reticulate::py_install(c("scikit-learn", "scipy"))
 
       - name: configure Python dependencies
         shell: Rscript {0}
