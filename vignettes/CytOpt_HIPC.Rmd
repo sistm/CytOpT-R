@@ -30,7 +30,10 @@ knitr::opts_chunk$set(
 # Introduction
 
 ```{r eval=TRUE}
-eval_is
+numeric_version(py_config()$version)
+py_numpy_available()
+py_module_available("scipy")
+py_module_available("sklearn")
 ```
 
 
