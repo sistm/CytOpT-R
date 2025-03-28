@@ -77,7 +77,13 @@ Jérémie Bigot, Kalidou BA, Boris Hejblum</h4>
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">eval_is</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">numeric_version</a></span><span class="op">(</span><span class="fu">py_config</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">version</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] '3.11'</span></span>
+<span><span class="fu">py_numpy_available</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="fu">py_module_available</span><span class="op">(</span><span class="st">"scipy"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span><span class="fu">py_module_available</span><span class="op">(</span><span class="st">"sklearn"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
 <p><code>CytOpT</code> is a supervised method that directly estimates
 the cell proportions in a flow-cytometry data set by using a source
