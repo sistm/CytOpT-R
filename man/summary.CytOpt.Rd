@@ -20,10 +20,10 @@ summary S3 method for CytOpt object
 \examples{
 if(interactive()){
 
-res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A, 
+res <- CytOpT(X_s = HIPC_Stanford_1228_1A, X_t = HIPC_Stanford_1369_1A,
              Lab_source = HIPC_Stanford_1228_1A_labels,
              eps = 0.0001, lbd = 0.0001, n_iter = 10000, n_stoc=10,
-             step_grad = 10, step = 5, power = 0.99, 
+             step_grad = 10, step = 5, power = 0.99,
              method='minmax', monitoring=TRUE)
 summary(res)
 

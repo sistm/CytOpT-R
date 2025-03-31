@@ -31,9 +31,9 @@ targets the cell type proportion in this Cytometry data set.}
 
 \item{Lab_source}{Classification of the X_s Cytometry data set}
 
-\item{theta_true}{If available, gold-standard proportions in the target data 
-set \code{X_t} derived from manual gating. It allows to assess the gap between 
-the estimate and the gold-standard. Default is \code{NULL}, in which case no 
+\item{theta_true}{If available, gold-standard proportions in the target data
+set \code{X_t} derived from manual gating. It allows to assess the gap between
+the estimate and the gold-standard. Default is \code{NULL}, in which case no
 assessment is performed.}
 
 \item{eps}{Regularization parameter of the Wasserstein distance}
@@ -47,7 +47,7 @@ assessment is performed.}
 \item{power}{the step size policy of the gradient ascent method is step/n^power.
 Default is \code{0.99}.}
 
-\item{monitoring}{boolean indicating whether Kullback-Leibler divergence should be 
+\item{monitoring}{boolean indicating whether Kullback-Leibler divergence should be
 monitored and store throughout the optimization iterations. Default is \code{FALSE}.}
 }
 \value{

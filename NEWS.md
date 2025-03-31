@@ -1,8 +1,9 @@
-# CytOpT 0.9.7
+# CytOpT 0.9.8
 *Minor release*
 
 * typos and forced type conversion
 * better management of Python dependencies as per reticulate >=1.41
+* enforcing thread usage limitation in the vignette
 
 # CytOpT 0.9.4 
 *Minor release*

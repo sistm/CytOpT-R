@@ -29,9 +29,9 @@ targets the cell type proportion in this Cytometry data set}
 
 \item{Lab_source}{a vector of length \code{n} Classification of the X_s cytometry data set}
 
-\item{theta_true}{If available, gold-standard proportions in the target data 
-set \code{X_t} derived from manual gating. It allows to assess the gap between 
-the estimate and the gold-standard. Default is \code{NULL}, in which case no 
+\item{theta_true}{If available, gold-standard proportions in the target data
+set \code{X_t} derived from manual gating. It allows to assess the gap between
+the estimate and the gold-standard. Default is \code{NULL}, in which case no
 assessment is performed.}
 
 \item{eps}{an float value of regularization parameter of the Wasserstein distance. Default is \code{1e-04}.}
@@ -43,10 +43,10 @@ target data sets. Default is \code{5000}.}
 \item{n_stoc}{an integer number of iterations in the inner loop. This loop corresponds to the stochastic
 algorithm that approximates a maximizer of the semi-dual problem. Default is \code{10}.}
 
-\item{step_grad}{an integer number step size of the gradient descent algorithm 
+\item{step_grad}{an integer number step size of the gradient descent algorithm
 of the outer loop. Default is \code{10}.}
 
-\item{monitoring}{boolean indicating whether Kullback-Leibler divergence should be 
+\item{monitoring}{boolean indicating whether Kullback-Leibler divergence should be
 monitored and store throughout the optimization iterations. Default is \code{FALSE}.}
 }
 \value{

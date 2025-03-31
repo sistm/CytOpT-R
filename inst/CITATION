@@ -9,5 +9,5 @@ bibentry(
   number   = "2",
   pages    = "1086-1104",
   doi      = "10.1214/22-AOAS1660",
-  note     = "R package version 0.9.7"
+  note     = "R package version 0.9.8"
 )

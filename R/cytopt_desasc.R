@@ -12,9 +12,9 @@
 #'
 #'@param Lab_source a vector of length \code{n} Classification of the X_s cytometry data set
 #'
-#'@param theta_true If available, gold-standard proportions in the target data 
-#'set \code{X_t} derived from manual gating. It allows to assess the gap between 
-#'the estimate and the gold-standard. Default is \code{NULL}, in which case no 
+#'@param theta_true If available, gold-standard proportions in the target data
+#'set \code{X_t} derived from manual gating. It allows to assess the gap between
+#'the estimate and the gold-standard. Default is \code{NULL}, in which case no
 #'assessment is performed.
 #'
 #'@param eps an float value of regularization parameter of the Wasserstein distance. Default is \code{1e-04}.
@@ -26,10 +26,10 @@
 #'@param n_stoc an integer number of iterations in the inner loop. This loop corresponds to the stochastic
 #'algorithm that approximates a maximizer of the semi-dual problem. Default is \code{10}.
 #'
-#'@param step_grad an integer number step size of the gradient descent algorithm 
+#'@param step_grad an integer number step size of the gradient descent algorithm
 #'of the outer loop. Default is \code{10}.
 #'
-#'@param monitoring boolean indicating whether Kullback-Leibler divergence should be 
+#'@param monitoring boolean indicating whether Kullback-Leibler divergence should be
 #'monitored and store throughout the optimization iterations. Default is \code{FALSE}.
 #'
 #'@importFrom reticulate import_from_path
